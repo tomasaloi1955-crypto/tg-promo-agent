@@ -1,0 +1,4 @@
+telethon>=1.36
+google-genai>=1.0
+pillow>=10.0
+requests>=2.31
