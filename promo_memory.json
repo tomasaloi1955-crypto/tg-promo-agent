@@ -1,5 +1,21 @@
 {
-  "posted": {},
-  "skipped": {},
-  "daily": {}
+  "posted": {
+    "@pr_for_artist": {
+      "date": "2026-07-25",
+      "theme": "arabic"
+    }
+  },
+  "skipped": {
+    "@piarxudoshnikov": {
+      "date": "2026-07-25",
+      "reason": "ошибка отправки: ChatWriteForbiddenError"
+    }
+  },
+  "daily": {
+    "2026-07-25": {
+      "theme": "arabic",
+      "chat": "@pr_for_artist",
+      "posted": true
+    }
+  }
 }
