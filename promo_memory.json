@@ -3,18 +3,31 @@
     "@pr_for_artist": {
       "date": "2026-07-25",
       "theme": "arabic"
+    },
+    "@piarrocheklis": {
+      "date": "2026-07-26",
+      "theme": "english"
     }
   },
   "skipped": {
     "@piarxudoshnikov": {
       "date": "2026-07-25",
       "reason": "ошибка отправки: ChatWriteForbiddenError"
+    },
+    "@englishaaa2": {
+      "date": "2026-07-26",
+      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет никакой информации о разрешении или запрете самопиара."
     }
   },
   "daily": {
     "2026-07-25": {
       "theme": "arabic",
       "chat": "@pr_for_artist",
+      "posted": true
+    },
+    "2026-07-26": {
+      "theme": "english",
+      "chat": "@piarrocheklis",
       "posted": true
     }
   }
