@@ -7,6 +7,10 @@
     "@piarrocheklis": {
       "date": "2026-07-26",
       "theme": "english"
+    },
+    "@hguklo": {
+      "date": "2026-07-27",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -28,6 +32,11 @@
     "2026-07-26": {
       "theme": "english",
       "chat": "@piarrocheklis",
+      "posted": true
+    },
+    "2026-07-27": {
+      "theme": "sport",
+      "chat": "@hguklo",
       "posted": true
     }
   }
