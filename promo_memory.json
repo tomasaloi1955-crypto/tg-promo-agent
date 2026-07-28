@@ -21,6 +21,26 @@
     "@englishaaa2": {
       "date": "2026-07-26",
       "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет никакой информации о разрешении или запрете самопиара."
+    },
+    "@russia_vo_vremeni": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piar_vv": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@samopiarnyash": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@prfromlain_0": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piaradopt_chat": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     }
   },
   "daily": {
