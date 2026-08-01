@@ -133,10 +133,26 @@ def notify_photo(path: str, caption: str) -> None:
 
 # ---------------------------------------------------------------- память
 
+SPORT_MEMORY_FILE = BASE / "promo_memory_sport.json"
+
+
 def load_memory() -> dict:
     if MEMORY_FILE.exists():
-        return json.loads(MEMORY_FILE.read_text(encoding="utf-8"))
-    return {"posted": {}, "skipped": {}, "daily": {}}
+        mem = json.loads(MEMORY_FILE.read_text(encoding="utf-8"))
+    else:
+        mem = {"posted": {}, "skipped": {}, "daily": {}}
+
+    # Подмешиваем posted/skipped из отдельной доп. рассылки спорт-канала
+    # (promo_sport.py, 5x/неделю) — чтобы в свой день по ротации не постить
+    # повторно в тот же чат, который та рассылка уже использовала недавно.
+    if SPORT_MEMORY_FILE.exists():
+        sport_mem = json.loads(SPORT_MEMORY_FILE.read_text(encoding="utf-8"))
+        for key, v in sport_mem.get("posted", {}).items():
+            mem["posted"].setdefault(key, v)
+        for key, v in sport_mem.get("skipped", {}).items():
+            mem["skipped"].setdefault(key, v)
+
+    return mem
 
 
 def save_memory(mem: dict) -> None:

@@ -24,12 +24,28 @@ import promo
 from promo import API_ID, API_HASH, SESSION_STRING, StopRun
 
 MEMORY_FILE = Path(__file__).parent / "promo_memory_sport.json"
+MAIN_MEMORY_FILE = Path(__file__).parent / "promo_memory.json"
 
 
 def load_memory() -> dict:
+    """Своя память (daily-отметка "уже сегодня" остаётся отдельной от основной
+    ротации — иначе вторая рассылка в тот же день никогда бы не выходила).
+    Но posted/skipped подмешиваем из основной ротации ПРИ ЧТЕНИИ, чтобы не
+    постить второй раз в тот же чат, который уже использовала promo.py
+    (иначе кулдаун 45/14 дней у двух независимых файлов не пересекается)."""
     if MEMORY_FILE.exists():
-        return json.loads(MEMORY_FILE.read_text(encoding="utf-8"))
-    return {"posted": {}, "skipped": {}, "daily": {}}
+        mem = json.loads(MEMORY_FILE.read_text(encoding="utf-8"))
+    else:
+        mem = {"posted": {}, "skipped": {}, "daily": {}}
+
+    if MAIN_MEMORY_FILE.exists():
+        main = json.loads(MAIN_MEMORY_FILE.read_text(encoding="utf-8"))
+        for key, v in main.get("posted", {}).items():
+            mem["posted"].setdefault(key, v)
+        for key, v in main.get("skipped", {}).items():
+            mem["skipped"].setdefault(key, v)
+
+    return mem
 
 
 def save_memory(mem: dict) -> None:
