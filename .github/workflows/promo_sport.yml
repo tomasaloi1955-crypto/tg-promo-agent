@@ -1,0 +1,47 @@
+name: Доп. реклама спорт-канала (5x в неделю)
+
+# Отдельно от общей ротации (promo.yml) — та продолжает работать как раньше
+# для всех 6 каналов. Здесь только «Мусульманка на спорте», пн-пт.
+# 07:30 UTC = 12:30 в Алматы (UTC+5) — на час позже основной рассылки (06:00
+# UTC), чтобы два прогона не работали с одной Telegram-сессией одновременно.
+on:
+  schedule:
+    - cron: "30 7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promo_sport:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Реклама спорт-канала
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: python promo_sport.py
+
+      - name: Сохранить память (спорт, отдельно от основной ротации)
+        run: |
+          git config user.name "promo-agent-sport"
+          git config user.email "promo-agent-sport@users.noreply.github.com"
+          git add promo_memory_sport.json
+          git diff --cached --quiet || git commit -m "Обновление памяти доп. рекламы спорт-канала"
+          git push
