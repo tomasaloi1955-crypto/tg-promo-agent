@@ -3,9 +3,78 @@
     "@hguklo": {
       "date": "2026-08-01",
       "theme": "sport"
+    },
+    "@pr_for_artist": {
+      "date": "2026-07-25",
+      "theme": "arabic"
+    },
+    "@piarrocheklis": {
+      "date": "2026-07-26",
+      "theme": "english"
     }
   },
-  "skipped": {},
+  "skipped": {
+    "@piarxudoshnikov": {
+      "date": "2026-07-25",
+      "reason": "ошибка отправки: ChatWriteForbiddenError"
+    },
+    "@englishaaa2": {
+      "date": "2026-07-26",
+      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет никакой информации о разрешении или запрете самопиара."
+    },
+    "@russia_vo_vremeni": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piar_vv": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@samopiarnyash": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@prfromlain_0": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piaradopt_chat": {
+      "date": "2026-07-28",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@api_ozon": {
+      "date": "2026-07-29",
+      "reason": "Gemini: unclear — В описании чата и закрепленном сообщении нет никакой информации о том, разрешен ли самопиар или реклама сторонних проектов."
+    },
+    "@biznes_chat": {
+      "date": "2026-07-29",
+      "reason": "ошибка вступления: InviteRequestSentError"
+    },
+    "@predprinimateli_rossii": {
+      "date": "2026-07-29",
+      "reason": "Gemini: conditional — В описании чата указан контакт для связи по вопросам рекламы, что подразумевает необходимость согласования."
+    },
+    "@predprinimateli_ip": {
+      "date": "2026-07-29",
+      "reason": "Gemini: conditional — Закрепленное сообщение явно указывает, что самопиар (публикация визиток) разрешен только по понедельникам в День знакомств."
+    },
+    "@predprinemateli_choogl": {
+      "date": "2026-07-29",
+      "reason": "Gemini: conditional — В описании чата явно указан контакт для вопросов по рекламе, что подразумевает возможность её размещения на определённых условиях."
+    },
+    "@entclub_cs_chat": {
+      "date": "2026-07-29",
+      "reason": "Gemini: unclear — В описании чата упоминается обсуждение проектов участников, но нет явного разрешения или запрета на самопиар сторонних проектов или рекламу."
+    },
+    "@predprinimateli_chat": {
+      "date": "2026-07-29",
+      "reason": "Gemini: unclear — В описании и закреплённом сообщении нет информации о разрешении или запрете рекламы и самопиара."
+    },
+    "@chat_repetitori_help": {
+      "date": "2026-08-03",
+      "reason": "ошибка вступления: InviteRequestSentError"
+    }
+  },
   "daily": {
     "2026-08-01": {
       "theme": "sport",
