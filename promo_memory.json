@@ -69,6 +69,10 @@
     "@predprinimateli_chat": {
       "date": "2026-07-29",
       "reason": "Gemini: unclear — В описании и закреплённом сообщении нет информации о разрешении или запрете рекламы и самопиара."
+    },
+    "@chat_repetitori_help": {
+      "date": "2026-08-03",
+      "reason": "ошибка вступления: InviteRequestSentError"
     }
   },
   "daily": {
