@@ -11,6 +11,10 @@
     "@hguklo": {
       "date": "2026-07-27",
       "theme": "sport"
+    },
+    "@vzaimnayareklamakanalov": {
+      "date": "2026-08-06",
+      "theme": "arabic"
     }
   },
   "skipped": {
@@ -93,6 +97,11 @@
     "2026-07-27": {
       "theme": "sport",
       "chat": "@hguklo",
+      "posted": true
+    },
+    "2026-08-06": {
+      "theme": "arabic",
+      "chat": "@vzaimnayareklamakanalov",
       "posted": true
     }
   }
