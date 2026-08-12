@@ -19,6 +19,10 @@
     "@piar_vv": {
       "date": "2026-08-11",
       "theme": "sport"
+    },
+    "@prfromlain_0": {
+      "date": "2026-08-12",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -96,6 +100,11 @@
     "2026-08-11": {
       "theme": "sport",
       "chat": "@piar_vv",
+      "posted": true
+    },
+    "2026-08-12": {
+      "theme": "sport",
+      "chat": "@prfromlain_0",
       "posted": true
     }
   }
