@@ -23,6 +23,10 @@
     "@prfromlain_0": {
       "date": "2026-08-12",
       "theme": "sport"
+    },
+    "@piaradopt_chat": {
+      "date": "2026-08-13",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -105,6 +109,11 @@
     "2026-08-12": {
       "theme": "sport",
       "chat": "@prfromlain_0",
+      "posted": true
+    },
+    "2026-08-13": {
+      "theme": "sport",
+      "chat": "@piaradopt_chat",
       "posted": true
     }
   }
