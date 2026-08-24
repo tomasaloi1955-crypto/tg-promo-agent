@@ -47,8 +47,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@samopiarnyash": {
-      "date": "2026-07-28",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-08-24",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@prfromlain_0": {
       "date": "2026-08-11",
@@ -93,6 +93,10 @@
     "@rezinoviy_dom": {
       "date": "2026-08-19",
       "reason": "Gemini: conditional — Название чата указывает на разрешение самопиара, но описание содержит ссылки на 'платную рекламу' и 'ПРАЙС', что подразумевает условия для публикации рекламных постов."
+    },
+    "@samopiarch": {
+      "date": "2026-08-24",
+      "reason": "Gemini: conditional — Название чата явно указывает на пиар и рекламу, а в описании есть инструкции по заказу рекламы через бота с прайсом, что подразумевает платные условия."
     }
   },
   "daily": {
