@@ -27,6 +27,10 @@
     "@piaradopt_chat": {
       "date": "2026-08-13",
       "theme": "sport"
+    },
+    "@tgchat_reklama": {
+      "date": "2026-08-27",
+      "theme": "education"
     }
   },
   "skipped": {
@@ -97,6 +101,18 @@
     "@samopiarch": {
       "date": "2026-08-24",
       "reason": "Gemini: conditional — Название чата явно указывает на пиар и рекламу, а в описании есть инструкции по заказу рекламы через бота с прайсом, что подразумевает платные условия."
+    },
+    "@boost_telegram24": {
+      "date": "2026-08-27",
+      "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
+    },
+    "@vzaimno_telegram_comm": {
+      "date": "2026-08-27",
+      "reason": "ошибка вступления: InviteRequestSentError"
+    },
+    "@advertising_exchange_1": {
+      "date": "2026-08-27",
+      "reason": "ошибка отправки: ForbiddenError"
     }
   },
   "daily": {
@@ -118,6 +134,11 @@
     "2026-08-06": {
       "theme": "arabic",
       "chat": "@vzaimnayareklamakanalov",
+      "posted": true
+    },
+    "2026-08-27": {
+      "theme": "education",
+      "chat": "@tgchat_reklama",
       "posted": true
     }
   }
