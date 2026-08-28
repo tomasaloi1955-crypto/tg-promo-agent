@@ -113,6 +113,10 @@
     "@advertising_exchange_1": {
       "date": "2026-08-27",
       "reason": "ошибка отправки: ForbiddenError"
+    },
+    "@chat_biznes1": {
+      "date": "2026-08-28",
+      "reason": "Gemini: conditional — В описании чата явно указаны контакты для размещения рекламы и ссылка на рекламный прайс."
     }
   },
   "daily": {
