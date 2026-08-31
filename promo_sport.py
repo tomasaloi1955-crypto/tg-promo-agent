@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Отдельная реклама канала «Мусульманка на спорте» — 5 раз в неделю (пн-пт),
+Отдельная реклама канала «Мусульманка на спорте» — ежедневно,
 ОТДЕЛЬНЫМ звеном от общей ротации 6 тем в promo.py. Основная ротация в
 promo.py не трогается и продолжает работать как раньше (там спорт по-прежнему
 получает свою обычную долю раз в 6 дней вместе с остальными 5 каналами) —
@@ -56,7 +56,7 @@ async def run() -> None:
     mem = load_memory()
     done = promo.already_done_today(mem)
     if done:
-        promo.notify("Спорт-канал (доп. реклама 5x/неделю): на сегодня уже отправлено.")
+        promo.notify("Спорт-канал (доп. ежедневная реклама): на сегодня уже отправлено.")
         return
 
     client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
@@ -74,17 +74,18 @@ async def run() -> None:
     save_memory(mem)
 
     if stop_reason:
-        promo.notify(f"⚠️ СТОП (доп. реклама спорт-канала 5x/нед): {stop_reason}")
+        promo.notify(f"⚠️ СТОП (доп. ежедневная реклама спорт-канала): {stop_reason}")
     elif result:
         v = result["verdict"]
+        cond = f" [условие: {v.get('condition')}]" if v.get("verdict") == "conditional" else ""
         promo.notify(
-            f"✅ [Доп. реклама 5x/нед] Опубликовано в спорт-канал.\n"
+            f"✅ [Доп. реклама спорт-канала] Опубликовано.\n"
             f"Чат: {result['title']} ({result['key']}), участников: {result['members']}\n"
-            f"Оценка Gemini: {v.get('verdict')} — {v.get('reason', '')}"
+            f"Оценка Gemini: {v.get('verdict')}{cond} — {v.get('reason', '')}"
         )
     else:
         promo.notify(
-            "[Доп. реклама 5x/нед] За сегодня не нашлось подходящего чата для "
+            "[Доп. ежедневная реклама] За сегодня не нашлось подходящего чата для "
             "спорт-канала (либо реклама явно не разрешена, либо уже использован "
             "недавно). Публикации не было."
         )

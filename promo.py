@@ -12,9 +12,11 @@
   english   -> «I Speak English» (t.me/i_speak_en)
 
 Проверяет через Gemini, разрешён ли в найденном чате самопиар (по описанию и
-закреплённому сообщению) — и публикует пост СРАЗУ, но ТОЛЬКО если Gemini дал
-чёткий вердикт "allowed" (не "conditional"/"unclear" — без человека, который бы
-их перепроверил, это слишком рискованно). Владелец получает уведомление в Telegram
+закреплённому сообщению) — и публикует пост СРАЗУ, если Gemini дал вердикт
+"allowed" ЛИБО "conditional" с безобидным условием, которое автопост в силах
+соблюсти (определённый день/время/топик/формат). "conditional" с оплатой или
+«только по согласованию с админом», а также "unclear"/"not_allowed" —
+пропускаются (см. _promo_allowed). Владелец получает уведомление в Telegram
 о результате в любом случае — что опубликовано или почему не опубликовано.
 
 ВАЖНО: раньше (локальная версия, tg-channel-agent) каждый пост требовал подтверждения
@@ -277,6 +279,35 @@ async def _fetch_rules_context(client: TelegramClient, chat: types.Channel) -> t
     return about, pinned_text
 
 
+# Слова-маркеры «условие небезобидное» — платно или только через личное согласование.
+# Подстраховка на случай, если Gemini неверно проставит condition_type.
+_UNSAFE_CONDITION_MARKERS = (
+    "оплат", "платн", "прайс", "стоимост", "цена", "руб", "₽", "$", "донат",
+    "купить", "заказать реклам", "реклама через бот", "по договорённост", "по договоренност",
+    "согласова", "разрешение админ", "напишите админ", "напиши админ", "обратитесь к админ",
+    "только для участников", "закрыт", "подписк", "vip", "премиум",
+)
+
+
+def _promo_allowed(verdict: dict) -> tuple[bool, str]:
+    """Можно ли постить в чат по вердикту Gemini.
+    Разрешаем: verdict == "allowed", ИЛИ "conditional" с безобидным условием
+    (день/время/топик/формат), которое автопост в силах соблюсти. Платное
+    размещение и «только по согласованию с админом» — не пропускаем."""
+    v = verdict.get("verdict")
+    if v == "allowed":
+        return True, "allowed"
+    if v == "conditional":
+        ctype = verdict.get("condition_type", "other")
+        cond_text = (verdict.get("condition") or "").lower()
+        if any(m in cond_text for m in _UNSAFE_CONDITION_MARKERS):
+            return False, "conditional (условие: оплата/согласование)"
+        if ctype == "benign":
+            return True, "conditional-benign"
+        return False, f"conditional ({ctype})"
+    return False, v or "unclear"
+
+
 async def find_and_post(client: TelegramClient, theme: str, mem: dict) -> Optional[dict]:
     """Ищет кандидата и, при чётком разрешении Gemini, публикует пост СРАЗУ (без
     подтверждения человеком — см. docstring модуля). Возвращает результат или None."""
@@ -297,8 +328,9 @@ async def find_and_post(client: TelegramClient, theme: str, mem: dict) -> Option
         #    делаем только когда уже знаем, что постить сюда можно.
         about, pinned = await _fetch_rules_context(client, chat)
         verdict = gemini.check_promo_allowed(chat.title, about, pinned)
-        if verdict.get("verdict") != "allowed":
-            mark_skipped(mem, key, f"Gemini: {verdict.get('verdict')} — {verdict.get('reason', '')}")
+        ok_to_post, why = _promo_allowed(verdict)
+        if not ok_to_post:
+            mark_skipped(mem, key, f"Gemini: {why} — {verdict.get('reason', '')}")
             continue
 
         # 2) Только теперь вступаем — прямо перед публикацией, с жёстким лимитом
@@ -357,10 +389,11 @@ async def run() -> None:
         notify(f"⚠️ СТОП: {stop_reason}\nТема дня «{THEME_LABELS[theme]}» осталась без поста сегодня.")
     elif result:
         v = result["verdict"]
+        cond = f" [условие: {v.get('condition')}]" if v.get("verdict") == "conditional" else ""
         text = (
             f"✅ Опубликовано. Тема дня: {THEME_LABELS[theme]}\n"
             f"Чат: {result['title']} ({result['key']}), участников: {result['members']}\n"
-            f"Оценка Gemini: {v.get('verdict')} — {v.get('reason', '')}"
+            f"Оценка Gemini: {v.get('verdict')}{cond} — {v.get('reason', '')}"
         )
         notify(text)
     else:

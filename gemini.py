@@ -20,6 +20,10 @@ PROMO_RESPONSE_SCHEMA = types.Schema(
             enum=["allowed", "conditional", "not_allowed", "unclear"],
         ),
         "condition": types.Schema(type=types.Type.STRING),
+        "condition_type": types.Schema(
+            type=types.Type.STRING,
+            enum=["benign", "paid_or_approval", "other"],
+        ),
         "reason": types.Schema(type=types.Type.STRING),
     },
     required=["verdict", "reason"],
@@ -33,7 +37,14 @@ PROMO_SYSTEM_INSTRUCTION = """Ты помогаешь решить, можно �
   - "allowed" — в описании/закрепе явно сказано, что самопиар/реклама разрешены (например,
     "чат для взаимного пиара", "реклама по согласованию не нужна", "постите свои каналы")
   - "conditional" — разрешено, но с условием (например, только по субботам, только с оплатой,
-    только после согласования с админом, только в определённой теме/топике) — условие опиши в поле condition
+    только после согласования с админом, только в определённой теме/топике) — условие опиши в поле condition.
+    Для "conditional" ОБЯЗАТЕЛЬНО заполни condition_type:
+      - "benign" — условие безобидное и выполнимое автопостом: определённый день недели/время,
+        определённый топик или формат сообщения, «сначала представьтесь», лимит частоты.
+      - "paid_or_approval" — за размещение нужно ЗАПЛАТИТЬ, купить, заказать через бота/прайс,
+        ИЛИ получить личное разрешение админа / согласовать заранее / только для платных
+        участников закрытого чата.
+      - "other" — условие есть, но непонятно, к какому типу отнести.
   - "not_allowed" — явно запрещено ("без рекламы", "самопиар банится", "только контент по теме чата,
     посторонние ссылки удаляются")
   - "unclear" — в описании и закрепе нет никакой информации о рекламе/самопиаре
@@ -69,4 +80,5 @@ def check_promo_allowed(title: str, about: str, pinned: str) -> dict:
         return {"verdict": "unclear", "reason": "не разобрал ответ модели."}
     data.setdefault("verdict", "unclear")
     data.setdefault("reason", "")
+    data.setdefault("condition_type", "other")
     return data
