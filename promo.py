@@ -66,7 +66,14 @@ THEME_LABELS = {
 }
 
 THEME_KEYWORDS = {
-    "sport": ["фитнес для мусульманок", "спорт для сестёр", "пилатес для женщин", "тренировки дома для женщин", "аэробика для начинающих"],
+    "sport": [
+        "фитнес для мусульманок", "спорт для сестёр", "пилатес для женщин",
+        "тренировки дома для женщин", "аэробика для начинающих",
+        "женский фитнес чат", "домашние тренировки", "похудение чат",
+        "марафон стройности", "зож для женщин", "фитнес мама",
+        "мусульманки чат", "сёстры по вере чат", "женский клуб ислам",
+        "правильное питание чат", "фитнес без спортзала",
+    ],
     "education": ["образование детей", "репетитор", "подготовка к ЕНТ", "подготовка к ЕГЭ", "развитие ребенка"],
     "ai": ["автоматизация бизнеса", "предприниматели чат", "малый бизнес автоматизация", "нейросети для бизнеса", "IT для предпринимателей"],
     "family": ["мусульманская семья", "воспитание детей ислам", "мусульманские мамы", "ислам для детей", "хадисы"],
@@ -77,14 +84,23 @@ THEME_KEYWORDS = {
 # Дополнительный пул: чаты, где самопиар/взаимный пиар — сама их суть (выше шанс, что реально можно)
 GENERIC_SELF_PROMO_KEYWORDS = [
     "чат для рекламы каналов", "взаимный пиар telegram", "биржа рекламы telegram", "самопиар чат",
+    "взаимопиар каналов", "пиар чат телеграм", "реклама каналов бесплатно",
+    "чат взаимного пиара", "продвижение телеграм канала чат", "флуд чат пиар",
+    "раскрутка канала чат", "пиар админов",
 ]
 
 MIN_MEMBERS = int(os.getenv("PROMO_MIN_MEMBERS", "300"))
-POSTED_COOLDOWN_DAYS = int(os.getenv("PROMO_POSTED_COOLDOWN_DAYS", "45"))
+POSTED_COOLDOWN_DAYS = int(os.getenv("PROMO_POSTED_COOLDOWN_DAYS", "35"))
 SKIPPED_COOLDOWN_DAYS = int(os.getenv("PROMO_SKIPPED_COOLDOWN_DAYS", "14"))
-MAX_CANDIDATES_TO_CHECK = int(os.getenv("PROMO_MAX_CANDIDATES_TO_CHECK", "8"))
-MIN_DELAY = int(os.getenv("PROMO_MIN_DELAY", "3"))
-MAX_DELAY = int(os.getenv("PROMO_MAX_DELAY", "8"))
+# Сколько чатов-кандидатов проверяем через Gemini за прогон (проверка — только
+# чтение описания/закрепа, без вступления, поэтому для Telegram безопасно).
+MAX_CANDIDATES_TO_CHECK = int(os.getenv("PROMO_MAX_CANDIDATES_TO_CHECK", "12"))
+# Жёсткий предел ВСТУПЛЕНИЙ в группы за один прогон — главный антибан-рычаг.
+# Вступаем только в тот чат, где Gemini уже сказал «можно», прямо перед постом.
+MAX_JOINS_PER_RUN = int(os.getenv("PROMO_MAX_JOINS_PER_RUN", "3"))
+# Паузы между действиями (сек). Разнесены пошире, чтобы поведение было менее «ботовым».
+MIN_DELAY = int(os.getenv("PROMO_MIN_DELAY", "12"))
+MAX_DELAY = int(os.getenv("PROMO_MAX_DELAY", "30"))
 
 
 class StopRun(Exception):
@@ -196,6 +212,9 @@ async def _search_theme(client: TelegramClient, theme: str) -> list:
     (публичные супергруппы — только туда обычный участник может писать)."""
     found: dict[str, types.Channel] = {}
     keywords = THEME_KEYWORDS[theme] + GENERIC_SELF_PROMO_KEYWORDS
+    # Перемешиваем, чтобы разные прогоны находили разные чаты, а не всегда
+    # первые по одним и тем же словам — так пул кандидатов со временем шире.
+    random.shuffle(keywords)
     for kw in keywords:
         try:
             res = await flood_safe(lambda: client(functions.contacts.SearchRequest(q=kw, limit=20)))
@@ -266,22 +285,33 @@ async def find_and_post(client: TelegramClient, theme: str, mem: dict) -> Option
     print(f"Тема: {THEME_LABELS[theme]}. Найдено кандидатов: {len(raw)}, после фильтра: {len(candidates)}.")
 
     checked = 0
+    joins_used = 0
     for key, chat in candidates:
         if checked >= MAX_CANDIDATES_TO_CHECK:
             break
         checked += 1
         print(f"[{checked}/{min(len(candidates), MAX_CANDIDATES_TO_CHECK)}] Проверяю {key} ({chat.title})...")
-        ok, note = await _join_group(client, chat)
-        if not ok:
-            mark_skipped(mem, key, note)
-            continue
 
-        await asyncio.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
+        # 1) Читаем описание/закреп БЕЗ вступления (для публичных супергрупп это
+        #    доступно). Вступление — самый рискованный по бану шаг, поэтому его
+        #    делаем только когда уже знаем, что постить сюда можно.
         about, pinned = await _fetch_rules_context(client, chat)
         verdict = gemini.check_promo_allowed(chat.title, about, pinned)
         if verdict.get("verdict") != "allowed":
             mark_skipped(mem, key, f"Gemini: {verdict.get('verdict')} — {verdict.get('reason', '')}")
             continue
+
+        # 2) Только теперь вступаем — прямо перед публикацией, с жёстким лимитом
+        #    вступлений за один прогон (главный антибан-рычаг).
+        if joins_used >= MAX_JOINS_PER_RUN:
+            print(f"  лимит вступлений за прогон ({MAX_JOINS_PER_RUN}) исчерпан — останавливаюсь")
+            break
+        ok, note = await _join_group(client, chat)
+        joins_used += 1
+        if not ok:
+            mark_skipped(mem, key, note)
+            continue
+        await asyncio.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
 
         post_text = POSTS[theme]
         banner = banner_path(theme)
