@@ -39,6 +39,14 @@
     "@qqwwppp2": {
       "date": "2026-08-31",
       "theme": "sport"
+    },
+    "@piar_chattsd": {
+      "date": "2026-09-01",
+      "theme": "sport"
+    },
+    "@piar_chat_ua01": {
+      "date": "2026-09-01",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -137,6 +145,14 @@
     "@pitaniesobakikoshek1": {
       "date": "2026-08-31",
       "reason": "Gemini: unclear — В названии чата, описании и закреплённом сообщении нет никакой информации о разрешении или запрете рекламы и самопиара."
+    },
+    "@ritaprotelo": {
+      "date": "2026-09-01",
+      "reason": "Gemini: unclear — В описании чата и закрепленном сообщении нет никакой информации о правилах размещения рекламы или самопиара."
+    },
+    "@kpoppiarchatflud": {
+      "date": "2026-09-01",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
@@ -163,6 +179,11 @@
     "2026-08-31": {
       "theme": "sport",
       "chat": "@qqwwppp2",
+      "posted": true
+    },
+    "2026-09-01": {
+      "theme": "sport",
+      "chat": "@piar_chat_ua01",
       "posted": true
     }
   }
