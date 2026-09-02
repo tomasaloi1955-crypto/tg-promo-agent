@@ -47,6 +47,10 @@
     "@piar_chat_ua01": {
       "date": "2026-09-01",
       "theme": "sport"
+    },
+    "@vz_chatvz": {
+      "date": "2026-09-02",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -153,6 +157,42 @@
     "@kpoppiarchatflud": {
       "date": "2026-09-01",
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@podborka_vyz": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@vzaimopiar_vp": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@piarkanae": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@kpoppiarchikchatiks": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@puarchatroleviefloodi": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@chatrepostov": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@piar_chat_fludov": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@piar_chat_fludovv": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piar_dlya_vld_sovld_adminov": {
+      "date": "2026-09-02",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
@@ -184,6 +224,11 @@
     "2026-09-01": {
       "theme": "sport",
       "chat": "@piar_chat_ua01",
+      "posted": true
+    },
+    "2026-09-02": {
+      "theme": "sport",
+      "chat": "@vz_chatvz",
       "posted": true
     }
   }
