@@ -47,6 +47,14 @@
     "@piar_chat_ua01": {
       "date": "2026-09-01",
       "theme": "sport"
+    },
+    "@vz_chatvz": {
+      "date": "2026-09-02",
+      "theme": "sport"
+    },
+    "@spam_chat2": {
+      "date": "2026-09-03",
+      "theme": "ai"
     }
   },
   "skipped": {
@@ -225,6 +233,11 @@
     "2026-09-01": {
       "theme": "sport",
       "chat": "@piar_chattsd",
+      "posted": true
+    },
+    "2026-09-03": {
+      "theme": "ai",
+      "chat": "@spam_chat2",
       "posted": true
     }
   }
