@@ -59,6 +59,10 @@
     "@riboshk": {
       "date": "2026-09-04",
       "theme": "family"
+    },
+    "@poisk_chaty": {
+      "date": "2026-09-09",
+      "theme": "ai"
     }
   },
   "skipped": {
@@ -275,6 +279,11 @@
     "2026-09-04": {
       "theme": "family",
       "chat": "@riboshk",
+      "posted": true
+    },
+    "2026-09-09": {
+      "theme": "ai",
+      "chat": "@poisk_chaty",
       "posted": true
     }
   }
