@@ -139,7 +139,7 @@
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
     },
     "@vzaimno_telegram_comm": {
-      "date": "2026-08-27",
+      "date": "2026-09-10",
       "reason": "ошибка вступления: InviteRequestSentError"
     },
     "@advertising_exchange_1": {
@@ -233,6 +233,14 @@
     "@reklama_piaarr": {
       "date": "2026-09-06",
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
+    },
+    "@psps_uou_saint": {
+      "date": "2026-09-10",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@vzaimnayareklamakanalov": {
+      "date": "2026-09-10",
+      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет информации о разрешении или запрете самопиара/рекламы."
     }
   },
   "daily": {
