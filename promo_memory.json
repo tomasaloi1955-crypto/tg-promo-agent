@@ -233,6 +233,10 @@
     "@reklama_piaarr": {
       "date": "2026-09-06",
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
+    },
+    "@psps_uou_saint": {
+      "date": "2026-09-10",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     }
   },
   "daily": {
