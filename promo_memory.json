@@ -237,6 +237,10 @@
     "@psps_uou_saint": {
       "date": "2026-09-10",
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@vzaimnayareklamakanalov": {
+      "date": "2026-09-10",
+      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет информации о разрешении или запрете самопиара/рекламы."
     }
   },
   "daily": {
