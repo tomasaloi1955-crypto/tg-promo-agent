@@ -63,6 +63,10 @@
     "@poisk_chaty": {
       "date": "2026-09-09",
       "theme": "ai"
+    },
+    "@kpoppiarchatflud": {
+      "date": "2026-09-15",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -245,6 +249,10 @@
     "@chatpometabolizmy": {
       "date": "2026-09-11",
       "reason": "Gemini: unclear — Ни описание чата, ни закреплённое сообщение не содержат явной информации о разрешении или запрете самопиара от участников, несмотря на то, что в закрепе присутствует рекламный пост от администрации."
+    },
+    "@biznes_gq": {
+      "date": "2026-09-15",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     }
   },
   "daily": {
@@ -281,6 +289,11 @@
     "2026-09-02": {
       "theme": "sport",
       "chat": "@vz_chatvz",
+      "posted": true
+    },
+    "2026-09-15": {
+      "theme": "sport",
+      "chat": "@kpoppiarchatflud",
       "posted": true
     }
   }
