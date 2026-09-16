@@ -63,6 +63,14 @@
     "@poisk_chaty": {
       "date": "2026-09-09",
       "theme": "ai"
+    },
+    "@kpoppiarchatflud": {
+      "date": "2026-09-15",
+      "theme": "sport"
+    },
+    "@vzaimopiar_vp": {
+      "date": "2026-09-16",
+      "theme": "family"
     }
   },
   "skipped": {
@@ -300,6 +308,11 @@
     "2026-09-09": {
       "theme": "ai",
       "chat": "@poisk_chaty",
+      "posted": true
+    },
+    "2026-09-16": {
+      "theme": "family",
+      "chat": "@vzaimopiar_vp",
       "posted": true
     }
   }
