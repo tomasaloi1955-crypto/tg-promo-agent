@@ -151,8 +151,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@advertising_exchange_1": {
-      "date": "2026-08-27",
-      "reason": "ошибка отправки: ForbiddenError"
+      "date": "2026-09-17",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@chat_biznes1": {
       "date": "2026-08-28",
@@ -179,8 +179,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@podborka_vyz": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-17",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@vzaimopiar_vp": {
       "date": "2026-09-02",
@@ -211,8 +211,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@piar_dlya_vld_sovld_adminov": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-17",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата прямо указывает на пиар, а закреплённое сообщение содержит прайс-лист для различных видов размещения рекламы."
     },
     "@prettyromkachat": {
       "date": "2026-09-03",
