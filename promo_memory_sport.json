@@ -71,6 +71,10 @@
     "@vzaimopiar_vp": {
       "date": "2026-09-16",
       "theme": "family"
+    },
+    "@piarkanae": {
+      "date": "2026-09-17",
+      "theme": "sport"
     }
   },
   "skipped": {
@@ -303,6 +307,11 @@
     "2026-09-16": {
       "theme": "sport",
       "chat": "@piar_vv",
+      "posted": true
+    },
+    "2026-09-17": {
+      "theme": "sport",
+      "chat": "@piarkanae",
       "posted": true
     }
   }
