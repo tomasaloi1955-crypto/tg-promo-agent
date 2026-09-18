@@ -171,8 +171,8 @@
       "reason": "Gemini: conditional (условие: оплата/согласование) — Несмотря на название 'Чат Взаимного пиара', описание и закреплённое сообщение явно указывают на платное размещение рекламы или необходимость согласования с администратором."
     },
     "@pitaniesobakikoshek1": {
-      "date": "2026-08-31",
-      "reason": "Gemini: unclear — В названии чата, описании и закреплённом сообщении нет никакой информации о разрешении или запрете рекламы и самопиара."
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@ritaprotelo": {
       "date": "2026-09-01",
@@ -183,8 +183,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@podborka_vyz": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@vzaimopiar_vp": {
       "date": "2026-09-02",
@@ -195,7 +195,7 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@kpoppiarchikchatiks": {
-      "date": "2026-09-02",
+      "date": "2026-09-18",
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@puarchatroleviefloodi": {
@@ -207,12 +207,12 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_chat_fludov": {
-      "date": "2026-09-02",
+      "date": "2026-09-18",
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_chat_fludovv": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_dlya_vld_sovld_adminov": {
       "date": "2026-09-02",
@@ -223,12 +223,12 @@
       "reason": "Gemini: conditional (условие: оплата/согласование) — В закрепленном сообщении владелец чата явно рекламирует свои платные консультации, что подразумевает запрет или платность для стороннего самопиара."
     },
     "@pro_peptides_kz_chat": {
-      "date": "2026-09-03",
-      "reason": "Gemini: not_allowed — Описание чата строго ограничивает обсуждение только темой пептидов, что подразумевает запрет на самопиар сторонних проектов."
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@valentinka500k": {
-      "date": "2026-09-03",
-      "reason": "Gemini: conditional (paid_or_approval) — В описании чата указано, что по вопросам рекламы нужно обращаться к конкретному контакту, что предполагает предварительное согласование."
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piarrocheklis": {
       "date": "2026-09-04",
@@ -261,6 +261,14 @@
     "@biznes_gq": {
       "date": "2026-09-15",
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piarchatrrr": {
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@sportfitnesszoj": {
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
