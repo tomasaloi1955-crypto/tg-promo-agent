@@ -155,8 +155,8 @@
       "reason": "ошибка вступления: InviteRequestSentError"
     },
     "@advertising_exchange_1": {
-      "date": "2026-08-27",
-      "reason": "ошибка отправки: ForbiddenError"
+      "date": "2026-09-19",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@chat_biznes1": {
       "date": "2026-08-28",
