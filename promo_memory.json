@@ -175,8 +175,8 @@
       "reason": "Gemini: unclear — В названии чата, описании и закреплённом сообщении нет никакой информации о разрешении или запрете рекламы и самопиара."
     },
     "@ritaprotelo": {
-      "date": "2026-09-01",
-      "reason": "Gemini: unclear — В описании чата и закрепленном сообщении нет никакой информации о правилах размещения рекламы или самопиара."
+      "date": "2026-09-19",
+      "reason": "Gemini: unclear — В описании чата и закрепленном сообщении нет никакой информации, касающейся самопиара или рекламы."
     },
     "@kpoppiarchatflud": {
       "date": "2026-09-01",
@@ -261,6 +261,14 @@
     "@biznes_gq": {
       "date": "2026-09-15",
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piarchatrrr": {
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@sportfitnesszoj": {
+      "date": "2026-09-18",
+      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
