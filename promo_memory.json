@@ -25,8 +25,8 @@
       "theme": "english"
     },
     "@piaradopt_chat": {
-      "date": "2026-08-13",
-      "theme": "sport"
+      "date": "2026-09-20",
+      "theme": "education"
     },
     "@tgchat_reklama": {
       "date": "2026-08-27",
@@ -330,6 +330,11 @@
     "2026-09-18": {
       "theme": "english",
       "chat": "@prfromlain_0",
+      "posted": true
+    },
+    "2026-09-20": {
+      "theme": "education",
+      "chat": "@piaradopt_chat",
       "posted": true
     }
   }
