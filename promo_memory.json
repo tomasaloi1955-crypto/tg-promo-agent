@@ -269,6 +269,10 @@
     "@sportfitnesszoj": {
       "date": "2026-09-18",
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+    },
+    "@biznes_ch_at": {
+      "date": "2026-09-21",
+      "reason": "Gemini: conditional (paid_or_approval) — Описание чата указывает на необходимость связи с указанным контактом для размещения рекламы, что подразумевает предварительное согласование или оплату."
     }
   },
   "daily": {
