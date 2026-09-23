@@ -1,0 +1,54 @@
+name: Поиск клиентов на автопостинг
+
+# 09:00 UTC = 14:00 в Алматы / 12:00 в Москве — после promo.yml (06:00) и promo_sport.yml (07:30),
+# чтобы не работать с одного аккаунта одновременно.
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # коммит памяти (какие каналы уже проверены и кому уже писали)
+
+concurrency:
+  group: outreach
+  cancel-in-progress: false
+
+jobs:
+  outreach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Искать клиентов
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          # Settings → Secrets and variables → Actions → Variables (необязательно):
+          OUTREACH_OFFER_LINK: ${{ vars.OUTREACH_OFFER_LINK }}   # ссылка на пост с предложением
+          OUTREACH_AUTO_SEND: ${{ vars.OUTREACH_AUTO_SEND }}     # 1 — писать владельцам самому (риск бана)
+        run: python outreach.py
+
+      - name: Сохранить память
+        run: |
+          git config user.name "outreach-agent"
+          git config user.email "outreach-agent@users.noreply.github.com"
+          git add outreach_memory.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Обновление памяти поиска клиентов"
+          git pull --rebase
+          git push
