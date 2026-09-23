@@ -89,6 +89,10 @@ USERNAME_RE = re.compile(r"(?:@|(?:https?://)?(?:t|telegram)\.me/)([A-Za-z][A-Za
 _NOT_USERNAMES = {"joinchat", "addlist", "share", "proxy", "iv", "s", "c"}
 
 
+class GeminiUnavailable(Exception):
+    """Gemini не ответил — прекращаем проверку каналов до следующего прогона."""
+
+
 # ---------------------------------------------------------------- память
 
 def load_memory() -> dict:
@@ -236,6 +240,10 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
         gemini_budget[0] -= 1
         verdict = gemini.evaluate_channel_lead(chat.title, about, posts, OFFER_LINK)
         await asyncio.sleep(8)  # минутный лимит бесплатного Gemini
+        if verdict is None and gemini.GEMINI_API_KEY:
+            # Скорее всего кончилась суточная квота (её делят promo.py и promo_sport.py).
+            # Непроверенных лидов не шлём; канал не помечаем — проверим в другой день.
+            raise GeminiUnavailable()
     if verdict is not None and not verdict.get("fit"):
         mark_channel(mem, key, "rejected", f"Gemini: {verdict.get('reason', '')}")
         return None
@@ -311,6 +319,9 @@ async def run() -> None:
                 lead = await check_channel(client, chat, mem, gemini_budget)
             except StopRun:
                 raise
+            except GeminiUnavailable:
+                stop_reason = "Gemini не отвечает (вероятно, кончилась суточная квота) — остальные каналы проверю завтра"
+                break
             except Exception as e:
                 print(f"  ! ошибка проверки: {e.__class__.__name__}: {e}")
                 continue
