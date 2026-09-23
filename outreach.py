@@ -20,8 +20,15 @@ Gemini проверяет, подходит ли канал, и пишет ли�
 
 Каждый канал обрабатывается один раз навсегда (outreach_memory.json), каждому
 контакту пишем не больше одного раза.
+
+Приватность: репозиторий публичный, поэтому в outreach_memory.json лежат не @username-ы,
+а их HMAC-отпечатки (ключ — секрет API_HASH): повтор агент узнаёт, а прочитать по файлу,
+кого он нашёл, нельзя. В журнал Actions (он тоже публичный) не пишутся ни каналы,
+ни контакты, ни тексты — они уходят только вам в Telegram.
 """
 import asyncio
+import hashlib
+import hmac
 import json
 import os
 import random
@@ -31,11 +38,12 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
+import requests
 from telethon import TelegramClient, errors, functions, types
 from telethon.sessions import StringSession
 
 import gemini
-from promo import API_HASH, API_ID, SESSION_STRING, StopRun, flood_safe, notify
+from promo import API_HASH, API_ID, BOT_TOKEN, OWNER_ID, SESSION_STRING, StopRun, flood_safe
 
 BASE = Path(__file__).parent
 MEMORY_FILE = BASE / "outreach_memory.json"
@@ -105,11 +113,28 @@ def save_memory(mem: dict) -> None:
     MEMORY_FILE.write_text(json.dumps(mem, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def mark_channel(mem: dict, key: str, status: str, reason: str = "", contact: str = "") -> None:
-    entry = {"date": date.today().isoformat(), "status": status, "reason": reason}
-    if contact:
-        entry["contact"] = contact
-    mem["channels"][key] = entry
+def fingerprint(name: str) -> str:
+    """Отпечаток @username для памяти: сравнить можно, прочитать нельзя."""
+    return hmac.new(API_HASH.encode(), name.lstrip("@").lower().encode(), hashlib.sha256).hexdigest()[:20]
+
+
+def mark_channel(mem: dict, key: str, status: str) -> None:
+    mem["channels"][fingerprint(key)] = {"date": date.today().isoformat(), "status": status}
+
+
+def notify(text: str) -> None:
+    """Только в Telegram владелице — без print: журнал Actions публичный."""
+    if not BOT_TOKEN or not OWNER_ID:
+        print("  ! BOT_TOKEN/OWNER_ID не заданы — отчёт некуда отправить")
+        return
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+            json={"chat_id": OWNER_ID, "text": text},
+            timeout=20,
+        )
+    except Exception as e:
+        print(f"  ! не удалось отправить уведомление: {e.__class__.__name__}")
 
 
 # ---------------------------------------------------------------- разбор канала
@@ -179,13 +204,13 @@ async def search_channels(client: TelegramClient, mem: dict) -> list[types.Chann
         except StopRun:
             raise
         except Exception as e:
-            print(f"  ! поиск по «{kw}» не удался: {e}")
+            print(f"  ! поиск не удался: {e.__class__.__name__}")
             continue
         for chat in res.chats:
             if not isinstance(chat, types.Channel) or not chat.broadcast or not chat.username:
                 continue
             key = f"@{chat.username.lower()}"
-            if key in mem["channels"] or key in found:
+            if fingerprint(key) in mem["channels"] or key in found:
                 continue
             if not MIN_SUBSCRIBERS <= (chat.participants_count or 0) <= MAX_SUBSCRIBERS:
                 continue
@@ -201,27 +226,27 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
     key = f"@{chat.username.lower()}"
 
     if w := find_stop_word(chat.title):
-        mark_channel(mem, key, "rejected", f"стоп-слово «{w}» в названии")
+        mark_channel(mem, key, "rejected")
         return None
 
     full = await flood_safe(lambda: client(functions.channels.GetFullChannelRequest(chat)))
     about = full.full_chat.about or ""
     if w := find_stop_word(about):
-        mark_channel(mem, key, "rejected", f"стоп-слово «{w}» в описании")
+        mark_channel(mem, key, "rejected")
         return None
 
-    contacts = [c for c in extract_contacts(about, chat.username) if c.lower() not in mem["contacts"]]
+    contacts = [c for c in extract_contacts(about, chat.username) if fingerprint(c) not in mem["contacts"]]
     if not contacts:
-        mark_channel(mem, key, "rejected", "нет нового контакта владельца в описании")
+        mark_channel(mem, key, "rejected")
         return None
 
     msgs = await flood_safe(lambda: client.get_messages(chat, limit=30))
     days_since, posts_30d = activity([m.date for m in msgs if m.date], datetime.now(timezone.utc))
     if days_since is None or days_since > MAX_DAYS_SINCE_LAST_POST:
-        mark_channel(mem, key, "rejected", f"канал заброшен (последний пост {days_since} дн. назад)")
+        mark_channel(mem, key, "rejected")
         return None
     if posts_30d > MAX_POSTS_30D:
-        mark_channel(mem, key, "rejected", f"и так постит часто ({posts_30d} за 30 дней)")
+        mark_channel(mem, key, "rejected")
         return None
 
     contact = None
@@ -230,7 +255,7 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
         if contact:
             break
     if not contact:
-        mark_channel(mem, key, "rejected", f"контакт {', '.join('@' + c for c in contacts[:2])} — не человек")
+        mark_channel(mem, key, "rejected")
         return None
     contact_name = contact.username or contacts[0]
 
@@ -245,7 +270,7 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
             # Непроверенных лидов не шлём; канал не помечаем — проверим в другой день.
             raise GeminiUnavailable()
     if verdict is not None and not verdict.get("fit"):
-        mark_channel(mem, key, "rejected", f"Gemini: {verdict.get('reason', '')}")
+        mark_channel(mem, key, "rejected")
         return None
     message = (verdict or {}).get("message", "").strip()
     if OFFER_LINK not in message:
@@ -308,13 +333,13 @@ async def run() -> None:
         channels = await search_channels(client, mem)
         print(f"Найдено новых каналов для проверки: {len(channels)}")
         gemini_budget = [MAX_GEMINI_CALLS]
-        for chat in channels[:MAX_CHANNELS_TO_CHECK]:
+        for i, chat in enumerate(channels[:MAX_CHANNELS_TO_CHECK], 1):
             if len(leads) >= LEADS_PER_RUN:
                 break
             if gemini.GEMINI_API_KEY and gemini_budget[0] <= 0:
                 print("Лимит запросов Gemini на прогон исчерпан — без его проверки лидов не шлю")
                 break
-            print(f"Проверяю @{chat.username} ({chat.title})...")
+            print(f"Проверяю канал {i}/{len(channels)}...")
             try:
                 lead = await check_channel(client, chat, mem, gemini_budget)
             except StopRun:
@@ -323,7 +348,7 @@ async def run() -> None:
                 stop_reason = "Gemini не отвечает (вероятно, кончилась суточная квота) — остальные каналы проверю завтра"
                 break
             except Exception as e:
-                print(f"  ! ошибка проверки: {e.__class__.__name__}: {e}")
+                print(f"  ! ошибка проверки: {e.__class__.__name__}")
                 continue
             await asyncio.sleep(random.uniform(3, 7))
             if not lead:
@@ -338,9 +363,10 @@ async def run() -> None:
                 if err:
                     print(f"  ! не отправилось: {err}")
 
-            mark_channel(mem, lead["key"], "sent" if sent else "lead", lead["reason"], lead["contact"])
-            mem["contacts"][lead["contact"].lower()] = {"date": date.today().isoformat(), "channel": lead["key"]}
+            mark_channel(mem, lead["key"], "sent" if sent else "lead")
+            mem["contacts"][fingerprint(lead["contact"])] = {"date": date.today().isoformat()}
             leads.append(lead)
+            print(f"  → клиент #{len(leads)} найден, отправлен вам в Telegram")
             report_lead(len(leads), lead, sent)
     except StopRun as e:
         stop_reason = str(e)
