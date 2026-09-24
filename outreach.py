@@ -122,19 +122,29 @@ def mark_channel(mem: dict, key: str, status: str) -> None:
     mem["channels"][fingerprint(key)] = {"date": date.today().isoformat(), "status": status}
 
 
-def notify(text: str) -> None:
-    """Только в Telegram владелице — без print: журнал Actions публичный."""
+def notify(text: str) -> bool:
+    """Только в Telegram владелице — без print текста: журнал Actions публичный.
+    True — если Telegram принял сообщение."""
     if not BOT_TOKEN or not OWNER_ID:
         print("  ! BOT_TOKEN/OWNER_ID не заданы — отчёт некуда отправить")
-        return
+        return False
     try:
-        requests.post(
+        resp = requests.post(
             f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
             json={"chat_id": OWNER_ID, "text": text},
             timeout=20,
         )
     except Exception as e:
         print(f"  ! не удалось отправить уведомление: {e.__class__.__name__}")
+        return False
+    if not resp.ok:
+        try:
+            why = resp.json().get("description", "")
+        except ValueError:
+            why = ""
+        print(f"  ! Telegram не принял уведомление: HTTP {resp.status_code} {why}")
+        return False
+    return True
 
 
 # ---------------------------------------------------------------- разбор канала
@@ -304,10 +314,10 @@ async def send_to_owner(client: TelegramClient, lead: dict) -> tuple[bool, str]:
         return False, e.__class__.__name__
 
 
-def report_lead(n: int, lead: dict, sent: Optional[bool]) -> None:
+def report_lead(n: int, lead: dict, sent: Optional[bool]) -> bool:
     status = {True: "✅ отправлено автоматически", False: "⚠️ автоотправка не удалась — отправьте вручную",
               None: "✉️ отправьте вручную (текст — следующим сообщением)"}[sent]
-    notify(
+    ok = notify(
         f"🎯 Клиент #{n}: {lead['title']}\n"
         f"Канал: https://t.me/{lead['key'][1:]} — {lead['subscribers']} подписчиков\n"
         f"Ниша: {lead['niche']}\n"
@@ -316,8 +326,9 @@ def report_lead(n: int, lead: dict, sent: Optional[bool]) -> None:
         f"Написать: https://t.me/{lead['contact']}\n"
         f"{status}"
     )
-    if sent is not True:
-        notify(lead["message"])
+    if ok and sent is not True:
+        ok = notify(lead["message"])
+    return ok
 
 
 # ---------------------------------------------------------------- прогон
@@ -363,11 +374,14 @@ async def run() -> None:
                 if err:
                     print(f"  ! не отправилось: {err}")
 
+            delivered = report_lead(len(leads) + 1, lead, sent)
+            if not delivered and not sent:
+                # Не помечаем канал: иначе клиент потеряется — найдём его снова в следующий раз.
+                raise StopRun("Telegram не доставляет отчёты владелице — проверьте BOT_TOKEN/OWNER_ID и что боту нажат /start")
             mark_channel(mem, lead["key"], "sent" if sent else "lead")
             mem["contacts"][fingerprint(lead["contact"])] = {"date": date.today().isoformat()}
             leads.append(lead)
             print(f"  → клиент #{len(leads)} найден, отправлен вам в Telegram")
-            report_lead(len(leads), lead, sent)
     except StopRun as e:
         stop_reason = str(e)
         print(f"СТОП: {stop_reason}")

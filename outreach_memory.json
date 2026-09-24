@@ -44,14 +44,6 @@
       "date": "2026-09-23",
       "status": "rejected"
     },
-    "7e52cad543679e227f11": {
-      "date": "2026-09-23",
-      "status": "lead"
-    },
-    "b51caa4b4856e37244bd": {
-      "date": "2026-09-23",
-      "status": "lead"
-    },
     "7cb4ad11164f3990e8df": {
       "date": "2026-09-23",
       "status": "rejected"
@@ -92,10 +84,6 @@
       "date": "2026-09-23",
       "status": "rejected"
     },
-    "cfa3a17c7afca00bb50b": {
-      "date": "2026-09-23",
-      "status": "lead"
-    },
     "f61773b328376a1a5afb": {
       "date": "2026-09-23",
       "status": "rejected"
@@ -121,15 +109,5 @@
       "status": "rejected"
     }
   },
-  "contacts": {
-    "18276be243d6b15f38be": {
-      "date": "2026-09-23"
-    },
-    "46e417f00073d0286b39": {
-      "date": "2026-09-23"
-    },
-    "3dec5ff8915e4afd007c": {
-      "date": "2026-09-23"
-    }
-  }
+  "contacts": {}
 }
