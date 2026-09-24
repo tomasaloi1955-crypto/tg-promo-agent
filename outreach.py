@@ -192,14 +192,25 @@ def template_message(title: str) -> str:
 
 
 async def _resolve_contact(client: TelegramClient, username: str) -> Optional[types.User]:
-    """Контакт должен быть живым человеком, а не каналом/группой/ботом."""
+    """Контакт должен быть живым человеком (не каналом/группой/ботом), который
+    принимает сообщения от незнакомых: многие ставят «писать могут только
+    контакты и Premium» или платные сообщения — такому владельцу не написать."""
     try:
         entity = await flood_safe(lambda: client.get_entity(username))
     except (ValueError, errors.RPCError):
         return None
-    if isinstance(entity, types.User) and not entity.bot and not entity.deleted:
-        return entity
-    return None
+    if not isinstance(entity, types.User) or entity.bot or entity.deleted:
+        return None
+    if entity.contact_require_premium or entity.send_paid_messages_stars:
+        return None
+    try:
+        reqs = await flood_safe(lambda: client(functions.users.GetRequirementsToContactRequest(
+            id=[types.InputUser(user_id=entity.id, access_hash=entity.access_hash)])))
+    except errors.RPCError:
+        return entity  # проверка недоступна — остаются флаги выше
+    if reqs and not isinstance(reqs[0], types.RequirementToContactEmpty):
+        return None
+    return entity
 
 
 # ---------------------------------------------------------------- поиск
