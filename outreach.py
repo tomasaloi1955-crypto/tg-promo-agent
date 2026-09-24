@@ -18,6 +18,14 @@ Gemini проверяет, подходит ли канал, и пишет ли�
 лимитом OUTREACH_MAX_SENDS_PER_RUN (по умолчанию 3) и остановкой при первом
 предупреждении Telegram о спаме.
 
+Чтобы аккаунт не ограничивали за спам (24.09.2026 уже ограничили на сутки по жалобе):
+  • первое письмо короткое, БЕЗ ссылок, @упоминаний и цен, заканчивается вопросом —
+    ссылку и цены владелица отправляет вторым сообщением, только если человек ответил;
+  • первым берём контакт «по рекламе/сотрудничеству», отмечаем открытые комментарии;
+  • не больше 5 клиентов в день, в отчёте — напоминание писать с перерывами;
+  • перед каждым прогоном спрашиваем @SpamBot: если аккаунт ограничен — предупреждаем
+    и ничего не отправляем сами.
+
 Каждый канал обрабатывается один раз навсегда (outreach_memory.json), каждому
 контакту пишем не больше одного раза.
 
@@ -51,7 +59,8 @@ MEMORY_FILE = BASE / "outreach_memory.json"
 # Где лежит ваш пост с предложением услуги — ссылка уходит в каждом сообщении.
 OFFER_LINK = os.getenv("OUTREACH_OFFER_LINK") or "https://t.me/Halalaifreya"
 
-LEADS_PER_RUN = int(os.getenv("OUTREACH_LEADS_PER_RUN", "7"))
+# Больше 5 новых незнакомых в день — заметный риск жалоб «спам».
+LEADS_PER_RUN = int(os.getenv("OUTREACH_LEADS_PER_RUN", "5"))
 MAX_CHANNELS_TO_CHECK = int(os.getenv("OUTREACH_MAX_CHANNELS_TO_CHECK", "30"))
 # Бесплатный Gemini даёт немного запросов в сутки, а его же тратят promo.py и promo_sport.py.
 MAX_GEMINI_CALLS = int(os.getenv("OUTREACH_MAX_GEMINI_CALLS", "10"))
@@ -162,17 +171,24 @@ def find_stop_word(text: str) -> Optional[str]:
     return None
 
 
+_BUSINESS_CONTACT_RE = re.compile(r"реклам|сотруднич|по вопросам|партн[её]р|менеджер|пиар|\bpr\b|\bads?\b|collab", re.I)
+
+
 def extract_contacts(about: str, own_username: str) -> list[str]:
-    """@username-ы из описания канала, кроме самого канала и ботов, в порядке появления."""
-    out: list[str] = []
+    """@username-ы из описания канала, кроме самого канала и ботов. Первыми — те, что
+    подписаны «по рекламе/сотрудничеству»: там деловые предложения ждут и не жалуются."""
+    found: list[tuple[bool, str]] = []
     for m in USERNAME_RE.finditer(about or ""):
         name = m.group(1)
         low = name.lower()
         if low in _NOT_USERNAMES or low == own_username.lower() or low.endswith("bot"):
             continue
-        if low not in (c.lower() for c in out):
-            out.append(name)
-    return out
+        if low in (n.lower() for _, n in found):
+            continue
+        line_start = about.rfind("\n", 0, m.start()) + 1
+        business = bool(_BUSINESS_CONTACT_RE.search(about[max(line_start, m.start() - 60):m.start()]))
+        found.append((business, name))
+    return [n for b, n in found if b] + [n for b, n in found if not b]
 
 
 def activity(dates: list[datetime], now: datetime) -> tuple[Optional[int], int]:
@@ -200,16 +216,78 @@ def feminize(text: str) -> str:
     return text
 
 
+_LINKS_RE = re.compile(r"(?:https?://|www\.)\S+|(?:t|telegram)\.me/\S+|@[A-Za-z]\w{3,}", re.I)
+
+
 def template_message(title: str) -> str:
-    """Запасной текст, если Gemini недоступен."""
+    """Запасной текст, если Gemini недоступен. Без ссылок — см. docstring модуля."""
     return (
-        f"Здравствуйте! Посмотрела ваш канал «{title}» — у вас хороший контент, "
-        "но посты выходят нерегулярно. Могу настроить так, чтобы канал вёлся сам: "
-        "посты каждый день в вашем стиле, а от вас — 10 минут в неделю на утверждение тем. "
-        "Если интересно, бесплатно подготовлю 3 пробных поста в стиле вашего канала, "
-        "чтобы вы оценили результат до оплаты.\n"
+        f"Здравствуйте! Смотрю ваш канал «{title}» — видно, сколько труда вы в него вкладываете. "
+        "Могу сделать так, чтобы посты выходили каждый день в вашем стиле, а от вас было нужно "
+        "минут десять в неделю. Можно расскажу подробнее?"
+    )
+
+
+def first_message(title: str, gemini_text: str) -> str:
+    """Первое письмо: текст Gemini в женском роде. Если Gemini всё же вставил ссылку или
+    @упоминание (главный повод нажать «спам») — берём запасной текст: вырезать ссылку из
+    середины фразы значит сломать фразу."""
+    text = re.sub(r"\n{3,}", "\n\n", (gemini_text or "").strip())
+    if len(text) < 40 or _LINKS_RE.search(text):
+        return template_message(title)
+    return feminize(text)
+
+
+def follow_up_message() -> str:
+    """Второе сообщение — со ссылкой и ценами — только после ответа владельца."""
+    return (
+        "Спасибо, что ответили! Коротко: настраиваю канал так, чтобы посты выходили каждый день "
+        "в вашем стиле — вы раз в неделю утверждаете темы, остальное происходит само. "
+        "Для начала бесплатно подготовлю 3 пробных поста для вашего канала, чтобы вы оценили результат.\n"
         f"Подробнее и цены: {OFFER_LINK}"
     )
+
+
+SAFETY_TIPS = (
+    "Чтобы аккаунт снова не ограничили:\n"
+    "• не больше 5 новым людям в день, между письмами 10–20 минут;\n"
+    "• ссылку и цены — только вторым сообщением, после ответа (текст ниже);\n"
+    "• если у канала открыты комментарии или есть контакт «по рекламе» — лучше туда;\n"
+    "• не копируйте одно письмо разным людям — у каждого своё."
+)
+
+
+async def spam_status(client: TelegramClient) -> Optional[str]:
+    """Спрашивает @SpamBot, не ограничен ли аккаунт. Текст ограничения или None."""
+    try:
+        async with client.conversation("SpamBot", timeout=25) as conv:
+            await conv.send_message("/start")
+            resp = await conv.get_response()
+    except Exception as e:
+        print(f"  ! @SpamBot не ответил: {e.__class__.__name__}")
+        return None
+    text = resp.raw_text or ""
+    if re.search(r"свобод|free as a bird|no limits", text, re.I):
+        return None
+    if re.search(r"ограничен|limited|restricted", text, re.I):
+        return text
+    return None
+
+
+async def warn_if_limited(client: TelegramClient) -> bool:
+    """True — аккаунт сейчас ограничен (владелица предупреждена)."""
+    limit = await spam_status(client)
+    if not limit:
+        return False
+    until = re.search(r"сняты\s+(.+?)(?:\s*\(|\.|$)", limit)
+    notify(
+        "⛔ Telegram сейчас ограничил ваш аккаунт за спам — писать незнакомым нельзя"
+        + (f" до {until.group(1)}" if until else "")
+        + ".\nПисьма ниже всё равно готовлю — отправьте их, когда ограничение снимут. "
+        "Автоотправка на этот прогон выключена."
+    )
+    print("Аккаунт ограничен @SpamBot — автоотправка выключена")
+    return True
 
 
 async def _contact_status(client: TelegramClient, username: str) -> tuple[Optional[types.User], str]:
@@ -312,7 +390,7 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
     verdict = None
     if gemini_budget[0] > 0:
         gemini_budget[0] -= 1
-        verdict = gemini.evaluate_channel_lead(chat.title, about, posts, OFFER_LINK)
+        verdict = gemini.evaluate_channel_lead(chat.title, about, posts)
         await asyncio.sleep(8)  # минутный лимит бесплатного Gemini
         if verdict is None and gemini.GEMINI_API_KEY:
             # Скорее всего кончилась суточная квота (её делят promo.py и promo_sport.py).
@@ -321,14 +399,13 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
     if verdict is not None and not verdict.get("fit"):
         mark_channel(mem, key, "rejected")
         return None
-    message = feminize((verdict or {}).get("message", "").strip())
-    if OFFER_LINK not in message:
-        message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
+    message = first_message(chat.title, (verdict or {}).get("message", ""))
 
     return {
         "key": key,
         "title": chat.title,
         "subscribers": chat.participants_count or 0,
+        "comments": bool(full.full_chat.linked_chat_id),
         "days_since": days_since,
         "posts_30d": posts_30d,
         "niche": (verdict or {}).get("niche", "—"),
@@ -355,7 +432,7 @@ async def send_to_owner(client: TelegramClient, lead: dict) -> tuple[bool, str]:
 
 def report_lead(n: int, lead: dict, sent: Optional[bool]) -> bool:
     status = {True: "✅ отправлено автоматически", False: "⚠️ автоотправка не удалась — отправьте вручную",
-              None: "✉️ отправьте вручную (текст — следующим сообщением)"}[sent]
+              None: "✉️ отправьте вручную (первое письмо — следующим сообщением, без ссылок)"}[sent]
     ok = notify(
         f"🎯 Клиент #{n}: {lead['title']}\n"
         f"Канал: {lead.get('link') or 'https://t.me/' + lead['key'][1:]} — {lead['subscribers']} подписчиков\n"
@@ -364,6 +441,7 @@ def report_lead(n: int, lead: dict, sent: Optional[bool]) -> bool:
         f"Почему подходит: {lead['reason']}\n"
         + (f"Написать: https://t.me/{lead['contact']}\n" if lead.get("contact") else "")
         + (f"⚠️ {lead['contact_note']}\n" if lead.get("contact_note") else "")
+        + ("💬 У канала открыты комментарии — можно написать и под постом\n" if lead.get("comments") else "")
         + status
     )
     if ok and sent is not True:
@@ -381,6 +459,7 @@ async def run() -> None:
     stop_reason = None
     sends_used = 0
     try:
+        limited = await warn_if_limited(client)
         channels = await search_channels(client, mem)
         print(f"Найдено новых каналов для проверки: {len(channels)}")
         gemini_budget = [MAX_GEMINI_CALLS]
@@ -406,7 +485,7 @@ async def run() -> None:
                 continue
 
             sent = None
-            if AUTO_SEND and sends_used < MAX_SENDS_PER_RUN:
+            if AUTO_SEND and not limited and sends_used < MAX_SENDS_PER_RUN:
                 if sends_used:
                     await asyncio.sleep(random.uniform(SEND_MIN_DELAY, SEND_MAX_DELAY))
                 sends_used += 1
@@ -432,7 +511,8 @@ async def run() -> None:
     if stop_reason:
         notify(f"⚠️ Поиск клиентов остановлен: {stop_reason}")
     if leads:
-        notify(f"Поиск клиентов: сегодня {len(leads)} новых. Отмечайте ответы у себя — повторно этим контактам агент не напишет.")
+        notify(f"Поиск клиентов: сегодня {len(leads)} новых. Повторно этим контактам агент не напишет.\n\n{SAFETY_TIPS}")
+        notify(f"↩️ Второе сообщение — отправляйте ТОЛЬКО тем, кто ответил:\n\n{follow_up_message()}")
     elif not stop_reason:
         notify("Поиск клиентов: сегодня подходящих каналов с контактом владельца не нашлось.")
 
@@ -545,13 +625,11 @@ async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tup
         contact_note = ("пишут только контакты и Premium — отправьте письмо в комментарии "
                         "под постом или через другие контакты из описания")
 
-    verdict = gemini.evaluate_channel_lead(chat.title, about, posts, OFFER_LINK)
+    verdict = gemini.evaluate_channel_lead(chat.title, about, posts)
     await asyncio.sleep(8)  # минутный лимит бесплатного Gemini
     if verdict is not None and not verdict.get("fit"):
         return None, f"Gemini: не подходит — {verdict.get('reason', '')}"
-    message = feminize((verdict or {}).get("message", "").strip())
-    if OFFER_LINK not in message:
-        message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
+    message = first_message(chat.title, (verdict or {}).get("message", ""))
 
     key = f"@{chat.username.lower()}" if chat.username else f"#{chat.id}"
     link = f"https://t.me/{chat.username}" if chat.username else f"https://t.me/{name}"
@@ -563,6 +641,7 @@ async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tup
         "link": link,
         "title": chat.title,
         "subscribers": chat.participants_count or 0,
+        "comments": bool(full.full_chat.linked_chat_id),
         "days_since": days_since if days_since is not None else "—",
         "posts_30d": posts_30d,
         "niche": (verdict or {}).get("niche", "—"),
@@ -580,6 +659,7 @@ async def run_manual(names: list[str]) -> None:
     done, skipped = 0, []
     stop_reason = None
     try:
+        await warn_if_limited(client)
         for i, name in enumerate(names, 1):
             print(f"Пишу письмо для канала {i}/{len(names)}...")
             try:
@@ -607,7 +687,11 @@ async def run_manual(names: list[str]) -> None:
         summary += "\nПропущены:\n" + "\n".join(f"• {s}" for s in skipped)
     if stop_reason:
         summary += f"\n⚠️ Остановлено: {stop_reason}"
+    if done:
+        summary += f"\n\n{SAFETY_TIPS}"
     notify(summary)
+    if done:
+        notify(f"↩️ Второе сообщение — отправляйте ТОЛЬКО тем, кто ответил:\n\n{follow_up_message()}")
 
 
 if __name__ == "__main__":
