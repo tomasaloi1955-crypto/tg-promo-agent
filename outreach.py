@@ -184,6 +184,22 @@ def activity(dates: list[datetime], now: datetime) -> tuple[Optional[int], int]:
     return (now - last).days, sum(1 for d in dates if d >= month_ago)
 
 
+# Существительные на -л, которые могут стоять сразу после «я» («я канал смотрю»).
+_NOT_VERBS = {"канал", "материал", "журнал", "персонал", "потенциал", "сериал", "финал", "идеал",
+              "зал", "стол", "пол", "сигнал"}
+_MASC_ADJ = r"(рад|готов|уверен|благодарен|знаком|заинтересован|свободен)"
+
+
+def feminize(text: str) -> str:
+    """Страховка к промпту: письмо пишет женщина. Правит типичные мужские формы о себе:
+    «я посмотрел» → «я посмотрела», «буду рад» → «буду рада», «я готов» → «я готова»."""
+    text = re.sub(r"\b([Яя])(\s+(?:внимательно|уже|тоже|также|недавно|специально|с интересом|давно)?\s*)(\w+л)(?=[\s,.!?:;]|$)",
+                  lambda m: m.group(0) if m.group(3).lower() in _NOT_VERBS else f"{m.group(1)}{m.group(2)}{m.group(3)}а", text)
+    text = re.sub(rf"\b([Яя]|[Бб]уду|[Бб]ыла бы|[Бб]ыл бы)(\s+(?:очень\s+|искренне\s+)?){_MASC_ADJ}(?=[\s,.!?:;]|$)",
+                  lambda m: f"{m.group(1).replace('ыл бы', 'ыла бы')}{m.group(2)}{m.group(3)}а", text)
+    return text
+
+
 def template_message(title: str) -> str:
     """Запасной текст, если Gemini недоступен."""
     return (
@@ -305,7 +321,7 @@ async def check_channel(client: TelegramClient, chat: types.Channel, mem: dict, 
     if verdict is not None and not verdict.get("fit"):
         mark_channel(mem, key, "rejected")
         return None
-    message = (verdict or {}).get("message", "").strip()
+    message = feminize((verdict or {}).get("message", "").strip())
     if OFFER_LINK not in message:
         message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
 
@@ -533,7 +549,7 @@ async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tup
     await asyncio.sleep(8)  # минутный лимит бесплатного Gemini
     if verdict is not None and not verdict.get("fit"):
         return None, f"Gemini: не подходит — {verdict.get('reason', '')}"
-    message = (verdict or {}).get("message", "").strip()
+    message = feminize((verdict or {}).get("message", "").strip())
     if OFFER_LINK not in message:
         message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
 
