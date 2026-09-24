@@ -65,6 +65,9 @@ MAX_POSTS_30D = int(os.getenv("OUTREACH_MAX_POSTS_30D", "20"))
 AUTO_SEND = os.getenv("OUTREACH_AUTO_SEND", "").lower() in ("1", "true", "yes", "on")
 # Ручной режим: сколько каналов из списка владелицы обрабатываем за один запуск.
 MANUAL_MAX_CHANNELS = 10
+# Паузы после вступления в приватный канал — вступления Telegram отслеживает строже всего.
+MIN_JOIN_DELAY = 20
+MAX_JOIN_DELAY = 45
 MAX_SENDS_PER_RUN = min(int(os.getenv("OUTREACH_MAX_SENDS_PER_RUN", "3")), 5)
 SEND_MIN_DELAY = 90
 SEND_MAX_DELAY = 240
@@ -339,7 +342,7 @@ def report_lead(n: int, lead: dict, sent: Optional[bool]) -> bool:
               None: "✉️ отправьте вручную (текст — следующим сообщением)"}[sent]
     ok = notify(
         f"🎯 Клиент #{n}: {lead['title']}\n"
-        f"Канал: https://t.me/{lead['key'][1:]} — {lead['subscribers']} подписчиков\n"
+        f"Канал: {lead.get('link') or 'https://t.me/' + lead['key'][1:]} — {lead['subscribers']} подписчиков\n"
         f"Ниша: {lead['niche']}\n"
         f"Активность: последний пост {lead['days_since']} дн. назад, {lead['posts_30d']} постов за 30 дней\n"
         f"Почему подходит: {lead['reason']}\n"
@@ -435,9 +438,15 @@ def channels_from_dispatch() -> list[str]:
 
 def parse_channel_list(raw: str) -> list[str]:
     """@name, t.me/name, https://t.me/name/123 или просто name — через пробел, запятую
-    или с новой строки. Приватные ссылки-приглашения (t.me/+…) не поддерживаются."""
+    или с новой строки. Приватные приглашения t.me/+ХЕШ и t.me/joinchat/ХЕШ
+    возвращаются как "+ХЕШ" — в такие каналы агент вступает."""
     out: list[str] = []
     for token in re.split(r"[\s,;]+", raw):
+        inv = re.match(r"^(?:https?://)?(?:t|telegram)\.me/(?:\+|joinchat/)([A-Za-z0-9_-]{8,})", token.strip())
+        if inv:
+            if f"+{inv.group(1)}" not in out:
+                out.append(f"+{inv.group(1)}")
+            continue
         m = re.match(r"^(?:https?://)?(?:t|telegram)\.me/([A-Za-z][A-Za-z0-9_]{3,31})|^@?([A-Za-z][A-Za-z0-9_]{3,31})$", token.strip())
         if not m:
             continue
@@ -447,13 +456,52 @@ def parse_channel_list(raw: str) -> list[str]:
     return out[:MANUAL_MAX_CHANNELS]
 
 
+async def _join_by_invite(client: TelegramClient, invite_hash: str) -> tuple[Optional[types.Channel], str]:
+    """Вступает в приватный канал по приглашению (если уже участник — просто открывает)."""
+    try:
+        info = await flood_safe(lambda: client(functions.messages.CheckChatInviteRequest(hash=invite_hash)))
+    except (errors.InviteHashExpiredError, errors.InviteHashInvalidError):
+        return None, "приглашение недействительно или истекло"
+    except errors.RPCError as e:
+        return None, f"приглашение не открылось ({e.__class__.__name__})"
+    if isinstance(info, types.ChatInviteAlready):
+        return info.chat, ""
+    if isinstance(info, types.ChatInvite) and info.request_needed:
+        # Всё равно подаём заявку: вдруг админ примет — но прочитать канал сейчас нельзя.
+        try:
+            await flood_safe(lambda: client(functions.messages.ImportChatInviteRequest(hash=invite_hash)))
+        except errors.InviteRequestSentError:
+            pass
+        except errors.RPCError:
+            pass
+        return None, f"«{info.title}» — вступление по заявке, заявку подала; когда примут, пришлите ссылку ещё раз"
+    try:
+        upd = await flood_safe(lambda: client(functions.messages.ImportChatInviteRequest(hash=invite_hash)))
+    except errors.UserAlreadyParticipantError:
+        return None, "уже участник, но канал не открылся — пришлите публичную ссылку"
+    except errors.ChannelsTooMuchError:
+        raise StopRun("достигнут лимит Telegram на количество каналов/групп у аккаунта")
+    except errors.InviteRequestSentError:
+        return None, "вступление по заявке — заявку подала; когда примут, пришлите ссылку ещё раз"
+    except errors.RPCError as e:
+        return None, f"не удалось вступить ({e.__class__.__name__})"
+    chats = [c for c in getattr(upd, "chats", []) if isinstance(c, types.Channel)]
+    await asyncio.sleep(random.uniform(MIN_JOIN_DELAY, MAX_JOIN_DELAY))
+    return (chats[0], "") if chats else (None, "вступила, но канал не открылся")
+
+
 async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tuple[Optional[dict], str]:
     """Письмо для канала из ручного списка. Фильтры частоты/размера не применяем —
     канал выбрала владелица; отсекаем только запрещённые ниши. (лид, пояснение)."""
-    try:
-        chat = await flood_safe(lambda: client.get_entity(name))
-    except (ValueError, errors.RPCError):
-        return None, "не нашёлся (проверьте ссылку)"
+    if name.startswith("+"):
+        chat, why = await _join_by_invite(client, name[1:])
+        if not chat:
+            return None, why
+    else:
+        try:
+            chat = await flood_safe(lambda: client.get_entity(name))
+        except (ValueError, errors.RPCError):
+            return None, "не нашёлся (проверьте ссылку)"
     if not isinstance(chat, types.Channel):
         return None, "это не канал и не группа"
 
@@ -489,12 +537,14 @@ async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tup
     if OFFER_LINK not in message:
         message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
 
-    key = f"@{(chat.username or name).lower()}"
+    key = f"@{chat.username.lower()}" if chat.username else f"#{chat.id}"
+    link = f"https://t.me/{chat.username}" if chat.username else f"https://t.me/{name}"
     mark_channel(mem, key, "lead")
     if contact_name:
         mem["contacts"][fingerprint(contact_name)] = {"date": date.today().isoformat()}
     return {
         "key": key,
+        "link": link,
         "title": chat.title,
         "subscribers": chat.participants_count or 0,
         "days_since": days_since if days_since is not None else "—",
@@ -523,7 +573,7 @@ async def run_manual(names: list[str]) -> None:
             except Exception as e:
                 lead, why = None, f"ошибка ({e.__class__.__name__})"
             if not lead:
-                skipped.append(f"@{name}: {why}")
+                skipped.append(f"t.me/{name}: {why}")
                 continue
             done += 1
             if not report_lead(done, lead, None):
