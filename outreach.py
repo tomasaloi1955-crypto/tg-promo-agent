@@ -63,6 +63,8 @@ MAX_DAYS_SINCE_LAST_POST = int(os.getenv("OUTREACH_MAX_DAYS_SINCE_LAST_POST", "4
 MAX_POSTS_30D = int(os.getenv("OUTREACH_MAX_POSTS_30D", "20"))
 
 AUTO_SEND = os.getenv("OUTREACH_AUTO_SEND", "").lower() in ("1", "true", "yes", "on")
+# Ручной режим: сколько каналов из списка владелицы обрабатываем за один запуск.
+MANUAL_MAX_CHANNELS = 10
 MAX_SENDS_PER_RUN = min(int(os.getenv("OUTREACH_MAX_SENDS_PER_RUN", "3")), 5)
 SEND_MIN_DELAY = 90
 SEND_MAX_DELAY = 240
@@ -191,26 +193,33 @@ def template_message(title: str) -> str:
     )
 
 
-async def _resolve_contact(client: TelegramClient, username: str) -> Optional[types.User]:
-    """Контакт должен быть живым человеком (не каналом/группой/ботом), который
-    принимает сообщения от незнакомых: многие ставят «писать могут только
-    контакты и Premium» или платные сообщения — такому владельцу не написать."""
+async def _contact_status(client: TelegramClient, username: str) -> tuple[Optional[types.User], str]:
+    """(пользователь, статус): "ok" — живой человек, принимает сообщения от незнакомых;
+    "closed" — пишут только контакты/Premium или сообщения платные; "not_person" —
+    канал, группа, бот или не найден."""
     try:
         entity = await flood_safe(lambda: client.get_entity(username))
     except (ValueError, errors.RPCError):
-        return None
+        return None, "not_person"
     if not isinstance(entity, types.User) or entity.bot or entity.deleted:
-        return None
+        return None, "not_person"
     if entity.contact_require_premium or entity.send_paid_messages_stars:
-        return None
+        return entity, "closed"
     try:
         reqs = await flood_safe(lambda: client(functions.users.GetRequirementsToContactRequest(
             id=[types.InputUser(user_id=entity.id, access_hash=entity.access_hash)])))
     except errors.RPCError:
-        return entity  # проверка недоступна — остаются флаги выше
+        return entity, "ok"  # проверка недоступна — остаются флаги выше
     if reqs and not isinstance(reqs[0], types.RequirementToContactEmpty):
-        return None
-    return entity
+        return entity, "closed"
+    return entity, "ok"
+
+
+async def _resolve_contact(client: TelegramClient, username: str) -> Optional[types.User]:
+    """Контакт, которому реально можно написать: многие ставят «писать могут только
+    контакты и Premium» или платные сообщения — такому владельцу не написать."""
+    entity, status = await _contact_status(client, username)
+    return entity if status == "ok" else None
 
 
 # ---------------------------------------------------------------- поиск
@@ -334,8 +343,9 @@ def report_lead(n: int, lead: dict, sent: Optional[bool]) -> bool:
         f"Ниша: {lead['niche']}\n"
         f"Активность: последний пост {lead['days_since']} дн. назад, {lead['posts_30d']} постов за 30 дней\n"
         f"Почему подходит: {lead['reason']}\n"
-        f"Написать: https://t.me/{lead['contact']}\n"
-        f"{status}"
+        + (f"Написать: https://t.me/{lead['contact']}\n" if lead.get("contact") else "")
+        + (f"⚠️ {lead['contact_note']}\n" if lead.get("contact_note") else "")
+        + status
     )
     if ok and sent is not True:
         ok = notify(lead["message"])
@@ -408,10 +418,137 @@ async def run() -> None:
         notify("Поиск клиентов: сегодня подходящих каналов с контактом владельца не нашлось.")
 
 
+# ---------------------------------------------------------------- ручной список каналов
+
+def channels_from_dispatch() -> list[str]:
+    """Каналы, которые владелица вписала при ручном запуске (поле «Каналы» в Actions).
+    Берём из файла события, а не из env: env печатается в публичном журнале."""
+    path = os.getenv("GITHUB_EVENT_PATH")
+    if not path or not os.path.exists(path):
+        return []
+    try:
+        raw = (json.loads(Path(path).read_text(encoding="utf-8")).get("inputs") or {}).get("channels") or ""
+    except (ValueError, OSError):
+        return []
+    return parse_channel_list(raw)
+
+
+def parse_channel_list(raw: str) -> list[str]:
+    """@name, t.me/name, https://t.me/name/123 или просто name — через пробел, запятую
+    или с новой строки. Приватные ссылки-приглашения (t.me/+…) не поддерживаются."""
+    out: list[str] = []
+    for token in re.split(r"[\s,;]+", raw):
+        m = re.match(r"^(?:https?://)?(?:t|telegram)\.me/([A-Za-z][A-Za-z0-9_]{3,31})|^@?([A-Za-z][A-Za-z0-9_]{3,31})$", token.strip())
+        if not m:
+            continue
+        name = (m.group(1) or m.group(2)).lower()
+        if name not in _NOT_USERNAMES and name not in out:
+            out.append(name)
+    return out[:MANUAL_MAX_CHANNELS]
+
+
+async def write_for_channel(client: TelegramClient, name: str, mem: dict) -> tuple[Optional[dict], str]:
+    """Письмо для канала из ручного списка. Фильтры частоты/размера не применяем —
+    канал выбрала владелица; отсекаем только запрещённые ниши. (лид, пояснение)."""
+    try:
+        chat = await flood_safe(lambda: client.get_entity(name))
+    except (ValueError, errors.RPCError):
+        return None, "не нашёлся (проверьте ссылку)"
+    if not isinstance(chat, types.Channel):
+        return None, "это не канал и не группа"
+
+    full = await flood_safe(lambda: client(functions.channels.GetFullChannelRequest(chat)))
+    about = full.full_chat.about or ""
+    if w := find_stop_word(f"{chat.title} {about}"):
+        return None, f"запрещённая ниша («{w}»)"
+
+    msgs = await flood_safe(lambda: client.get_messages(chat, limit=30))
+    days_since, posts_30d = activity([m.date for m in msgs if m.date], datetime.now(timezone.utc))
+    posts = [m.message for m in msgs if m.message][:4]
+
+    # Контакт: первый, кому можно написать; иначе — подсказка, как достучаться.
+    contact_name, contact_note = "", "в описании канала нет @контакта — ищите его в закрепе или пишите в комментарии"
+    closed = []
+    for c in extract_contacts(about, chat.username or "")[:3]:
+        entity, status = await _contact_status(client, c)
+        if status == "ok":
+            contact_name, contact_note = entity.username or c, ""
+            break
+        if status == "closed":
+            closed.append(entity.username or c)
+    if not contact_name and closed:
+        contact_name = closed[0]
+        contact_note = ("пишут только контакты и Premium — отправьте письмо в комментарии "
+                        "под постом или через другие контакты из описания")
+
+    verdict = gemini.evaluate_channel_lead(chat.title, about, posts, OFFER_LINK)
+    await asyncio.sleep(8)  # минутный лимит бесплатного Gemini
+    if verdict is not None and not verdict.get("fit"):
+        return None, f"Gemini: не подходит — {verdict.get('reason', '')}"
+    message = (verdict or {}).get("message", "").strip()
+    if OFFER_LINK not in message:
+        message = template_message(chat.title) if not message else f"{message}\nПодробнее и цены: {OFFER_LINK}"
+
+    key = f"@{(chat.username or name).lower()}"
+    mark_channel(mem, key, "lead")
+    if contact_name:
+        mem["contacts"][fingerprint(contact_name)] = {"date": date.today().isoformat()}
+    return {
+        "key": key,
+        "title": chat.title,
+        "subscribers": chat.participants_count or 0,
+        "days_since": days_since if days_since is not None else "—",
+        "posts_30d": posts_30d,
+        "niche": (verdict or {}).get("niche", "—"),
+        "reason": (verdict or {}).get("reason", "выбран вами"),
+        "contact": contact_name,
+        "contact_note": contact_note,
+        "message": message,
+    }, ""
+
+
+async def run_manual(names: list[str]) -> None:
+    mem = load_memory()
+    client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
+    await client.start()
+    done, skipped = 0, []
+    stop_reason = None
+    try:
+        for i, name in enumerate(names, 1):
+            print(f"Пишу письмо для канала {i}/{len(names)}...")
+            try:
+                lead, why = await write_for_channel(client, name, mem)
+            except StopRun:
+                raise
+            except Exception as e:
+                lead, why = None, f"ошибка ({e.__class__.__name__})"
+            if not lead:
+                skipped.append(f"@{name}: {why}")
+                continue
+            done += 1
+            if not report_lead(done, lead, None):
+                raise StopRun("Telegram не доставляет отчёты владелице — проверьте BOT_TOKEN/OWNER_ID")
+            await asyncio.sleep(random.uniform(2, 4))
+    except StopRun as e:
+        stop_reason = str(e)
+        print(f"СТОП: {stop_reason}")
+    finally:
+        await client.disconnect()
+        save_memory(mem)
+
+    summary = f"Письма по вашему списку: готово {done} из {len(names)}."
+    if skipped:
+        summary += "\nПропущены:\n" + "\n".join(f"• {s}" for s in skipped)
+    if stop_reason:
+        summary += f"\n⚠️ Остановлено: {stop_reason}"
+    notify(summary)
+
+
 if __name__ == "__main__":
     try:
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stderr.reconfigure(encoding="utf-8")
     except Exception:
         pass
-    asyncio.run(run())
+    manual = channels_from_dispatch()
+    asyncio.run(run_manual(manual) if manual else run())
