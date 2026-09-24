@@ -75,6 +75,10 @@
     "@piarkanae": {
       "date": "2026-09-17",
       "theme": "sport"
+    },
+    "@piar_chat_fludovv": {
+      "date": "2026-09-24",
+      "theme": "english"
     }
   },
   "skipped": {
@@ -83,8 +87,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@englishaaa2": {
-      "date": "2026-08-31",
-      "reason": "Gemini: unclear — В описании и закреплённом сообщении чата нет никакой информации о правилах размещения рекламы или самопиара."
+      "date": "2026-09-24",
+      "reason": "Gemini: unclear — В описании и закреплённом сообщении нет никакой информации о правилах публикации рекламы или самопиара."
     },
     "@russia_vo_vremeni": {
       "date": "2026-09-02",
@@ -195,8 +199,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@kpoppiarchikchatiks": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-24",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата указывает на его рекламную направленность, а в описании явно указан прайс, что подразумевает оплату за размещение."
     },
     "@puarchatroleviefloodi": {
       "date": "2026-09-02",
@@ -207,8 +211,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_chat_fludov": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-24",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@piar_chat_fludovv": {
       "date": "2026-09-02",
@@ -247,8 +251,8 @@
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
     },
     "@psps_uou_saint": {
-      "date": "2026-09-10",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-09-24",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата говорит о взаимном пиаре, но в описании указано наличие прайса для рекламы, что подразумевает платные размещения."
     },
     "@vzaimnayareklamakanalov": {
       "date": "2026-09-10",
@@ -339,6 +343,11 @@
     "2026-09-20": {
       "theme": "education",
       "chat": "@piaradopt_chat",
+      "posted": true
+    },
+    "2026-09-24": {
+      "theme": "english",
+      "chat": "@piar_chat_fludovv",
       "posted": true
     }
   }
