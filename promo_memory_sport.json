@@ -75,6 +75,10 @@
     "@piarkanae": {
       "date": "2026-09-17",
       "theme": "sport"
+    },
+    "@piar_chat_fludovv": {
+      "date": "2026-09-24",
+      "theme": "english"
     }
   },
   "skipped": {
@@ -215,8 +219,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_dlya_vld_sovld_adminov": {
-      "date": "2026-09-02",
-      "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
+      "date": "2026-09-24",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата говорит о пиаре, а закрепленное сообщение содержит прайс на размещение рекламы и призывает писать владельцу для покупки."
     },
     "@prettyromkachat": {
       "date": "2026-09-21",
@@ -247,8 +251,8 @@
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
     },
     "@psps_uou_saint": {
-      "date": "2026-09-10",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-09-24",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата говорит о взаимном пиаре, но в описании указано, что реклама предоставляется по прайсу."
     },
     "@vzaimnayareklamakanalov": {
       "date": "2026-09-10",
