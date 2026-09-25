@@ -25,7 +25,7 @@
       "theme": "sport"
     },
     "@piaradopt_chat": {
-      "date": "2026-08-13",
+      "date": "2026-09-25",
       "theme": "sport"
     },
     "@tgchat_reklama": {
@@ -328,6 +328,11 @@
     "2026-09-17": {
       "theme": "sport",
       "chat": "@piarkanae",
+      "posted": true
+    },
+    "2026-09-25": {
+      "theme": "sport",
+      "chat": "@piaradopt_chat",
       "posted": true
     }
   }
