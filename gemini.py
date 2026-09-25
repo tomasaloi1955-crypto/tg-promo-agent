@@ -6,6 +6,7 @@
 """
 import json
 import os
+import time
 from typing import Optional
 
 from google import genai
@@ -143,20 +144,28 @@ def evaluate_channel_lead(title: str, about: str, posts: list[str]) -> Optional[
     posts_text = "\n---\n".join(p[:500] for p in posts if p) or "(постов нет)"
     prompt = f"Название канала: {title}\n\nОписание:\n{about or '(пусто)'}\n\nПоследние посты:\n{posts_text}"
     client = genai.Client(api_key=GEMINI_API_KEY)
-    try:
-        resp = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=LEAD_SYSTEM_INSTRUCTION,
-                response_mime_type="application/json",
-                response_schema=LEAD_RESPONSE_SCHEMA,
-            ),
-        )
-        data = json.loads(resp.text)
-    except Exception as e:
-        print(f"  ! Gemini: {e.__class__.__name__}: {e}")
-        return None
+    data = None
+    for attempt in range(3):
+        try:
+            resp = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=LEAD_SYSTEM_INSTRUCTION,
+                    response_mime_type="application/json",
+                    response_schema=LEAD_RESPONSE_SCHEMA,
+                ),
+            )
+            data = json.loads(resp.text)
+            break
+        except Exception as e:
+            # 503 «high demand» у бесплатного Gemini обычно проходит за десятки секунд —
+            # повторяем, иначе владелица получает шаблон вместо личного письма.
+            overloaded = "503" in str(e) or "UNAVAILABLE" in str(e)
+            print(f"  ! Gemini: {e.__class__.__name__}" + (" (перегружен, повторю)" if overloaded and attempt < 2 else ""))
+            if not overloaded or attempt == 2:
+                return None
+            time.sleep(20 * (attempt + 1))
     if not isinstance(data, dict) or "fit" not in data:
         return None
     return data
