@@ -1,7 +1,7 @@
 {
   "posted": {
     "@hguklo": {
-      "date": "2026-08-01",
+      "date": "2026-09-26",
       "theme": "sport"
     },
     "@pr_for_artist": {
@@ -333,6 +333,11 @@
     "2026-09-25": {
       "theme": "sport",
       "chat": "@piaradopt_chat",
+      "posted": true
+    },
+    "2026-09-26": {
+      "theme": "sport",
+      "chat": "@hguklo",
       "posted": true
     }
   }
