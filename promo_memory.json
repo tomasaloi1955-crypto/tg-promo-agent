@@ -155,7 +155,7 @@
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
     },
     "@vzaimno_telegram_comm": {
-      "date": "2026-09-12",
+      "date": "2026-09-27",
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@advertising_exchange_1": {
@@ -247,7 +247,7 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@reklama_piaarr": {
-      "date": "2026-09-06",
+      "date": "2026-09-27",
       "reason": "ошибка отправки: ChatSendPhotosForbiddenError"
     },
     "@psps_uou_saint": {
@@ -255,8 +255,8 @@
       "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата говорит о взаимном пиаре, но в описании указано наличие прайса для рекламы, что подразумевает платные размещения."
     },
     "@vzaimnayareklamakanalov": {
-      "date": "2026-09-10",
-      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет информации о разрешении или запрете самопиара/рекламы."
+      "date": "2026-09-27",
+      "reason": "Gemini: unclear — В описании и закрепе нет явной информации о разрешении или запрете самопиара, несмотря на название чата."
     },
     "@chatpometabolizmy": {
       "date": "2026-09-11",
@@ -277,6 +277,10 @@
     "@biznes_ch_at": {
       "date": "2026-09-21",
       "reason": "Gemini: conditional (paid_or_approval) — Описание чата указывает на необходимость связи с указанным контактом для размещения рекламы, что подразумевает предварительное согласование или оплату."
+    },
+    "@bizneskontakti": {
+      "date": "2026-09-27",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — В описании чата указан контакт для рекламы и сотрудничества, что предполагает согласование с администрацией."
     }
   },
   "daily": {
