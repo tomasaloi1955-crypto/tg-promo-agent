@@ -29,8 +29,8 @@
       "theme": "education"
     },
     "@tgchat_reklama": {
-      "date": "2026-08-27",
-      "theme": "education"
+      "date": "2026-10-01",
+      "theme": "sport"
     },
     "@fludov_chat": {
       "date": "2026-08-31",
@@ -357,6 +357,11 @@
     "2026-09-26": {
       "theme": "education",
       "chat": "@hguklo",
+      "posted": true
+    },
+    "2026-10-01": {
+      "theme": "sport",
+      "chat": "@tgchat_reklama",
       "posted": true
     }
   }
