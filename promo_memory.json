@@ -111,8 +111,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@api_ozon": {
-      "date": "2026-09-15",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-10-03",
+      "reason": "Gemini: unclear — В описании чата нет никакой информации о разрешении или запрете самопиара/рекламы, а его назначение - взаимопомощь по Ozon API."
     },
     "@biznes_chat": {
       "date": "2026-08-16",
@@ -159,8 +159,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@advertising_exchange_1": {
-      "date": "2026-09-17",
-      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+      "date": "2026-10-03",
+      "reason": "ошибка отправки: ForbiddenError"
     },
     "@chat_biznes1": {
       "date": "2026-08-28",
