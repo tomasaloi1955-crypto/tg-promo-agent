@@ -45,8 +45,8 @@
       "theme": "sport"
     },
     "@piar_chat_ua01": {
-      "date": "2026-09-01",
-      "theme": "sport"
+      "date": "2026-10-06",
+      "theme": "english"
     },
     "@vz_chatvz": {
       "date": "2026-09-02",
@@ -367,6 +367,11 @@
     "2026-10-05": {
       "theme": "arabic",
       "chat": "@fludov_chat",
+      "posted": true
+    },
+    "2026-10-06": {
+      "theme": "english",
+      "chat": "@piar_chat_ua01",
       "posted": true
     }
   }
