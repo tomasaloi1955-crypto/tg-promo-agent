@@ -37,7 +37,7 @@
       "theme": "arabic"
     },
     "@qqwwppp2": {
-      "date": "2026-08-31",
+      "date": "2026-10-07",
       "theme": "sport"
     },
     "@piar_chattsd": {
@@ -372,6 +372,11 @@
     "2026-10-06": {
       "theme": "english",
       "chat": "@piar_chat_ua01",
+      "posted": true
+    },
+    "2026-10-07": {
+      "theme": "sport",
+      "chat": "@qqwwppp2",
       "posted": true
     }
   }
