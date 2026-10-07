@@ -33,8 +33,8 @@
       "theme": "sport"
     },
     "@fludov_chat": {
-      "date": "2026-08-31",
-      "theme": "english"
+      "date": "2026-10-07",
+      "theme": "sport"
     },
     "@qqwwppp2": {
       "date": "2026-10-06",
@@ -357,6 +357,11 @@
     "2026-10-06": {
       "theme": "sport",
       "chat": "@qqwwppp2",
+      "posted": true
+    },
+    "2026-10-07": {
+      "theme": "sport",
+      "chat": "@fludov_chat",
       "posted": true
     }
   }
