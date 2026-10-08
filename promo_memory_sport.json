@@ -41,7 +41,7 @@
       "theme": "sport"
     },
     "@piar_chattsd": {
-      "date": "2026-09-01",
+      "date": "2026-10-08",
       "theme": "sport"
     },
     "@piar_chat_ua01": {
@@ -281,6 +281,10 @@
     "@bizneskontakti": {
       "date": "2026-09-27",
       "reason": "Gemini: conditional (условие: оплата/согласование) — В описании чата указан контакт для рекламы и сотрудничества, что предполагает согласование с администрацией."
+    },
+    "@vz_chatvz": {
+      "date": "2026-10-08",
+      "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     }
   },
   "daily": {
@@ -362,6 +366,11 @@
     "2026-10-07": {
       "theme": "sport",
       "chat": "@fludov_chat",
+      "posted": true
+    },
+    "2026-10-08": {
+      "theme": "sport",
+      "chat": "@piar_chattsd",
       "posted": true
     }
   }
