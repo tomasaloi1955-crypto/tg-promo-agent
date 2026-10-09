@@ -57,8 +57,8 @@
       "theme": "education"
     },
     "@riboshk": {
-      "date": "2026-09-04",
-      "theme": "family"
+      "date": "2026-10-09",
+      "theme": "ai"
     },
     "@poisk_chaty": {
       "date": "2026-09-09",
@@ -386,6 +386,11 @@
     "2026-10-08": {
       "theme": "education",
       "chat": "@spam_chat2",
+      "posted": true
+    },
+    "2026-10-09": {
+      "theme": "ai",
+      "chat": "@riboshk",
       "posted": true
     }
   }
