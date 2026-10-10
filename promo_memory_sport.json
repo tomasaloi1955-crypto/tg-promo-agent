@@ -45,7 +45,7 @@
       "theme": "sport"
     },
     "@piar_chat_ua01": {
-      "date": "2026-09-01",
+      "date": "2026-10-10",
       "theme": "sport"
     },
     "@vz_chatvz": {
@@ -376,6 +376,11 @@
     "2026-10-09": {
       "theme": "sport",
       "chat": "@riboshk",
+      "posted": true
+    },
+    "2026-10-10": {
+      "theme": "sport",
+      "chat": "@piar_chat_ua01",
       "posted": true
     }
   }
