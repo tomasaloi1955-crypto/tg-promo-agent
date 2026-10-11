@@ -13,7 +13,7 @@
       "theme": "education"
     },
     "@vzaimnayareklamakanalov": {
-      "date": "2026-08-06",
+      "date": "2026-10-11",
       "theme": "arabic"
     },
     "@piar_vv": {
@@ -391,6 +391,11 @@
     "2026-10-09": {
       "theme": "ai",
       "chat": "@riboshk",
+      "posted": true
+    },
+    "2026-10-11": {
+      "theme": "arabic",
+      "chat": "@vzaimnayareklamakanalov",
       "posted": true
     }
   }
