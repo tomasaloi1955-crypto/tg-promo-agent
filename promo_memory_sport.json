@@ -21,7 +21,7 @@
       "theme": "sport"
     },
     "@prfromlain_0": {
-      "date": "2026-08-12",
+      "date": "2026-10-12",
       "theme": "sport"
     },
     "@piaradopt_chat": {
@@ -78,6 +78,10 @@
     },
     "@piar_chat_fludovv": {
       "date": "2026-09-24",
+      "theme": "english"
+    },
+    "@puarchatroleviefloodi": {
+      "date": "2026-10-12",
       "theme": "english"
     }
   },
@@ -219,8 +223,8 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@piar_dlya_vld_sovld_adminov": {
-      "date": "2026-09-24",
-      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата говорит о пиаре, а закрепленное сообщение содержит прайс на размещение рекламы и призывает писать владельцу для покупки."
+      "date": "2026-10-12",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата прямо указывает на пиар, а в закреплённом сообщении указан прайс на размещение рекламы и инструкция для покупки."
     },
     "@prettyromkachat": {
       "date": "2026-10-05",
@@ -285,6 +289,10 @@
     "@vz_chatvz": {
       "date": "2026-10-08",
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
+    },
+    "@piar_chattsd": {
+      "date": "2026-10-12",
+      "reason": "Gemini: conditional (условие: оплата/согласование) — Название чата явно указывает на пиар/рекламу, а в описании указана стоимость размещения закрепленного сообщения, что подразумевает платный характер рекламы."
     }
   },
   "daily": {
@@ -381,6 +389,11 @@
     "2026-10-10": {
       "theme": "sport",
       "chat": "@piar_chat_ua01",
+      "posted": true
+    },
+    "2026-10-12": {
+      "theme": "sport",
+      "chat": "@prfromlain_0",
       "posted": true
     }
   }
