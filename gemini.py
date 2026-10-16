@@ -169,3 +169,61 @@ def evaluate_channel_lead(title: str, about: str, posts: list[str]) -> Optional[
     if not isinstance(data, dict) or "fit" not in data:
         return None
     return data
+
+
+# ---------------------------------------------------------------- аудитория чата (promo.py)
+
+AUDIENCE_RESPONSE_SCHEMA = types.Schema(
+    type=types.Type.OBJECT,
+    properties={
+        "fit": types.Schema(type=types.Type.BOOLEAN),
+        "reason": types.Schema(type=types.Type.STRING),
+    },
+    required=["fit", "reason"],
+)
+
+AUDIENCE_SYSTEM_INSTRUCTION = """Ты помогаешь рекламе найти СВОЮ аудиторию в Telegram.
+Тебе дают описание нужной аудитории, а также название, описание (about) и закреплённое
+сообщение чата или канала. Верни ТОЛЬКО JSON по схеме:
+- fit — true, только если в этом чате/канале по названию и описанию явно сидит нужная
+  аудитория. false, если:
+  • это чат/канал для взаимного пиара, самопиара, рекламы каналов, флуда, «поиска чатов»,
+    накрутки — там сидят админы чужих каналов, а не клиенты;
+  • тематика не связана (k-pop, игры, ролевые, крипта, заработок, политика, новости и т.п.);
+  • аудитория в основном мужская или смешанная без явного женского фокуса, если нужна женская;
+  • информации слишком мало, чтобы понять, кто там сидит.
+- reason — одно короткое предложение на русском, почему.
+Будь консервативен: при сомнении — false. Реклама не в том месте раздражает людей и
+приносит жалобы на спам."""
+
+
+def check_audience_fit(title: str, about: str, pinned: str, audience: str) -> dict:
+    """Сидит ли в чате/канале нужная аудитория. При недоступном Gemini — fit=False."""
+    if not GEMINI_API_KEY:
+        return {"fit": False, "reason": "GEMINI_API_KEY не задан."}
+
+    prompt = (
+        f"Нужная аудитория: {audience}\n\n"
+        f"Название: {title}\n\nОписание (about):\n{about or '(пусто)'}\n\n"
+        f"Закреплённое сообщение:\n{(pinned or '(пусто)')[:1500]}"
+    )
+    client = genai.Client(api_key=GEMINI_API_KEY)
+    for attempt in range(3):
+        try:
+            resp = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=AUDIENCE_SYSTEM_INSTRUCTION,
+                    response_mime_type="application/json",
+                    response_schema=AUDIENCE_RESPONSE_SCHEMA,
+                ),
+            )
+            data = json.loads(resp.text)
+            return {"fit": bool(data.get("fit")), "reason": data.get("reason", "")}
+        except Exception as e:
+            overloaded = "503" in str(e) or "UNAVAILABLE" in str(e)
+            if not overloaded or attempt == 2:
+                return {"fit": False, "reason": f"Gemini недоступен ({e.__class__.__name__})."}
+            time.sleep(20 * (attempt + 1))
+    return {"fit": False, "reason": "Gemini недоступен."}
