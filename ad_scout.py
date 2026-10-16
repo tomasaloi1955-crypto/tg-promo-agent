@@ -31,15 +31,15 @@ from telethon import TelegramClient, functions, types
 from telethon.sessions import StringSession
 
 import gemini
-from outreach import activity, extract_contacts, find_stop_word, fingerprint, notify
+from outreach import USERNAME_RE, activity, extract_contacts, find_stop_word, fingerprint, notify
 from promo import API_HASH, API_ID, SESSION_STRING, StopRun, flood_safe  # noqa: F401  (API_HASH — для fingerprint)
 
 BASE = Path(__file__).parent
 MEMORY_FILE = BASE / "ad_scout_memory.json"
 
 CARDS_PER_DAY = 3
-MAX_CHANNELS_TO_CHECK = 25
-MAX_GEMINI_CALLS = 10
+MAX_CHANNELS_TO_CHECK = 40
+MAX_GEMINI_CALLS = 15
 MIN_SUBSCRIBERS = 1000
 MAX_SUBSCRIBERS = 150_000
 MAX_DAYS_SINCE_LAST_POST = 14
@@ -134,6 +134,13 @@ async def check(client: TelegramClient, chat: types.Channel, mem: dict, budget: 
 
     contacts = extract_contacts(about, chat.username)
     if not contacts:
+        # Многие каналы принимают рекламу через бота обратной связи (@..._bot) —
+        # extract_contacts ботов отбрасывает, здесь берём их запасным контактом.
+        contacts = [
+            m.group(1) for m in USERNAME_RE.finditer(about)
+            if m.group(1).lower().endswith("bot") and m.group(1).lower() != chat.username.lower()
+        ]
+    if not contacts:
         # Без контакта договориться не с кем — в карточку не берём.
         mark(mem, key, "no_contact")
         return None
@@ -180,7 +187,9 @@ def _num(x: int) -> str:
 def card(n: int, c: dict) -> str:
     rate = f"{c['avg_views'] / c['subs']:.0%}" if c["subs"] else "—"
     about = c["about"][:300] + ("…" if len(c["about"]) > 300 else "")
-    admins = ", ".join(f"@{a}" for a in c["contacts"])
+    admins = ", ".join(
+        f"@{a}" + (" (бот для связи)" if a.lower().endswith("bot") else "") for a in c["contacts"]
+    )
     return (
         f"📢 Площадка {n}: {c['title']}\n"
         f"https://t.me/{c['username']}\n"
