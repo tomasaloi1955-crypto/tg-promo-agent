@@ -1,0 +1,52 @@
+name: Площадки для рекламы спорт-канала (ежедневно)
+
+# Каждый день присылает владелице в бот 2–3 канала для женщин (мусульманские и про
+# спорт/здоровье) с контактом админа и готовым первым сообщением — см. ad_scout.py.
+# 10:30 UTC = 15:30 в Алматы — после promo.yml (06:00), promo_sport.yml (07:30) и
+# outreach.yml (09:00), чтобы не работать с одного Telegram-аккаунта одновременно.
+on:
+  schedule:
+    - cron: "30 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # коммит памяти (какие каналы уже присылали)
+
+concurrency:
+  group: ad_scout
+  cancel-in-progress: false
+
+jobs:
+  ad_scout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Найти площадки
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: python ad_scout.py
+
+      - name: Сохранить память
+        run: |
+          git config user.name "ad-scout"
+          git config user.email "ad-scout@users.noreply.github.com"
+          git add ad_scout_memory.json
+          git diff --cached --quiet || git commit -m "Обновление памяти разведчика площадок"
+          git pull --rebase
+          git push
