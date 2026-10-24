@@ -743,6 +743,38 @@
     "c843274a0781cac37b2c": {
       "date": "2026-10-23",
       "status": "rejected"
+    },
+    "9e3a39fabecad5067145": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "dd1af9ecadeafcd9ea1b": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "c7b4334dc1d6a22197c0": {
+      "date": "2026-10-24",
+      "status": "lead"
+    },
+    "9f582bcaa9742a93047a": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "c8fae901fbf48c17a29c": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "d63f9b68340045428c78": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "1a4ae58d7b33d5c6b3cc": {
+      "date": "2026-10-24",
+      "status": "rejected"
+    },
+    "bbab2b3feec6783373b5": {
+      "date": "2026-10-24",
+      "status": "rejected"
     }
   },
   "contacts": {
@@ -811,6 +843,9 @@
     },
     "acdf6c13b7d5bbf7bad4": {
       "date": "2026-10-18"
+    },
+    "bf745633e90f3c98a699": {
+      "date": "2026-10-24"
     }
   }
 }
