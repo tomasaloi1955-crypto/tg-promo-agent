@@ -4,3 +4,5 @@ __pycache__/
 *.session
 *.session-journal
 venv/
+phone_cleaner/config.json
+.pytest_cache/
