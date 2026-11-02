@@ -1,0 +1,44 @@
+name: Мультики для YouTube Shorts (арабский)
+
+# Запуск вручную: вкладка Actions → «Мультики для YouTube Shorts» → Run workflow.
+# Готовые MP4 приходят вам в Telegram (бот промо-агента) и лежат в Artifacts запуска.
+on:
+  workflow_dispatch:
+    inputs:
+      episodes:
+        description: "Какие эпизоды собрать (путь/маска)"
+        default: "shorts/episodes/*.json"
+        required: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить ffmpeg и зависимости
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg libfribidi0 libraqm0
+          pip install -r shorts/requirements.txt
+
+      - name: Собрать видео (с озвучкой)
+        env:
+          EPISODES: ${{ github.event.inputs.episodes }}
+        run: python shorts/make_short.py $EPISODES --out out
+
+      - name: Сохранить видео в Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: shorts
+          path: out/*.mp4
+
+      - name: Отправить видео в Telegram
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: python shorts/send_to_telegram.py out
