@@ -1,0 +1,81 @@
+{
+ "title": "Урок 96: *Это тебе подарок*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "*Это тебе подарок* — по-арабски",
+   "speak": "Это тебе подарок — по-арабски"
+  },
+  {
+   "enter": "maryam",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "هذه *هدية* لكِ يا مريم",
+   "tr": "hādhihi *hadiyya* laki yā maryam",
+   "ru": "Это тебе *подарок*, Марьям",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "ما أجملها!",
+   "tr": "mā ajmalahā!",
+   "ru": "Какой красивый!",
+   "mood": "surprised"
+  },
+  {
+   "say": "maryam",
+   "ar": "*جزاك الله خيرا*",
+   "tr": "*jazāka llāhu khayran*",
+   "ru": "*Да воздаст тебе Аллах добром*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "جزاك الله خيرا",
+    "tr": "jazāka llāhu khayran",
+    "ru": "да воздаст тебе Аллах добром"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

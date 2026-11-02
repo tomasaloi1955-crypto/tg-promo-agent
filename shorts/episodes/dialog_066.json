@@ -1,0 +1,94 @@
+{
+ "title": "Урок 66: *Что будешь делать завтра?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "*Что будешь делать завтра?* — по-арабски",
+   "speak": "Что будешь делать завтра? — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "ماذا ستفعل *غدا*؟",
+   "tr": "mādhā sa-taf'al *ghadan*?",
+   "ru": "Что будешь делать *завтра*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "سأزور جدي",
+   "tr": "sa-azūru jaddī",
+   "ru": "Я навещу дедушку",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "سلم عليه",
+   "tr": "sallim 'alayh",
+   "ru": "Передай ему привет",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "غدا",
+    "tr": "ghadan",
+    "ru": "завтра"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

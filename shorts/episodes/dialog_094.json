@@ -1,0 +1,82 @@
+{
+ "title": "Урок 94: *Добро пожаловать!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "guest": {
+   "type": "man",
+   "name": "Гость",
+   "color": [
+    150,
+    90,
+    160
+   ],
+   "voice": "ar-KW-FahedNeural",
+   "colors": {
+    "cloth": [
+     240,
+     236,
+     222
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.27,
+    "guest": 0.73
+   }
+  },
+  {
+   "hook": "*Добро пожаловать!* — по-арабски",
+   "speak": "Добро пожаловать! — по-арабски"
+  },
+  {
+   "say": "dad",
+   "ar": "*أهلا وسهلا!* تفضل",
+   "tr": "*ahlan wa sahlan!* tafaddal",
+   "ru": "*Добро пожаловать!* Проходите",
+   "mood": "happy"
+  },
+  {
+   "say": "guest",
+   "ar": "أهلا بك. بيتكم *جميل*",
+   "tr": "ahlan bik. baytukum *jamīl*",
+   "ru": "Спасибо. У вас *красивый* дом",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "شكرا، تفضل اجلس",
+   "tr": "shukran, tafaddal ijlis",
+   "ru": "Спасибо, садитесь, пожалуйста",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أهلا وسهلا",
+    "tr": "ahlan wa sahlan",
+    "ru": "добро пожаловать"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

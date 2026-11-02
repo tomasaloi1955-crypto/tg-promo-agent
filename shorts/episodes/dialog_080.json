@@ -1,0 +1,94 @@
+{
+ "title": "Урок 80: *Сыграем в футбол?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "*Сыграем в футбол?* — по-арабски",
+   "speak": "Сыграем в футбол? — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "هل تلعب *كرة القدم*؟",
+   "tr": "hal tal'abu *kurat al-qadam*?",
+   "ru": "Ты играешь в *футбол*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، *كل يوم*",
+   "tr": "na'am, *kulla yawm*",
+   "ru": "Да, *каждый день*",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "هيا نلعب معا!",
+   "tr": "hayyā nal'ab ma'an!",
+   "ru": "Давай играть вместе!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "ألعب",
+    "tr": "al'abu",
+    "ru": "я играю"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

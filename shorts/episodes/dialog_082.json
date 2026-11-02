@@ -1,0 +1,89 @@
+{
+ "title": "Урок 82: *Кто там?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "mom": 0.18,
+    "ahmad": 0.5,
+    "grandpa": 0.82
+   }
+  },
+  {
+   "hook": "*Кто там?* — по-арабски",
+   "speak": "Кто там? — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "افتح *الباب* يا أحمد",
+   "tr": "iftah *al-bāb* yā ahmad",
+   "ru": "Открой *дверь*, Ахмад",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*من هناك؟*",
+   "tr": "*man hunāk?*",
+   "ru": "*Кто там?*",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "أنا جدك!",
+   "tr": "anā jadduk!",
+   "ru": "Это я, твой дедушка!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "باب",
+    "tr": "bāb",
+    "ru": "дверь"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,89 @@
+{
+ "title": "Урок 33: *У вас есть хлеб?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "ahmad": 0.27,
+    "seller": 0.73
+   }
+  },
+  {
+   "hook": "*У вас есть хлеб?* — по-арабски",
+   "speak": "У вас есть хлеб? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*هل عندكم* خبز؟",
+   "tr": "*hal 'indakum* khubz?",
+   "ru": "*У вас есть* хлеб?",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "نعم، عندنا خبز طازج",
+   "tr": "na'am, 'indanā khubz tāzaj",
+   "ru": "Да, у нас есть свежий хлеб",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "أعطني رغيفين من فضلك",
+   "tr": "a'tinī raghīfayn min fadlik",
+   "ru": "Дайте две лепёшки, пожалуйста",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "هل عندكم...؟",
+    "tr": "hal 'indakum...?",
+    "ru": "У вас есть...?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

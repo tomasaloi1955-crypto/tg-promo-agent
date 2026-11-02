@@ -1,0 +1,91 @@
+{
+ "title": "Урок 48: *Любимый предмет*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "yusuf": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Любимый предмет* — по-арабски",
+   "speak": "Любимый предмет — по-арабски"
+  },
+  {
+   "say": "yusuf",
+   "ar": "ما مادتك *المفضلة*؟",
+   "tr": "mā māddatuka *l-mufaddala*?",
+   "ru": "Какой твой *любимый* предмет?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "أحب *اللغة العربية*",
+   "tr": "uhibbu *l-lugha l-'arabiyya*",
+   "ru": "Я люблю *арабский язык*",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "وأنا أحب الرياضيات",
+   "tr": "wa anā uhibbu r-riyādiyyāt",
+   "ru": "А я люблю математику",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "المفضل",
+    "tr": "al-mufaddal",
+    "ru": "любимый"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

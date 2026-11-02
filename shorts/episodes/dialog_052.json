@@ -1,0 +1,89 @@
+{
+ "title": "Урок 52: *Это далеко?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "man": {
+   "type": "man",
+   "name": "Прохожий",
+   "color": [
+    110,
+    110,
+    150
+   ],
+   "voice": "ar-QA-MoazNeural",
+   "colors": {
+    "cloth": [
+     214,
+     226,
+     240
+    ],
+    "skin": [
+     210,
+     160,
+     118
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27,
+    "man": 0.73
+   }
+  },
+  {
+   "hook": "*Это далеко?* — по-арабски",
+   "speak": "Это далеко? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل السوق *بعيد*؟",
+   "tr": "hal as-sūq *ba'īd*?",
+   "ru": "Рынок *далеко*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "لا، هو *قريب*",
+   "tr": "lā, huwa *qarīb*",
+   "ru": "Нет, он *близко*",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "خمس دقائق مشيا",
+   "tr": "khamsu daqā'iq mashyan",
+   "ru": "Пять минут пешком",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "قريب / بعيد",
+    "tr": "qarīb / ba'īd",
+    "ru": "близко / далеко"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

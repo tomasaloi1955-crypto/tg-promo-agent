@@ -1,0 +1,108 @@
+{
+ "title": "Урок 41: *Вы поняли?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.18,
+    "ahmad": 0.5,
+    "maryam": 0.82
+   }
+  },
+  {
+   "hook": "*Вы поняли?* — по-арабски",
+   "speak": "Вы поняли? — по-арабски"
+  },
+  {
+   "say": "teacher",
+   "ar": "هل *فهمتم*؟",
+   "tr": "hal *fahimtum*?",
+   "ru": "Вы *поняли*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم يا أستاذة",
+   "tr": "na'am yā ustādha",
+   "ru": "Да, учительница",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "لا، *لم أفهم*",
+   "tr": "lā, *lam afham*",
+   "ru": "Нет, *я не поняла*",
+   "mood": "sad"
+  },
+  {
+   "say": "teacher",
+   "ar": "لا بأس، سأعيد",
+   "tr": "lā ba's, sa-u'īd",
+   "ru": "Ничего, я повторю",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "فهمت / لم أفهم",
+    "tr": "fahimtu / lam afham",
+    "ru": "я понял / я не понял"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

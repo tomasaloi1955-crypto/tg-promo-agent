@@ -1,0 +1,75 @@
+{
+ "title": "Урок 81: *Где ключ?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "*Где ключ?* — по-арабски",
+   "speak": "Где ключ? — по-арабски"
+  },
+  {
+   "say": "dad",
+   "ar": "أين *المفتاح*؟",
+   "tr": "ayna *l-miftāh*?",
+   "ru": "Где *ключ*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "*على* الطاولة",
+   "tr": "*'alā* t-tāwila",
+   "ru": "*На* столе",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "وجدته، شكرا",
+   "tr": "wajadtuh, shukran",
+   "ru": "Нашёл, спасибо",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "مفتاح",
+    "tr": "miftāh",
+    "ru": "ключ"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

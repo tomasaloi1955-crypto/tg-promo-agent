@@ -1,0 +1,101 @@
+{
+ "title": "Урок 1: *Привет! Как дела?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "*Привет! Как дела?* — по-арабски",
+   "speak": "Привет! Как дела? — по-арабски"
+  },
+  {
+   "enter": "yusuf",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "السلام عليكم!",
+   "tr": "as-salāmu 'alaykum!",
+   "ru": "Мир вам! (Привет!)",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "وعليكم السلام!",
+   "tr": "wa 'alaykumu s-salām!",
+   "ru": "И вам мир!",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*كيف حالك؟*",
+   "tr": "*kayfa hāluk?*",
+   "ru": "*Как дела?*",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "بخير، الحمد لله",
+   "tr": "bi-khayr, al-hamdu lillāh",
+   "ru": "Хорошо, слава Аллаху",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "كيف حالك؟",
+    "tr": "kayfa hāluk?",
+    "ru": "Как дела?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

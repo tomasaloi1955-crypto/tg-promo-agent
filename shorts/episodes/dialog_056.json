@@ -1,0 +1,76 @@
+{
+ "title": "Урок 56: *Когда придёт автобус?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "*Когда придёт автобус?* — по-арабски",
+   "speak": "Когда придёт автобус? — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "متى تأتي *الحافلة*؟",
+   "tr": "matā ta'tī *l-hāfila*?",
+   "ru": "Когда придёт *автобус*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "بعد عشر *دقائق*",
+   "tr": "ba'da 'ashr *daqā'iq*",
+   "ru": "Через десять *минут*",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "حسنا، ننتظر",
+   "tr": "hasanan, nantazir",
+   "ru": "Хорошо, подождём",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "حافلة",
+    "tr": "hāfila",
+    "ru": "автобус"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

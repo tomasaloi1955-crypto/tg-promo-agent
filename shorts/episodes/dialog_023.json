@@ -1,0 +1,84 @@
+{
+ "title": "Урок 23: *Что на завтрак?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Что на завтрак?* — по-арабски",
+   "speak": "Что на завтрак? — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "ماذا تريد للفطور؟",
+   "tr": "mādhā turīdu li-l-futūr?",
+   "ru": "Что ты хочешь на завтрак?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*أريد* خبزا وجبنا",
+   "tr": "*urīdu* khubzan wa jubnan",
+   "ru": "*Я хочу* хлеб и сыр",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "وشاي؟",
+   "tr": "wa shāy?",
+   "ru": "А чай?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، من فضلك",
+   "tr": "na'am, min fadlik",
+   "ru": "Да, пожалуйста",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أريد",
+    "tr": "urīdu",
+    "ru": "я хочу"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

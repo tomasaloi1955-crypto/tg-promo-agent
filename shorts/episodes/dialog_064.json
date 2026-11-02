@@ -1,0 +1,76 @@
+{
+ "title": "Урок 64: *Мне холодно*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_night",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "*Мне холодно* — по-арабски",
+   "speak": "Мне холодно — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا *بردانة* يا أمي",
+   "tr": "anā *bardāna* yā ummī",
+   "ru": "Мне *холодно*, мама",
+   "mood": "sad"
+  },
+  {
+   "say": "mom",
+   "ar": "البسي *المعطف*",
+   "tr": "ilbasī *l-mi'taf*",
+   "ru": "Надень *пальто*",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "حاضر",
+   "tr": "hādir",
+   "ru": "Хорошо",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "بارد",
+    "tr": "bārid",
+    "ru": "холодный"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

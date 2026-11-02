@@ -1,0 +1,82 @@
+{
+ "title": "Урок 40: *Вам нужен пакет?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "seller": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Вам нужен пакет?* — по-арабски",
+   "speak": "Вам нужен пакет? — по-арабски"
+  },
+  {
+   "say": "seller",
+   "ar": "هل تريد *كيسا*؟",
+   "tr": "hal turīdu *kīsan*?",
+   "ru": "Тебе нужен *пакет*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "لا، شكرا. عندي حقيبة",
+   "tr": "lā, shukran. 'indī haqība",
+   "ru": "Нет, спасибо. У меня есть сумка",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "كيس",
+    "tr": "kīs",
+    "ru": "пакет"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,99 @@
+{
+ "title": "Урок 43: *Что это?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.27
+   }
+  },
+  {
+   "hook": "*Что это?* — по-арабски",
+   "speak": "Что это? — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "teacher",
+   "ar": "*ما هذا؟*",
+   "tr": "*mā hādhā?*",
+   "ru": "*Что это?*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هذا *كتاب*",
+   "tr": "hādhā *kitāb*",
+   "ru": "Это *книга*",
+   "mood": "neutral"
+  },
+  {
+   "say": "teacher",
+   "ar": "وما هذه؟",
+   "tr": "wa mā hādhihi?",
+   "ru": "А это что?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هذه *مسطرة*",
+   "tr": "hādhihi *mistara*",
+   "ru": "Это *линейка*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "ما هذا؟",
+    "tr": "mā hādhā?",
+    "ru": "Что это?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

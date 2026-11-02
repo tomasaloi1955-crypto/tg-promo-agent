@@ -1,0 +1,101 @@
+{
+ "title": "Урок 49: *Ты говоришь по-арабски?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "*Ты говоришь по-арабски?* — по-арабски",
+   "speak": "Ты говоришь по-арабски? — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "هل *تتكلم* العربية؟",
+   "tr": "hal *tatakallamu* l-'arabiyya?",
+   "ru": "Ты *говоришь* по-арабски?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، *قليلا*",
+   "tr": "na'am, *qalīlan*",
+   "ru": "Да, *немного*",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "كلامك جيد!",
+   "tr": "kalāmuka jayyid!",
+   "ru": "Ты хорошо говоришь!",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا، أتعلم كل يوم",
+   "tr": "shukran, ata'allamu kulla yawm",
+   "ru": "Спасибо, я учусь каждый день",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أتكلم العربية",
+    "tr": "atakallamu l-'arabiyya",
+    "ru": "я говорю по-арабски"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

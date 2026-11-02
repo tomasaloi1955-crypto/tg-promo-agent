@@ -1,0 +1,91 @@
+{
+ "title": "Урок 58: *Где ты живёшь?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Где ты живёшь?* — по-арабски",
+   "speak": "Где ты живёшь? — по-арабски"
+  },
+  {
+   "say": "yusuf",
+   "ar": "أين *تسكن*؟",
+   "tr": "ayna *taskun*?",
+   "ru": "Где ты *живёшь*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "أسكن في مدينة الرياض",
+   "tr": "askunu fī madīnat ar-riyād",
+   "ru": "Я живу в городе Эр-Рияд",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "وأنا أسكن في جدة",
+   "tr": "wa anā askunu fī jidda",
+   "ru": "А я живу в Джидде",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أسكن في...",
+    "tr": "askunu fī...",
+    "ru": "я живу в..."
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

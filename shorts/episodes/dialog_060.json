@@ -1,0 +1,72 @@
+{
+ "title": "Урок 60: *Пойдём пешком*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "*Пойдём пешком* — по-арабски",
+   "speak": "Пойдём пешком — по-арабски"
+  },
+  {
+   "enter": "dad",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "هل نركب *السيارة*؟",
+   "tr": "hal narkabu *s-sayyāra*?",
+   "ru": "Поедем на *машине*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "لا، *نمشي*. الجو جميل",
+   "tr": "lā, *namshī*. al-jaww jamīl",
+   "ru": "Нет, *пойдём пешком*. Погода хорошая",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "سيارة",
+    "tr": "sayyāra",
+    "ru": "машина"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

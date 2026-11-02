@@ -187,6 +187,11 @@ SCENES = {
                          sadu=((160, 40, 50), (30, 24, 40), (230, 210, 180)), night=True, props="majlis"),
     "majlis_day": dict(wall=(232, 220, 196), wall2=(214, 196, 164), floor=(150, 58, 66), floor2=(128, 46, 56),
                        sadu=((180, 46, 50), (48, 36, 44), (245, 235, 215)), night=False, props="majlis"),
+    "shop_day": dict(wall=(246, 238, 220), wall2=(226, 212, 186), floor=(196, 186, 170), floor2=(176, 166, 150),
+                     sadu=((40, 120, 110), (30, 40, 44), (245, 235, 215)), night=False, props="shop"),
+    "classroom_day": dict(wall=(222, 236, 226), wall2=(200, 220, 208), floor=(206, 164, 116), floor2=(188, 146, 100),
+                          sadu=((60, 110, 170), (30, 40, 60), (240, 240, 235)), night=False, props="classroom"),
+    "street_day": dict(night=False, props="street"),
 }
 
 
@@ -210,6 +215,61 @@ def draw_window(d, x, y, w, h, night):
     d.rectangle([x, y + h / 2 - 6, x + w, y + h / 2 + 6], fill=(120, 78, 50))
 
 
+def street_bg() -> Image.Image:
+    """Улица: небо, дома с арками, мечеть, пальма, тротуар."""
+    s = SS
+    w, h = W * s, SCENE_H * s
+    im = Image.new("RGB", (w, h), (150, 205, 245))
+    d = ImageDraw.Draw(im)
+    for y in range(0, int(h * 0.6), 4 * s):  # градиент неба
+        k = y / (h * 0.6)
+        d.rectangle([0, y, w, y + 4 * s], fill=(int(120 + 100 * k), int(190 + 45 * k), int(245 - 10 * k)))
+    d.ellipse([int(w * 0.80), int(h * 0.05), int(w * 0.94), int(h * 0.05) + int(w * 0.14)], fill=(255, 214, 80))
+    for cx, cy in [(0.18, 0.1), (0.55, 0.06)]:
+        x, y = int(w * cx), int(h * cy)
+        for dx, dy, r in [(0, 20, 50), (50, 0, 60), (110, 20, 48)]:
+            d.ellipse([x + dx * s - r * s, y + dy * s - r * s * 0.7, x + dx * s + r * s, y + dy * s + r * s * 0.7], fill=WHITE)
+    ground = int(h * 0.80)
+    # мечеть на заднем плане
+    mx = int(w * 0.5)
+    d.rectangle([mx - 150 * s, ground - 260 * s, mx + 150 * s, ground], fill=(236, 226, 206), outline=INK, width=4 * s)
+    d.pieslice([mx - 120 * s, ground - 400 * s, mx + 120 * s, ground - 160 * s], 180, 360, fill=(70, 150, 140), outline=INK, width=4 * s)
+    d.rectangle([mx + 170 * s, ground - 470 * s, mx + 210 * s, ground], fill=(236, 226, 206), outline=INK, width=4 * s)
+    d.polygon([(mx + 162 * s, ground - 470 * s), (mx + 218 * s, ground - 470 * s), (mx + 190 * s, ground - 540 * s)], fill=(70, 150, 140), outline=INK)
+    d.pieslice([mx - 40 * s, ground - 150 * s, mx + 40 * s, ground - 70 * s], 180, 360, fill=(90, 60, 40))
+    d.rectangle([mx - 40 * s, ground - 110 * s, mx + 40 * s, ground], fill=(90, 60, 40))
+    # дома
+    for x0, x1, top, col in [(0.0, 0.30, 0.30, (232, 196, 140)), (0.74, 1.0, 0.24, (222, 180, 130))]:
+        X0, X1, T = int(w * x0), int(w * x1), int(h * top)
+        d.rectangle([X0, T, X1, ground], fill=col, outline=INK, width=4 * s)
+        for k in range(int((X1 - X0) / (40 * s))):  # зубцы на крыше
+            if k % 2 == 0:
+                d.rectangle([X0 + k * 40 * s, T - 26 * s, X0 + (k + 1) * 40 * s, T], fill=col, outline=INK, width=3 * s)
+        for k in range(2):
+            wx = X0 + int((X1 - X0) * (0.2 + k * 0.42))
+            wy = T + 70 * s
+            d.pieslice([wx, wy, wx + 90 * s, wy + 90 * s], 180, 360, fill=(110, 70, 45))
+            d.rectangle([wx, wy + 45 * s, wx + 90 * s, wy + 150 * s], fill=(110, 70, 45))
+            for gx in range(wx + 15 * s, wx + 90 * s, 22 * s):  # машрабия
+                d.line([(gx, wy + 30 * s), (gx, wy + 150 * s)], fill=(160, 110, 70), width=3 * s)
+    # пальма
+    px, py = int(w * 0.34), ground
+    for i in range(12):
+        d.ellipse([px - 18 * s + i * 2 * s, py - (i + 1) * 36 * s, px + 18 * s + i * 2 * s, py - i * 36 * s + 6 * s], fill=(150, 100, 60), outline=INK, width=3 * s)
+    tx, ty = px + 24 * s, py - 430 * s
+    for ang in (200, 235, 270, 305, 340, 20):
+        r = math.radians(ang)
+        ex, ey = tx + math.cos(r) * 170 * s, ty + math.sin(r) * 90 * s + 40 * s
+        d.polygon([(tx, ty), (ex, ey), (tx + math.cos(r) * 90 * s, ty + math.sin(r) * 40 * s + 50 * s)], fill=(70, 150, 70), outline=INK)
+    d.ellipse([tx - 24 * s, ty - 10 * s, tx + 24 * s, ty + 30 * s], fill=(140, 90, 50))
+    # тротуар и дорога
+    d.rectangle([0, ground, w, h], fill=(210, 196, 172))
+    d.rectangle([0, ground, w, ground + 12 * s], fill=(180, 164, 140))
+    for i in range(0, w, 120 * s):
+        d.line([(i, ground), (i - 80 * s, h)], fill=(190, 176, 152), width=3 * s)
+    return im.resize((W, SCENE_H), Image.LANCZOS)
+
+
 def draw_dallah(d, x, y, s, color=(222, 170, 60)):
     """Арабский кофейник даллa (x, y — низ по центру)."""
     d.ellipse([x - 40 * s, y - 70 * s, x + 40 * s, y], fill=color, outline=INK, width=int(4 * s))
@@ -223,6 +283,8 @@ def draw_dallah(d, x, y, s, color=(222, 170, 60)):
 @functools.lru_cache(None)
 def scene_bg(name: str) -> Image.Image:
     c = SCENES[name]
+    if c["props"] == "street":
+        return street_bg()
     w, h = W * SS, SCENE_H * SS
     im = Image.new("RGB", (w, h), c["wall"])
     d = ImageDraw.Draw(im)
@@ -239,7 +301,7 @@ def scene_bg(name: str) -> Image.Image:
     draw_window(d, int(w * 0.66), int(h * 0.12), int(w * 0.24), int(h * 0.26), c["night"])
 
     # подвесная лампа
-    lx = int(w * 0.42)
+    lx = int(w * 0.42) if c["props"] in ("kitchen", "majlis") else int(w * 0.56)
     d.line([(lx, 0), (lx, 110 * s)], fill=INK, width=4 * s)
     d.pieslice([lx - 50 * s, 90 * s, lx + 50 * s, 190 * s], 180, 360, fill=(230, 160, 60), outline=INK, width=4 * s)
     if c["night"]:
@@ -268,6 +330,71 @@ def scene_bg(name: str) -> Image.Image:
         for k, col in enumerate([(240, 240, 240), (240, 200, 120)]):
             px = int(w * 0.5) + k * 130 * s
             d.ellipse([px, ty - 22 * s, px + 110 * s, ty + 6 * s], fill=col, outline=INK, width=3 * s)
+    elif c["props"] == "shop":
+        # полки с товарами
+        rnd = random.Random(5)
+        for row in range(3):
+            sy = int(h * (0.16 + row * 0.13))
+            d.rectangle([int(w * 0.03), sy, int(w * 0.6), sy + 12 * s], fill=(130, 84, 52))
+            x = int(w * 0.04)
+            while x < int(w * 0.57):
+                kind = rnd.choice(["box", "jar", "fruit"])
+                col = rnd.choice([(220, 80, 60), (240, 180, 50), (80, 160, 110), (90, 130, 210), (240, 140, 60), (170, 90, 160)])
+                if kind == "box":
+                    bw, bh = rnd.randint(40, 60) * s, rnd.randint(60, 90) * s
+                    d.rectangle([x, sy - bh, x + bw, sy], fill=col, outline=INK, width=3 * s)
+                    d.rectangle([x + 8 * s, sy - bh + 14 * s, x + bw - 8 * s, sy - bh + 30 * s], fill=WHITE)
+                elif kind == "jar":
+                    bw = 44 * s
+                    d.rounded_rectangle([x, sy - 70 * s, x + bw, sy], 12 * s, fill=col, outline=INK, width=3 * s)
+                    d.rectangle([x + 6 * s, sy - 82 * s, x + bw - 6 * s, sy - 66 * s], fill=(90, 70, 60), outline=INK, width=3 * s)
+                else:
+                    bw = 70 * s
+                    for k in range(3):
+                        fx = x + k * 22 * s
+                        d.ellipse([fx, sy - 34 * s, fx + 30 * s, sy - 2 * s], fill=col, outline=INK, width=3 * s)
+                x += bw + 14 * s
+        # вывеска
+        d.rounded_rectangle([int(w * 0.64), int(h * 0.44), int(w * 0.96), int(h * 0.5)], 12 * s, fill=(40, 120, 110), outline=INK, width=4 * s)
+        ImageDraw.Draw(im).text((int(w * 0.80), int(h * 0.47)), "بقالة", font=font("Cairo-Black", 46 * s), fill=WHITE,
+                                anchor="mm", **text_kw("بقالة"))
+        # прилавок
+        ty = int(h * 0.60)
+        d.rounded_rectangle([int(w * 0.55), ty, int(w * 0.99), ty + 36 * s], 10 * s, fill=(110, 80, 60), outline=INK, width=4 * s)
+        d.rectangle([int(w * 0.57), ty + 36 * s, int(w * 0.97), floor_y + 30 * s], fill=(150, 110, 80), outline=INK, width=4 * s)
+        d.rectangle([int(w * 0.85), ty - 50 * s, int(w * 0.95), ty], fill=(70, 70, 80), outline=INK, width=3 * s)  # касса
+        # ящики с фруктами
+        for k, col in enumerate([(240, 140, 40), (220, 50, 60), (250, 210, 60)]):
+            bx = int(w * 0.03) + k * 150 * s
+            by = floor_y - 20 * s
+            for j in range(4):
+                fx = bx + 10 * s + j * 30 * s
+                d.ellipse([fx, by - 30 * s, fx + 34 * s, by + 4 * s], fill=col, outline=INK, width=3 * s)
+            d.rectangle([bx, by, bx + 140 * s, by + 60 * s], fill=(176, 120, 76), outline=INK, width=4 * s)
+    elif c["props"] == "classroom":
+        # доска
+        bx0, by0, bx1, by1 = int(w * 0.06), int(h * 0.08), int(w * 0.56), int(h * 0.40)
+        d.rounded_rectangle([bx0 - 14 * s, by0 - 14 * s, bx1 + 14 * s, by1 + 14 * s], 10 * s, fill=(130, 84, 52))
+        d.rectangle([bx0, by0, bx1, by1], fill=(40, 84, 66))
+        chalk = (236, 240, 230)
+        bd = ImageDraw.Draw(im)
+        for txt, fx, fy, sz in [("أ ب ت ث", 0.66, 0.30, 70), ("مرحبا", 0.26, 0.68, 56)]:
+            bd.text((bx0 + (bx1 - bx0) * fx, by0 + (by1 - by0) * fy), txt, font=font("Cairo-Bold", sz * s), fill=chalk,
+                    anchor="mm", **text_kw(txt))
+        d.line([(bx0 + (bx1 - bx0) * 0.5, by0 + (by1 - by0) * 0.72), (bx1 - 30 * s, by0 + (by1 - by0) * 0.72)], fill=chalk, width=3 * s)
+        # часы
+        cx, cy, r = int(w * 0.62), int(h * 0.13), 40 * s
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=WHITE, outline=INK, width=5 * s)
+        d.line([(cx, cy), (cx, cy - r * 0.7)], fill=INK, width=4 * s)
+        d.line([(cx, cy), (cx + r * 0.5, cy)], fill=INK, width=4 * s)
+        # парты
+        for k in range(3):
+            px = int(w * 0.04) + k * int(w * 0.34)
+            ty = floor_y - 40 * s
+            d.rounded_rectangle([px, ty, px + int(w * 0.24), ty + 24 * s], 6 * s, fill=(180, 130, 80), outline=INK, width=4 * s)
+            d.rectangle([px + 20 * s, ty + 24 * s, px + 34 * s, floor_y + 40 * s], fill=(120, 120, 130))
+            d.rectangle([px + int(w * 0.24) - 34 * s, ty + 24 * s, px + int(w * 0.24) - 20 * s, floor_y + 40 * s], fill=(120, 120, 130))
+            d.rectangle([px + 40 * s, ty - 18 * s, px + 110 * s, ty], fill=(90, 130, 210), outline=INK, width=3 * s)  # книга
     else:
         # подушки маджлиса вдоль стены и низкий столик
         cy0 = floor_y - 120 * s
@@ -338,8 +465,9 @@ def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = ()) ->
     # голова
     hx0, hy0, hx1, hy1 = 40, 40, 300, 300
     if t["head"] == "ghutra":
-        d.polygon(P(52, 150, 288, 150, 300, 370, 40, 370), fill=WHITE, outline=INK, width=ow)  # спадающая ткань
-        d.ellipse(P(hx0, hy0, hx1, hy1), fill=WHITE, outline=INK, width=ow)
+        gc = t.get("ghutra", WHITE)
+        d.polygon(P(52, 150, 288, 150, 300, 370, 40, 370), fill=gc, outline=INK, width=ow)  # спадающая ткань
+        d.ellipse(P(hx0, hy0, hx1, hy1), fill=gc, outline=INK, width=ow)
         d.ellipse(P(78, 96, 262, 296), fill=skin, outline=INK, width=ow)
         d.rounded_rectangle(P(62, 52, 278, 84), 16 * s, fill=(30, 28, 34))  # игаль
         d.rounded_rectangle(P(70, 78, 270, 100), 12 * s, fill=(30, 28, 34))
@@ -354,6 +482,12 @@ def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = ()) ->
         for cx, cy, r in [(90, 110, 46), (130, 80, 50), (175, 70, 52), (220, 84, 48), (256, 118, 42), (70, 150, 34), (272, 156, 32)]:
             d.ellipse(P(cx - r, cy - r, cx + r, cy + r), fill=hair)
         d.ellipse(P(64, 54, 278, 150), fill=hair)
+
+    if t.get("kufi"):  # белая шапочка-куфия
+        d.chord(P(78, 44, 262, 170), 180, 360, fill=WHITE, outline=INK, width=ow)
+        d.line(P(84, 107, 256, 107), fill=INK, width=ow)
+        for kx in range(110, 240, 26):
+            d.ellipse(P(kx - 4, 78, kx + 4, 86), fill=(200, 200, 200))
 
     # лицо
     ey = 196
@@ -447,7 +581,10 @@ def word_card(label: str, ar: str, tr: str, ru: str) -> Image.Image:
     d.rounded_rectangle([p + cw / 2 - lw / 2, p - 30, p + cw / 2 + lw / 2, p + 34], 32, fill=(240, 140, 40), outline=INK, width=4)
     draw_text(d, (p + cw / 2, p + 2), label, f, WHITE, anchor="mm")
     cx = p + cw / 2
-    y = rich_text(d, cx, p + 50, ar, font("Cairo-Black", 150), INK, (220, 90, 40), cw - 80, rtl=True, line_gap=0.78)
+    size = 150
+    while size > 70 and tlen(font("Cairo-Black", size), plain(ar)) > cw - 90:
+        size -= 10
+    y = rich_text(d, cx, p + 50 + (150 - size) * 0.6, ar, font("Cairo-Black", size), INK, (220, 90, 40), cw - 80, rtl=True, line_gap=0.78)
     y = rich_text(d, cx, y + 4, tr, font("Nunito-ExtraBold", 46), (120, 110, 130), (220, 90, 40), cw - 80)
     rich_text(d, cx, y + 14, ru, font("Nunito-Black", 54), (220, 90, 40), (30, 120, 110), cw - 80)
     return im
@@ -471,7 +608,10 @@ def compare_card(left: dict, right: dict, active: int) -> Image.Image:
         cd.rounded_rectangle([p + colw / 2 - lw / 2, p + 22, p + colw / 2 + lw / 2, p + 84], 30, fill=col)
         draw_text(cd, (p + colw / 2, p + 52), lab, f, WHITE, anchor="mm")
         cx = p + colw / 2
-        y = rich_text(cd, cx, p + 120, item["ar"], font("Cairo-Black", 92), INK, (220, 90, 40), colw - 40, rtl=True, line_gap=0.78)
+        csz = 92
+        while csz > 50 and tlen(font("Cairo-Black", csz), plain(item["ar"])) > colw - 50:
+            csz -= 6
+        y = rich_text(cd, cx, p + 120, item["ar"], font("Cairo-Black", csz), INK, (220, 90, 40), colw - 40, rtl=True, line_gap=0.78)
         y = rich_text(cd, cx, y + 10, item.get("tr", ""), font("Nunito-ExtraBold", 40), (110, 100, 120), (220, 90, 40), colw - 40)
         if item.get("ru"):
             rich_text(cd, cx, y + 16, item["ru"], font("Nunito-ExtraBold", 40), col, col, colw - 40)
@@ -620,19 +760,31 @@ class Voice:
         key = hashlib.md5(f"{voice}|{rate}|{pitch}|{text}".encode()).hexdigest()
         mp3 = self.cache / f"{key}.mp3"
         if not mp3.exists() or mp3.stat().st_size == 0:
-            try:
-                import edge_tts
+            import time
 
-                async def run():
-                    kw = {"rate": rate, "pitch": pitch}
-                    if os.environ.get("HTTPS_PROXY"):
-                        kw["proxy"] = os.environ["HTTPS_PROXY"]
-                    await edge_tts.Communicate(text, voice, **kw).save(str(mp3))
+            import edge_tts
 
-                asyncio.run(run())
-            except Exception as e:  # noqa: BLE001
+            async def run(v):
+                kw = {"rate": rate, "pitch": pitch}
+                if os.environ.get("HTTPS_PROXY"):
+                    kw["proxy"] = os.environ["HTTPS_PROXY"]
+                await edge_tts.Communicate(text, v, **kw).save(str(mp3))
+
+            fallback = "ru-RU-SvetlanaNeural" if voice.startswith("ru-") else "ar-SA-HamedNeural"
+            attempts = [voice, voice, voice] + ([fallback] if voice != fallback else [])
+            err = None
+            for i, v in enumerate(attempts):
+                try:
+                    asyncio.run(run(v))
+                    if mp3.exists() and mp3.stat().st_size > 0:
+                        err = None
+                        break
+                except Exception as e:  # noqa: BLE001
+                    err = e
+                    time.sleep(1.5 * (i + 1))
+            if err is not None or not mp3.exists() or mp3.stat().st_size == 0:
                 if not self.warned:
-                    print(f"[!] Озвучка недоступна ({type(e).__name__}: {e}). Собираю без голоса.", file=sys.stderr)
+                    print(f"[!] Озвучка недоступна ({type(err).__name__}: {err}). Собираю без голоса.", file=sys.stderr)
                     self.warned = True
                 self.enabled = False
                 mp3.unlink(missing_ok=True)

@@ -1,0 +1,87 @@
+{
+ "title": "Урок 35: *Что-нибудь ещё?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "mom": 0.27,
+    "seller": 0.73
+   }
+  },
+  {
+   "hook": "*Что-нибудь ещё?* — по-арабски",
+   "speak": "Что-нибудь ещё? — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "أريد كيلو برتقال",
+   "tr": "urīdu kīlū burtuqāl",
+   "ru": "Мне килограмм апельсинов",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "تفضلي. *شيء آخر؟*",
+   "tr": "tafaddalī. *shay' ākhar?*",
+   "ru": "Пожалуйста. *Что-нибудь ещё?*",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "لا، شكرا",
+   "tr": "lā, shukran",
+   "ru": "Нет, спасибо",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "شيء آخر؟",
+    "tr": "shay' ākhar?",
+    "ru": "Что-нибудь ещё?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

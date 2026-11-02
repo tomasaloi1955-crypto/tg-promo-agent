@@ -1,0 +1,76 @@
+{
+ "title": "Урок 69: *Завтра выходной!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.27,
+    "dad": 0.73
+   }
+  },
+  {
+   "hook": "*Завтра выходной!* — по-арабски",
+   "speak": "Завтра выходной! — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "غدا *عطلة*!",
+   "tr": "ghadan *'utla*!",
+   "ru": "Завтра *выходной*!",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "نعم، سنذهب إلى *البحر*",
+   "tr": "na'am, sa-nadhhabu ilā *l-bahr*",
+   "ru": "Да, мы поедем на *море*",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "يا سلام!",
+   "tr": "yā salām!",
+   "ru": "Вот здорово!",
+   "mood": "surprised"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "عطلة",
+    "tr": "'utla",
+    "ru": "выходной, каникулы"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,94 @@
+{
+ "title": "Урок 4: *Приятно познакомиться*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "*Приятно познакомиться* — по-арабски",
+   "speak": "Приятно познакомиться — по-арабски"
+  },
+  {
+   "enter": "yusuf",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "مرحبا! أنا أحمد",
+   "tr": "marhaban! anā ahmad",
+   "ru": "Привет! Я Ахмад",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "أنا يوسف. *تشرفنا!*",
+   "tr": "anā yūsuf. *tasharrafnā!*",
+   "ru": "Я Юсуф. *Очень приятно!*",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "تشرفنا!",
+   "tr": "tasharrafnā!",
+   "ru": "Очень приятно!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "تشرفنا",
+    "tr": "tasharrafnā",
+    "ru": "Приятно познакомиться"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

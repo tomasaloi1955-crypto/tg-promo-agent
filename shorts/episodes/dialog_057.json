@@ -1,0 +1,94 @@
+{
+ "title": "Урок 57: *Пойдём в парк?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "*Пойдём в парк?* — по-арабски",
+   "speak": "Пойдём в парк? — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "هل تذهب إلى *الحديقة*؟",
+   "tr": "hal tadhhabu ilā *l-hadīqa*?",
+   "ru": "Ты пойдёшь в *парк*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، بعد العصر",
+   "tr": "na'am, ba'da l-'asr",
+   "ru": "Да, после асра",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "سأذهب *معك*",
+   "tr": "sa-adhhabu *ma'ak*",
+   "ru": "Я пойду *с тобой*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "حديقة",
+    "tr": "hadīqa",
+    "ru": "парк, сад"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

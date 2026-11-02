@@ -1,0 +1,79 @@
+{
+ "title": "Урок 39: *Какая красивая сумка!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "*Какая красивая сумка!* — по-арабски",
+   "speak": "Какая красивая сумка! — по-арабски"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "هذه الحقيبة *جميلة*!",
+   "tr": "hādhihi l-haqība *jamīla*!",
+   "ru": "Эта сумка *красивая*!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "هل *تعجبك*؟",
+   "tr": "hal *tu'jibuki*?",
+   "ru": "Тебе *нравится*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "نعم، تعجبني كثيرا",
+   "tr": "na'am, tu'jibunī kathīran",
+   "ru": "Да, очень нравится",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "جميل",
+    "tr": "jamīl",
+    "ru": "красивый"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

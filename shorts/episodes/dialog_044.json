@@ -1,0 +1,89 @@
+{
+ "title": "Урок 44: *Почему ты опоздал?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "ahmad": 0.27,
+    "teacher": 0.73
+   }
+  },
+  {
+   "hook": "*Почему ты опоздал?* — по-арабски",
+   "speak": "Почему ты опоздал? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل يمكنني أن أدخل؟",
+   "tr": "hal yumkinunī an adkhul?",
+   "ru": "Можно войти?",
+   "mood": "neutral"
+  },
+  {
+   "say": "teacher",
+   "ar": "*لماذا* تأخرت؟",
+   "tr": "*limādhā* ta'akhkharta?",
+   "ru": "*Почему* ты опоздал?",
+   "mood": "angry"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*آسف*، لن أتأخر مرة أخرى",
+   "tr": "*āsif*, lan ata'akhkhara marratan ukhrā",
+   "ru": "*Простите*, больше не опоздаю",
+   "mood": "sad"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "لماذا؟",
+    "tr": "limādhā?",
+    "ru": "Почему?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

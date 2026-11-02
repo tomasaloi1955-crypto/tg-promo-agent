@@ -1,0 +1,94 @@
+{
+ "title": "Урок 8: *До свидания!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "*До свидания!* — по-арабски",
+   "speak": "До свидания! — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "يجب أن أذهب الآن",
+   "tr": "yajibu an adhhaba l-ān",
+   "ru": "Мне пора идти",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*مع السلامة!*",
+   "tr": "*ma'a s-salāma!*",
+   "ru": "*До свидания!*",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "*إلى اللقاء* غدا!",
+   "tr": "*ilā l-liqā'* ghadan!",
+   "ru": "*До встречи* завтра!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "مع السلامة",
+    "tr": "ma'a s-salāma",
+    "ru": "До свидания"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

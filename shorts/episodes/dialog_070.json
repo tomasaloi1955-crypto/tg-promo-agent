@@ -1,0 +1,77 @@
+{
+ "title": "Урок 70: *Сейчас или потом?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Сейчас или потом?* — по-арабски",
+   "speak": "Сейчас или потом? — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "رتب غرفتك *الآن*",
+   "tr": "rattib ghurfataka *l-ān*",
+   "ru": "Убери свою комнату *сейчас*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*بعد قليل* يا أمي",
+   "tr": "*ba'da qalīl* yā ummī",
+   "ru": "*Чуть позже*, мама",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "لا، الآن!",
+   "tr": "lā, al-ān!",
+   "ru": "Нет, сейчас!",
+   "mood": "angry"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "الآن",
+    "tr": "al-ān",
+    "ru": "сейчас"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

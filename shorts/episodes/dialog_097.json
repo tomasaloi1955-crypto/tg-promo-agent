@@ -1,0 +1,80 @@
+{
+ "title": "Урок 97: *Можно мне взять?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "*Можно мне взять?* — по-арабски",
+   "speak": "Можно мне взять? — по-арабски"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "*هل يمكنني* أن آخذ هذا؟",
+   "tr": "*hal yumkinunī* an ākhudha hādhā?",
+   "ru": "*Можно мне* взять это?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "نعم، تفضل",
+   "tr": "na'am, tafaddal",
+   "ru": "Да, бери",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا يا أمي!",
+   "tr": "shukran yā ummī!",
+   "ru": "Спасибо, мама!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "هل يمكنني...؟",
+    "tr": "hal yumkinunī...?",
+    "ru": "Можно мне...?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

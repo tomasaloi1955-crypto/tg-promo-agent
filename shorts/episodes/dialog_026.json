@@ -1,0 +1,77 @@
+{
+ "title": "Урок 26: *Бисмиллях перед едой*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "dad": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Бисмиллях перед едой* — по-арабски",
+   "speak": "Бисмиллях перед едой — по-арабски"
+  },
+  {
+   "say": "dad",
+   "ar": "قل بسم الله *قبل الأكل*",
+   "tr": "qul bismillāh *qabla l-akl*",
+   "ru": "Скажи «Бисмиллях» *перед едой*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "بسم الله",
+   "tr": "bismillāh",
+   "ru": "Бисмиллях",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "*أحسنت!*",
+   "tr": "*ahsant!*",
+   "ru": "*Молодец!*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أحسنت",
+    "tr": "ahsant",
+    "ru": "молодец"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

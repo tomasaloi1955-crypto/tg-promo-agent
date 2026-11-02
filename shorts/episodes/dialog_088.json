@@ -1,0 +1,86 @@
+{
+ "title": "Урок 88: *Алло!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.27
+   }
+  },
+  {
+   "hook": "*Алло!* — по-арабски",
+   "speak": "Алло! — по-арабски"
+  },
+  {
+   "enter": "grandpa",
+   "to": 0.73
+  },
+  {
+   "say": "dad",
+   "ar": "*ألو*، السلام عليكم",
+   "tr": "*alū*, as-salāmu 'alaykum",
+   "ru": "*Алло*, ассаляму алейкум",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "وعليكم السلام يا ابني",
+   "tr": "wa 'alaykumu s-salām yā bnī",
+   "ru": "Ва алейкум ассалям, сынок",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "كيف حالك يا أبي؟",
+   "tr": "kayfa hāluka yā abī?",
+   "ru": "Как ты, папа?",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "بخير والحمد لله",
+   "tr": "bi-khayr wa-l-hamdu lillāh",
+   "ru": "Хорошо, слава Аллаху",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "ألو",
+    "tr": "alū",
+    "ru": "алло"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,77 @@
+{
+ "title": "Урок 61: *Который час?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "ahmad": 0.27,
+    "dad": 0.73
+   }
+  },
+  {
+   "hook": "*Который час?* — по-арабски",
+   "speak": "Который час? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*كم الساعة*؟",
+   "tr": "*kam as-sā'a*?",
+   "ru": "*Который час*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "الساعة الثالثة",
+   "tr": "as-sā'a ath-thālitha",
+   "ru": "Три часа",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا يا أبي",
+   "tr": "shukran yā abī",
+   "ru": "Спасибо, папа",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "كم الساعة؟",
+    "tr": "kam as-sā'a?",
+    "ru": "Который час?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,70 @@
+{
+ "title": "Урок 19: *Дядя придёт в гости*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Дядя придёт в гости* — по-арабски",
+   "speak": "Дядя придёт в гости — по-арабски"
+  },
+  {
+   "say": "dad",
+   "ar": "*عمك* سيزورنا اليوم",
+   "tr": "*'ammuka* sa-yazūrunā l-yawm",
+   "ru": "Сегодня к нам придёт твой *дядя*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "رائع! أنا أحب عمي",
+   "tr": "rā'i'! anā uhibbu 'ammī",
+   "ru": "Здорово! Я люблю дядю",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "عم",
+    "tr": "'amm",
+    "ru": "дядя (брат отца)"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

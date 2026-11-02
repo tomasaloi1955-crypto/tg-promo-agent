@@ -1,0 +1,88 @@
+{
+ "title": "Урок 42: *Повторите, пожалуйста*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "maryam": 0.27,
+    "teacher": 0.73
+   }
+  },
+  {
+   "hook": "*Повторите, пожалуйста* — по-арабски",
+   "speak": "Повторите, пожалуйста — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "*أعيدي* من فضلكِ",
+   "tr": "*a'īdī* min fadliki",
+   "ru": "*Повторите*, пожалуйста",
+   "mood": "neutral"
+  },
+  {
+   "say": "teacher",
+   "ar": "طبعا. *استمعي* جيدا",
+   "tr": "tab'an. *istami'ī* jayyidan",
+   "ru": "Конечно. *Слушай* внимательно",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "شكرا يا أستاذة",
+   "tr": "shukran yā ustādha",
+   "ru": "Спасибо, учительница",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أعيدي من فضلك",
+    "tr": "a'īdī min fadlik",
+    "ru": "повторите, пожалуйста"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

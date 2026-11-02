@@ -5,14 +5,19 @@ name: Мультики для YouTube Shorts (арабский)
 on:
   workflow_dispatch:
     inputs:
-      episodes:
-        description: "Какие эпизоды собрать (путь/маска)"
-        default: "shorts/episodes/*.json"
+      from:
+        description: "С какого урока (1–100)"
+        default: "1"
+        required: true
+      to:
+        description: "По какой урок (1–100)"
+        default: "10"
         required: true
 
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
 
@@ -28,8 +33,11 @@ jobs:
 
       - name: Собрать видео (с озвучкой)
         env:
-          EPISODES: ${{ github.event.inputs.episodes }}
-        run: python shorts/make_short.py $EPISODES --out out
+          FROM: ${{ github.event.inputs.from }}
+          TO: ${{ github.event.inputs.to }}
+        run: |
+          FILES=$(for n in $(seq "$FROM" "$TO"); do printf "shorts/episodes/dialog_%03d.json " "$n"; done)
+          python shorts/make_short.py $FILES --out out
 
       - name: Сохранить видео в Artifacts
         uses: actions/upload-artifact@v4

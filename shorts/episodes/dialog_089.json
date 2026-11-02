@@ -1,0 +1,72 @@
+{
+ "title": "Урок 89: *Моё новое платье*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "*Моё новое платье* — по-арабски",
+   "speak": "Моё новое платье — по-арабски"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "انظري، فستاني *الجديد*!",
+   "tr": "unzurī, fustānī *l-jadīd*!",
+   "ru": "Смотри, моё *новое* платье!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "ما شاء الله، جميل جدا!",
+   "tr": "mā shā' allāh, jamīl jiddan!",
+   "ru": "Машаллах, очень красивое!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "جديد / قديم",
+    "tr": "jadīd / qadīm",
+    "ru": "новый / старый"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

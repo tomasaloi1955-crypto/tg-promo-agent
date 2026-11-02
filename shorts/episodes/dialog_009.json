@@ -1,0 +1,76 @@
+{
+ "title": "Урок 9: *Спасибо!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.27,
+    "maryam": 0.73
+   }
+  },
+  {
+   "hook": "*Спасибо!* — по-арабски",
+   "speak": "Спасибо! — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "تفضلي، هذا لكِ",
+   "tr": "tafaddalī, hādhā laki",
+   "ru": "Держи, это тебе",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "*شكرا* يا أمي!",
+   "tr": "*shukran* yā ummī!",
+   "ru": "*Спасибо*, мама!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "*عفوا* يا حبيبتي",
+   "tr": "*'afwan* yā habībatī",
+   "ru": "*Не за что*, дорогая",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "شكرا / عفوا",
+    "tr": "shukran / 'afwan",
+    "ru": "спасибо / не за что"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

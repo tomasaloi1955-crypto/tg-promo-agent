@@ -1,0 +1,109 @@
+{
+ "title": "Урок 11: *Это мой папа*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "yusuf": 0.18,
+    "ahmad": 0.5,
+    "dad": 0.82
+   }
+  },
+  {
+   "hook": "*Это мой папа* — по-арабски",
+   "speak": "Это мой папа — по-арабски"
+  },
+  {
+   "say": "yusuf",
+   "ar": "*من هذا؟*",
+   "tr": "*man hādhā?*",
+   "ru": "*Кто это?*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هذا *أبي*",
+   "tr": "hādhā *abī*",
+   "ru": "Это *мой папа*",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "أهلا وسهلا يا يوسف!",
+   "tr": "ahlan wa sahlan yā yūsuf!",
+   "ru": "Добро пожаловать, Юсуф!",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "أهلا بك يا عمي!",
+   "tr": "ahlan bika yā 'ammī!",
+   "ru": "Здравствуйте, дядя!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أبي",
+    "tr": "abī",
+    "ru": "мой папа"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

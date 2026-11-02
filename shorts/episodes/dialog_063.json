@@ -1,0 +1,91 @@
+{
+ "title": "Урок 63: *Сегодня жарко!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27,
+    "yusuf": 0.73
+   }
+  },
+  {
+   "hook": "*Сегодня жарко!* — по-арабски",
+   "speak": "Сегодня жарко! — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*الجو* حار اليوم!",
+   "tr": "*al-jaww* hārr al-yawm!",
+   "ru": "Сегодня *погода* жаркая!",
+   "mood": "surprised"
+  },
+  {
+   "say": "yusuf",
+   "ar": "نعم، *الشمس* قوية",
+   "tr": "na'am, *ash-shams* qawiyya",
+   "ru": "Да, *солнце* сильное",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هيا نشرب عصيرا",
+   "tr": "hayyā nashrab 'asīran",
+   "ru": "Давай выпьем сока",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "الجو",
+    "tr": "al-jaww",
+    "ru": "погода"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

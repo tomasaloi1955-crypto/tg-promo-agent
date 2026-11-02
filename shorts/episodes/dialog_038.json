@@ -1,0 +1,89 @@
+{
+ "title": "Урок 38: *Магазин открыт?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "ahmad": 0.27,
+    "seller": 0.73
+   }
+  },
+  {
+   "hook": "*Магазин открыт?* — по-арабски",
+   "speak": "Магазин открыт? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل المحل *مفتوح*؟",
+   "tr": "hal al-mahall *maftūh*?",
+   "ru": "Магазин *открыт*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "نعم، تفضل",
+   "tr": "na'am, tafaddal",
+   "ru": "Да, проходи",
+   "mood": "happy"
+  },
+  {
+   "say": "seller",
+   "ar": "*نغلق* في العاشرة",
+   "tr": "*nughliqu* fī l-'āshira",
+   "ru": "Мы *закрываемся* в десять",
+   "mood": "neutral"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "مفتوح / مغلق",
+    "tr": "maftūh / mughlaq",
+    "ru": "открыт / закрыт"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

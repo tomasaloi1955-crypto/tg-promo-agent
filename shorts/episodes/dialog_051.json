@@ -1,0 +1,99 @@
+{
+ "title": "Урок 51: *Направо или налево?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "man": {
+   "type": "man",
+   "name": "Прохожий",
+   "color": [
+    110,
+    110,
+    150
+   ],
+   "voice": "ar-QA-MoazNeural",
+   "colors": {
+    "cloth": [
+     214,
+     226,
+     240
+    ],
+    "skin": [
+     210,
+     160,
+     118
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "*Направо или налево?* — по-арабски",
+   "speak": "Направо или налево? — по-арабски"
+  },
+  {
+   "enter": "man",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "أين المستشفى من فضلك؟",
+   "tr": "ayna l-mustashfā min fadlik?",
+   "ru": "Где больница, пожалуйста?",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "اذهب إلى *اليمين*",
+   "tr": "idhhab ilā *l-yamīn*",
+   "ru": "Иди *направо*",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "ثم إلى *اليسار*",
+   "tr": "thumma ilā *l-yasār*",
+   "ru": "Потом *налево*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا جزيلا!",
+   "tr": "shukran jazīlan!",
+   "ru": "Большое спасибо!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "يمين / يسار",
+    "tr": "yamīn / yasār",
+    "ru": "право / лево"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,89 @@
+{
+ "title": "Урок 78: *Отдай ручку!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.18,
+    "mom": 0.5,
+    "ahmad": 0.82
+   }
+  },
+  {
+   "hook": "*Отдай ручку!* — по-арабски",
+   "speak": "Отдай ручку! — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "أحمد أخذ قلمي!",
+   "tr": "ahmad akhadha qalamī!",
+   "ru": "Ахмад взял мою ручку!",
+   "mood": "angry"
+  },
+  {
+   "say": "mom",
+   "ar": "يا أحمد، *أعطها* القلم",
+   "tr": "yā ahmad, *a'tihā* l-qalam",
+   "ru": "Ахмад, *отдай ей* ручку",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "آسف يا مريم",
+   "tr": "āsif yā maryam",
+   "ru": "Прости, Марьям",
+   "mood": "sad"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "أعطني",
+    "tr": "a'tinī",
+    "ru": "дай мне"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

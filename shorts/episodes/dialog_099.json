@@ -1,0 +1,71 @@
+{
+ "title": "Урок 99: *Вам помочь?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27,
+    "grandpa": 0.73
+   }
+  },
+  {
+   "hook": "*Вам помочь?* — по-арабски",
+   "speak": "Вам помочь? — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل *أساعدك* يا جدي؟",
+   "tr": "hal *usā'iduka* yā jaddī?",
+   "ru": "*Помочь* тебе, дедушка?",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "نعم، *بارك الله فيك*",
+   "tr": "na'am, *bāraka llāhu fīk*",
+   "ru": "Да, *да благословит тебя Аллах*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "بارك الله فيك",
+    "tr": "bāraka llāhu fīk",
+    "ru": "да благословит тебя Аллах"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

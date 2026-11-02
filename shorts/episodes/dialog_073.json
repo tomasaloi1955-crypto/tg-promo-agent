@@ -1,0 +1,87 @@
+{
+ "title": "Урок 73: *У врача*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "doctor": {
+   "type": "man",
+   "name": "Врач",
+   "color": [
+    60,
+    150,
+    200
+   ],
+   "voice": "ar-BH-AliNeural",
+   "colors": {
+    "cloth": [
+     236,
+     246,
+     252
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "doctor": 0.27
+   }
+  },
+  {
+   "hook": "*У врача* — по-арабски",
+   "speak": "У врача — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "doctor",
+   "ar": "*مم تشكو*؟",
+   "tr": "*mimma tashkū*?",
+   "ru": "*На что жалуешься*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "عندي *حرارة*",
+   "tr": "'indī *harāra*",
+   "ru": "У меня *температура*",
+   "mood": "sad"
+  },
+  {
+   "say": "doctor",
+   "ar": "خذ هذا *الدواء*",
+   "tr": "khudh hādhā *d-dawā'*",
+   "ru": "Прими это *лекарство*",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "دواء",
+    "tr": "dawā'",
+    "ru": "лекарство"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

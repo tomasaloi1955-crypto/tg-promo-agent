@@ -1,0 +1,76 @@
+{
+ "title": "Урок 62: *Сегодня пятница*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "*Сегодня пятница* — по-арабски",
+   "speak": "Сегодня пятница — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "ما *اليوم*؟",
+   "tr": "mā *l-yawm*?",
+   "ru": "Какой *сегодня* день?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "اليوم *الجمعة*",
+   "tr": "al-yawm *al-jum'a*",
+   "ru": "Сегодня *пятница*",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "جمعة مباركة!",
+   "tr": "jum'a mubāraka!",
+   "ru": "Благословенной пятницы!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "الجمعة",
+    "tr": "al-jum'a",
+    "ru": "пятница"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

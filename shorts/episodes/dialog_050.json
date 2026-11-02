@@ -1,0 +1,114 @@
+{
+ "title": "Урок 50: *Урок окончен!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.18,
+    "ahmad": 0.5,
+    "yusuf": 0.82
+   }
+  },
+  {
+   "hook": "*Урок окончен!* — по-арабски",
+   "speak": "Урок окончен! — по-арабски"
+  },
+  {
+   "say": "teacher",
+   "ar": "انتهى *الدرس*",
+   "tr": "intahā *d-dars*",
+   "ru": "*Урок* окончен",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*هيا* نلعب يا يوسف!",
+   "tr": "*hayyā* nal'ab yā yūsuf!",
+   "ru": "*Давай* играть, Юсуф!",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "هيا!",
+   "tr": "hayyā!",
+   "ru": "Пошли!",
+   "mood": "happy"
+  },
+  {
+   "card": {
+    "label": "ЗАПОМНИ",
+    "ar": "هيا",
+    "tr": "hayyā",
+    "ru": "давай! пошли!"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}
