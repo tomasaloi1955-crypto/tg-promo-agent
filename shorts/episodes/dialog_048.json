@@ -78,11 +78,10 @@
    "mood": "neutral"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "любимый",
     "ar": "المفضل",
-    "tr": "al-mufaddal",
-    "ru": "любимый"
+    "tr": "al-mufaddal"
    }
   }
  ],

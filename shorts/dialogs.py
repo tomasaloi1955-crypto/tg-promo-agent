@@ -43,7 +43,7 @@ def D(topic, scene, lines, card):
 
 DIALOGS = [
     # ── 1. Знакомство и приветствия ──
-    D("Привет! Как дела?", "street_day", [
+    D("Привет! Как дела?", "park_day", [
         ("ahmad", "السلام عليكم!", "as-salāmu 'alaykum!", "Мир вам! (Привет!)", "happy"),
         ("yusuf", "وعليكم السلام!", "wa 'alaykumu s-salām!", "И вам мир!", "happy"),
         ("ahmad", "*كيف حالك؟*", "*kayfa hāluk?*", "*Как дела?*"),
@@ -55,7 +55,7 @@ DIALOGS = [
         ("ahmad", "وما اسمكِ يا أستاذة؟", "wa mā smuki yā ustādha?", "А как вас зовут, учительница?"),
         ("teacher", "اسمي فاطمة", "ismī fātima", "Меня зовут Фатима", "happy"),
     ], ("اسمي...", "ismī...", "Меня зовут...")),
-    D("Откуда ты?", "street_day", [
+    D("Откуда ты?", "airport_day", [
         ("yusuf", "*من أين* أنت؟", "*min ayna* anta?", "*Откуда* ты?"),
         ("ahmad", "أنا من روسيا", "anā min rūsiyā", "Я из России"),
         ("ahmad", "وأنت؟", "wa anta?", "А ты?"),
@@ -72,13 +72,13 @@ DIALOGS = [
         ("mom", "هل نمت جيدا؟", "hal nimta jayyidan?", "Ты хорошо спал?"),
         ("ahmad", "نعم، الحمد لله", "na'am, al-hamdu lillāh", "Да, слава Аллаху"),
     ], ("صباح الخير", "sabāh al-khayr", "Доброе утро")),
-    D("Добрый вечер", "majlis_night", [
+    D("Добрый вечер", "desert_night", [
         ("ahmad", "*مساء الخير* يا جدي!", "*masā' al-khayr* yā jaddī!", "*Добрый вечер*, дедушка!", "happy"),
         ("grandpa", "مساء النور يا حبيبي!", "masā' an-nūr yā habībī!", "Добрый вечер, дорогой!", "happy"),
         ("grandpa", "تعال واجلس معي", "ta'āla wa-jlis ma'ī", "Иди, садись со мной"),
         ("ahmad", "حاضر!", "hādir!", "Хорошо!"),
     ], ("مساء الخير", "masā' al-khayr", "Добрый вечер")),
-    D("Спокойной ночи", "majlis_night", [
+    D("Спокойной ночи", "bedroom_night", [
         ("maryam", "أنا *نعسانة*", "anā *na'sāna*", "Я *хочу спать*", "sad"),
         ("mom", "*تصبحين على خير* يا مريم", "*tusbihīna 'alā khayr* yā maryam", "*Спокойной ночи*, Марьям", "happy"),
         ("maryam", "وأنتِ من أهله يا أمي", "wa anti min ahlih yā ummī", "И тебе, мама", "happy"),
@@ -113,7 +113,7 @@ DIALOGS = [
         ("mom", "مرحبا! أنا أم مريم", "marhaban! anā umm maryam", "Здравствуйте! Я мама Марьям", "happy"),
         ("teacher", "أهلا وسهلا!", "ahlan wa sahlan!", "Добро пожаловать!", "happy"),
     ], ("أمي", "ummī", "моя мама")),
-    D("У тебя есть сестра?", "majlis_day", [
+    D("У тебя есть сестра?", "cafe_day", [
         ("yusuf", "هل عندك *إخوة*؟", "hal 'indaka *ikhwa*?", "У тебя есть *братья и сёстры*?"),
         ("ahmad", "نعم، عندي *أخت* واحدة", "na'am, 'indī *ukht* wāhida", "Да, у меня одна *сестра*"),
         ("yusuf", "ما اسمها؟", "mā smuhā?", "Как её зовут?"),
@@ -130,7 +130,7 @@ DIALOGS = [
         ("teacher", "وأنتِ يا مريم؟", "wa anti yā maryam?", "А тебе, Марьям?"),
         ("maryam", "عمري ثماني سنوات", "'umrī thamānī sanawāt", "Мне восемь лет", "happy"),
     ], ("كم عمرك؟", "kam 'umruk?", "Сколько тебе лет?")),
-    D("Моя семья", "majlis_day", [
+    D("Моя семья", "park_day", [
         ("yusuf", "هل *عائلتك* كبيرة؟", "hal *'ā'ilatuka* kabīra?", "Твоя *семья* большая?"),
         ("ahmad", "لا، عائلتي صغيرة", "lā, 'ā'ilatī saghīra", "Нет, моя семья маленькая"),
         ("ahmad", "أبي وأمي وأختي وأنا", "abī wa ummī wa ukhtī wa anā", "Папа, мама, сестра и я", "happy"),
@@ -192,12 +192,12 @@ DIALOGS = [
         ("ahmad", "لا، شكرا. *شبعت*", "lā, shukran. *shabi'tu*", "Нет, спасибо. *Я наелся*", "happy"),
         ("ahmad", "الحمد لله", "al-hamdu lillāh", "Слава Аллаху"),
     ], ("شبعت", "shabi'tu", "я наелся")),
-    D("Угощайтесь кофе", "majlis_day", [
+    D("Угощайтесь кофе", "desert_night", [
         ("dad", "تفضل *القهوة*", "tafaddal *al-qahwa*", "Угощайтесь *кофе*", "happy"),
         ("guest", "شكرا، القهوة طيبة", "shukran, al-qahwa tayyiba", "Спасибо, кофе хороший", "happy"),
         ("dad", "تفضل *التمر* أيضا", "tafaddal *at-tamr* aydan", "Угощайтесь и *финиками*"),
     ], ("قهوة / تمر", "qahwa / tamr", "кофе / финики")),
-    D("Что ты ешь?", "kitchen_day", [
+    D("Что ты ешь?", "cafe_day", [
         ("maryam", "ماذا *تأكل*؟", "mādhā *ta'kul*?", "Что ты *ешь*?"),
         ("ahmad", "*آكل* سلطة", "*ākulu* salata", "*Я ем* салат"),
         ("maryam", "هل هي طيبة؟", "hal hiya tayyiba?", "Он вкусный?"),
@@ -305,7 +305,7 @@ DIALOGS = [
         ("ahmad", "أحب *اللغة العربية*", "uhibbu *l-lugha l-'arabiyya*", "Я люблю *арабский язык*", "happy"),
         ("yusuf", "وأنا أحب الرياضيات", "wa anā uhibbu r-riyādiyyāt", "А я люблю математику"),
     ], ("المفضل", "al-mufaddal", "любимый")),
-    D("Ты говоришь по-арабски?", "street_day", [
+    D("Ты говоришь по-арабски?", "cafe_day", [
         ("yusuf", "هل *تتكلم* العربية؟", "hal *tatakallamu* l-'arabiyya?", "Ты *говоришь* по-арабски?"),
         ("ahmad", "نعم، *قليلا*", "na'am, *qalīlan*", "Да, *немного*"),
         ("yusuf", "كلامك جيد!", "kalāmuka jayyid!", "Ты хорошо говоришь!", "happy"),
@@ -324,18 +324,18 @@ DIALOGS = [
         ("man", "ثم إلى *اليسار*", "thumma ilā *l-yasār*", "Потом *налево*"),
         ("ahmad", "شكرا جزيلا!", "shukran jazīlan!", "Большое спасибо!", "happy"),
     ], ("يمين / يسار", "yamīn / yasār", "право / лево")),
-    D("Это далеко?", "street_day", [
+    D("Это далеко?", "park_day", [
         ("ahmad", "هل السوق *بعيد*؟", "hal as-sūq *ba'īd*?", "Рынок *далеко*?"),
         ("man", "لا، هو *قريب*", "lā, huwa *qarīb*", "Нет, он *близко*"),
         ("man", "خمس دقائق مشيا", "khamsu daqā'iq mashyan", "Пять минут пешком"),
     ], ("قريب / بعيد", "qarīb / ba'īd", "близко / далеко")),
-    D("В такси", "street_day", [
-        ("dad", "إلى *المطار* من فضلك", "ilā *l-matār* min fadlik", "В *аэропорт*, пожалуйста"),
+    D("В такси", "airport_day", [
+        ("dad", "إلى *الفندق* من فضلك", "ilā *l-funduq* min fadlik", "В *гостиницу*, пожалуйста"),
         ("driver", "حاضر. اركب", "hādir. irkab", "Хорошо. Садитесь", "happy"),
         ("dad", "بكم الأجرة؟", "bi-kam al-ujra?", "Сколько стоит поездка?"),
         ("driver", "خمسون ريالا", "khamsūna riyālan", "Пятьдесят риалов"),
-    ], ("مطار", "matār", "аэропорт")),
-    D("Пойдём в мечеть", "street_day", [
+    ], ("فندق", "funduq", "гостиница")),
+    D("Пойдём в мечеть", "courtyard_day", [
         ("dad", "هيا إلى *المسجد* يا أحمد", "hayyā ilā *l-masjid* yā ahmad", "Пойдём в *мечеть*, Ахмад"),
         ("ahmad", "هل حان وقت *الصلاة*؟", "hal hāna waqtu *s-salāh*?", "Уже время *молитвы*?"),
         ("dad", "نعم، هذا الأذان", "na'am, hādhā l-adhān", "Да, это азан", "happy"),
@@ -351,7 +351,7 @@ DIALOGS = [
         ("mom", "بعد عشر *دقائق*", "ba'da 'ashr *daqā'iq*", "Через десять *минут*"),
         ("maryam", "حسنا، ننتظر", "hasanan, nantazir", "Хорошо, подождём"),
     ], ("حافلة", "hāfila", "автобус")),
-    D("Пойдём в парк?", "street_day", [
+    D("Пойдём в парк?", "park_day", [
         ("yusuf", "هل تذهب إلى *الحديقة*؟", "hal tadhhabu ilā *l-hadīqa*?", "Ты пойдёшь в *парк*?"),
         ("ahmad", "نعم، بعد العصر", "na'am, ba'da l-'asr", "Да, после асра"),
         ("yusuf", "سأذهب *معك*", "sa-adhhabu *ma'ak*", "Я пойду *с тобой*", "happy"),
@@ -377,12 +377,12 @@ DIALOGS = [
         ("dad", "الساعة الثالثة", "as-sā'a ath-thālitha", "Три часа"),
         ("ahmad", "شكرا يا أبي", "shukran yā abī", "Спасибо, папа", "happy"),
     ], ("كم الساعة؟", "kam as-sā'a?", "Который час?")),
-    D("Сегодня пятница", "majlis_day", [
+    D("Сегодня пятница", "courtyard_day", [
         ("maryam", "ما *اليوم*؟", "mā *l-yawm*?", "Какой *сегодня* день?"),
         ("mom", "اليوم *الجمعة*", "al-yawm *al-jum'a*", "Сегодня *пятница*", "happy"),
-        ("maryam", "جمعة مباركة!", "jum'a mubāraka!", "Благословенной пятницы!", "happy"),
+        ("maryam", "سأقرأ *سورة الكهف*", "sa-aqra'u *sūrat al-kahf*", "Я прочитаю *суру «Пещера»*", "happy"),
     ], ("الجمعة", "al-jum'a", "пятница")),
-    D("Сегодня жарко!", "street_day", [
+    D("Сегодня жарко!", "beach_day", [
         ("ahmad", "*الجو* حار اليوم!", "*al-jaww* hārr al-yawm!", "Сегодня *погода* жаркая!", "surprised"),
         ("yusuf", "نعم، *الشمس* قوية", "na'am, *ash-shams* qawiyya", "Да, *солнце* сильное"),
         ("ahmad", "هيا نشرب عصيرا", "hayyā nashrab 'asīran", "Давай выпьем сока", "happy"),
@@ -411,10 +411,10 @@ DIALOGS = [
         ("ahmad", "أستيقظ قبل الفجر", "astayqizu qabla l-fajr", "Я просыпаюсь до фаджра"),
         ("yusuf", "ما شاء الله! أنا أستيقظ متأخرا", "mā shā' allāh! anā astayqizu muta'akhkhiran", "Машаллах! А я просыпаюсь поздно", "surprised"),
     ], ("أستيقظ", "astayqizu", "я просыпаюсь")),
-    D("Завтра выходной!", "majlis_day", [
-        ("maryam", "غدا *عطلة*!", "ghadan *'utla*!", "Завтра *выходной*!", "happy"),
-        ("dad", "نعم، سنذهب إلى *البحر*", "na'am, sa-nadhhabu ilā *l-bahr*", "Да, мы поедем на *море*", "happy"),
-        ("maryam", "يا سلام!", "yā salām!", "Вот здорово!", "surprised"),
+    D("Ура, выходной!", "beach_day", [
+        ("maryam", "اليوم *عطلة*!", "al-yawm *'utla*!", "Сегодня *выходной*!", "happy"),
+        ("dad", "نعم، ولهذا جئنا إلى *البحر*", "na'am, wa li-hādhā ji'nā ilā *l-bahr*", "Да, поэтому мы приехали на *море*", "happy"),
+        ("maryam", "رائع!", "rā'i'!", "Вот здорово!", "surprised"),
     ], ("عطلة", "'utla", "выходной, каникулы")),
     D("Сейчас или потом?", "majlis_day", [
         ("mom", "رتب غرفتك *الآن*", "rattib ghurfataka *l-ān*", "Убери свою комнату *сейчас*"),
@@ -423,36 +423,36 @@ DIALOGS = [
     ], ("الآن", "al-ān", "сейчас")),
 
     # ── 8. Самочувствие и чувства ──
-    D("Я устал", "majlis_day", [
+    D("Я устал", "bedroom_night", [
         ("ahmad", "أنا *متعب*", "anā *mut'ab*", "Я *устал*", "sad"),
         ("mom", "*استرح* قليلا", "*istarih* qalīlan", "*Отдохни* немного"),
         ("ahmad", "شكرا يا أمي", "shukran yā ummī", "Спасибо, мама", "happy"),
     ], ("متعب", "mut'ab", "уставший")),
-    D("У меня болит голова", "majlis_day", [
+    D("У меня болит голова", "bedroom_night", [
         ("maryam", "*رأسي* يؤلمني", "*ra'sī* yu'limunī", "У меня болит *голова*", "sad"),
         ("mom", "*سلامتكِ* يا حبيبتي", "*salāmatuki* yā habībatī", "*Выздоравливай*, дорогая"),
         ("mom", "اشربي ماء ونامي قليلا", "ishrabī mā'an wa nāmī qalīlan", "Попей воды и поспи немного"),
     ], ("سلامتك", "salāmatak", "выздоравливай")),
-    D("У врача", "majlis_day", [
+    D("У врача", "clinic_day", [
         ("doctor", "*مم تشكو*؟", "*mimma tashkū*?", "*На что жалуешься*?"),
         ("ahmad", "عندي *حرارة*", "'indī *harāra*", "У меня *температура*", "sad"),
         ("doctor", "خذ هذا *الدواء*", "khudh hādhā *d-dawā'*", "Прими это *лекарство*", "happy"),
     ], ("دواء", "dawā'", "лекарство")),
-    D("Поздравляю!", "street_day", [
+    D("Поздравляю!", "cafe_day", [
         ("yusuf", "نجحت في الامتحان!", "najahtu fī l-imtihān!", "Я сдал экзамен!", "happy"),
         ("ahmad", "*مبروك!* أنا سعيد لك", "*mabrūk!* anā sa'īd lak", "*Поздравляю!* Я рад за тебя", "happy"),
         ("yusuf", "الله يبارك فيك", "allāh yubārik fīk", "Да благословит тебя Аллах", "happy"),
     ], ("مبروك", "mabrūk", "поздравляю")),
-    D("Почему ты грустный?", "street_day", [
+    D("Почему ты грустный?", "park_day", [
         ("maryam", "لماذا أنت *حزين*؟", "limādhā anta *hazīn*?", "Почему ты *грустный*?"),
         ("ahmad", "ضاعت *كرتي*", "dā'at *kuratī*", "Мой *мяч* потерялся", "sad"),
         ("maryam", "لا تحزن، سنبحث عنها", "lā tahzan, sa-nabhathu 'anhā", "Не грусти, мы его поищем", "happy"),
     ], ("حزين / سعيد", "hazīn / sa'īd", "грустный / радостный")),
-    D("Я боюсь темноты", "majlis_night", [
+    D("Я боюсь темноты", "bedroom_night", [
         ("maryam", "أنا *خائفة* من الظلام", "anā *khā'ifa* min az-zalām", "Я *боюсь* темноты", "sad"),
         ("dad", "*لا تخافي*، أنا معكِ", "*lā takhāfī*, anā ma'aki", "*Не бойся*, я с тобой", "happy"),
     ], ("لا تخف", "lā takhaf", "не бойся")),
-    D("Ты в порядке?", "street_day", [
+    D("Ты в порядке?", "park_day", [
         ("yusuf", "هل أنت *بخير*؟", "hal anta *bi-khayr*?", "Ты *в порядке*?", "surprised"),
         ("ahmad", "سقطت، لكني بخير", "saqattu, lākinnī bi-khayr", "Я упал, но всё хорошо", "happy"),
     ], ("بخير", "bi-khayr", "в порядке, хорошо")),
@@ -461,11 +461,11 @@ DIALOGS = [
         ("mom", "يا أحمد، *أعطها* القلم", "yā ahmad, *a'tihā* l-qalam", "Ахмад, *отдай ей* ручку"),
         ("ahmad", "آسف يا مريم", "āsif yā maryam", "Прости, Марьям", "sad"),
     ], ("أعطني", "a'tinī", "дай мне")),
-    D("Я соскучился!", "majlis_day", [
+    D("Я соскучился!", "airport_day", [
         ("grandpa", "*اشتقت إليك* يا أحمد!", "*ishtaqtu ilayka* yā ahmad!", "*Я соскучился по тебе*, Ахмад!", "happy"),
         ("ahmad", "وأنا اشتقت إليك يا جدي!", "wa anā shtaqtu ilayka yā jaddī!", "И я по тебе, дедушка!", "happy"),
     ], ("اشتقت إليك", "ishtaqtu ilayk", "я соскучился по тебе")),
-    D("Сыграем в футбол?", "street_day", [
+    D("Сыграем в футбол?", "park_day", [
         ("yusuf", "هل تلعب *كرة القدم*؟", "hal tal'abu *kurat al-qadam*?", "Ты играешь в *футбол*?"),
         ("ahmad", "نعم، *كل يوم*", "na'am, *kulla yawm*", "Да, *каждый день*", "happy"),
         ("yusuf", "هيا نلعب معا!", "hayyā nal'ab ma'an!", "Давай играть вместе!", "happy"),
@@ -482,7 +482,7 @@ DIALOGS = [
         ("ahmad", "*من هناك؟*", "*man hunāk?*", "*Кто там?*"),
         ("grandpa", "أنا جدك!", "anā jadduk!", "Это я, твой дедушка!", "happy"),
     ], ("باب", "bāb", "дверь")),
-    D("Выключи свет", "majlis_night", [
+    D("Выключи свет", "bedroom_night", [
         ("mom", "*أطفئ* النور ونم", "*atfi'* an-nūr wa nam", "*Выключи* свет и спи"),
         ("ahmad", "حاضر يا أمي", "hādir yā ummī", "Хорошо, мама"),
         ("ahmad", "تصبحين على خير", "tusbihīna 'alā khayr", "Спокойной ночи", "happy"),
@@ -502,7 +502,7 @@ DIALOGS = [
         ("maryam", "أنا أنظف *غرفتي*", "anā unazzifu *ghurfatī*", "Я уберу *свою комнату*"),
         ("ahmad", "وأنا أساعد أبي", "wa anā usā'idu abī", "А я помогу папе", "happy"),
     ], ("نظيف", "nazīf", "чистый")),
-    D("Ты спишь?", "majlis_night", [
+    D("Ты спишь?", "bedroom_night", [
         ("ahmad", "هل أنتِ *نائمة* يا مريم؟", "hal anti *nā'ima* yā maryam?", "Ты *спишь*, Марьям?"),
         ("maryam", "لا، أنا مستيقظة", "lā, anā mustayqiza", "Нет, я не сплю"),
         ("ahmad", "هيا نلعب!", "hayyā nal'ab!", "Давай играть!", "happy"),
@@ -524,7 +524,7 @@ DIALOGS = [
     ], ("جاهز", "jāhiz", "готов")),
 
     # ── 10. Вежливость и праздники ──
-    D("Рамадан карим!", "majlis_night", [
+    D("Рамадан карим!", "desert_night", [
         ("maryam", "*رمضان كريم* يا جدي!", "*ramadān karīm* yā jaddī!", "*Рамадан карим*, дедушка!", "happy"),
         ("grandpa", "الله أكرم!", "allāhu akram!", "Аллах щедрее!", "happy"),
         ("maryam", "هل أنت *صائم*؟", "hal anta *sā'im*?", "Ты *постишься*?"),
@@ -535,7 +535,7 @@ DIALOGS = [
         ("dad", "عيدك مبارك يا بني!", "'īduka mubārak yā bunayya!", "И тебя с праздником, сынок!", "happy"),
         ("dad", "هذه *هدية* لك", "hādhihi *hadiyya* lak", "Это тебе *подарок*", "happy"),
     ], ("عيد مبارك", "'īd mubārak", "с праздником")),
-    D("Когда чихнул", "classroom_day", [
+    D("Когда чихнул", "courtyard_day", [
         ("ahmad", "الحمد لله", "al-hamdu lillāh", "Слава Аллаху (после чиха)", "surprised"),
         ("maryam", "*يرحمك الله*", "*yarhamuka llāh*", "*Да помилует тебя Аллах*"),
         ("ahmad", "يهدينا ويهديكم الله", "yahdīnā wa yahdīkumu llāh", "Да наставит Аллах нас и вас", "happy"),
@@ -545,7 +545,7 @@ DIALOGS = [
         ("guest", "أهلا بك. بيتكم *جميل*", "ahlan bik. baytukum *jamīl*", "Спасибо. У вас *красивый* дом", "happy"),
         ("dad", "شكرا، تفضل اجلس", "shukran, tafaddal ijlis", "Спасибо, садитесь, пожалуйста"),
     ], ("أهلا وسهلا", "ahlan wa sahlan", "добро пожаловать")),
-    D("Иншаллах", "street_day", [
+    D("Иншаллах", "courtyard_day", [
         ("yusuf", "هل *تأتي* غدا؟", "hal *ta'tī* ghadan?", "Ты *придёшь* завтра?"),
         ("ahmad", "*إن شاء الله*", "*in shā' allāh*", "*Если пожелает Аллах*", "happy"),
         ("yusuf", "ممتاز! أنتظرك", "mumtāz! antaziruk", "Отлично! Жду тебя", "happy"),
@@ -564,17 +564,50 @@ DIALOGS = [
         ("ahmad", "أنا *آسف* يا يوسف", "anā *āsif* yā yūsuf", "*Прости меня*, Юсуф", "sad"),
         ("yusuf", "*لا مشكلة*، أنت أخي", "*lā mushkila*, anta akhī", "*Без проблем*, ты мне как брат", "happy"),
     ], ("لا مشكلة", "lā mushkila", "без проблем")),
-    D("Вам помочь?", "street_day", [
+    D("Вам помочь?", "courtyard_day", [
         ("ahmad", "هل *أساعدك* يا جدي؟", "hal *usā'iduka* yā jaddī?", "*Помочь* тебе, дедушка?"),
         ("grandpa", "نعم، *بارك الله فيك*", "na'am, *bāraka llāhu fīk*", "Да, *да благословит тебя Аллах*", "happy"),
     ], ("بارك الله فيك", "bāraka llāhu fīk", "да благословит тебя Аллах")),
-    D("Я учу арабский", "street_day", [
+    D("Я учу арабский", "cafe_day", [
         ("yusuf", "ماذا *تتعلم*؟", "mādhā *tata'allam*?", "Что ты *учишь*?"),
         ("ahmad", "أتعلم اللغة العربية", "ata'allamu l-lugha l-'arabiyya", "Я учу арабский язык", "happy"),
         ("yusuf", "هل هي *صعبة*؟", "hal hiya *sa'ba*?", "Он *трудный*?"),
         ("ahmad", "لا، هي *سهلة* وجميلة!", "lā, hiya *sahla* wa jamīla!", "Нет, он *лёгкий* и красивый!", "happy"),
     ], ("سهل / صعب", "sahl / sa'b", "лёгкий / трудный")),
 ]
+
+
+# Контроль акыды: в диалогах не должно быть ширка и сомнительных выражений.
+FORBIDDEN = {
+    "والنبي": "клятва не Аллахом (пророком)",
+    "وحياتك": "клятва жизнью человека",
+    "وحياة": "клятва жизнью",
+    "بحياتي": "клятва жизнью",
+    "وشرفي": "клятва честью",
+    "حظ": "«удача/судьба» как самостоятельная сила",
+    "تميمة": "амулет",
+    "خرزة": "амулет от сглаза",
+    "برج": "гороскоп/знак зодиака",
+    "أبراج": "гороскоп",
+    "يا سلام": "восклицание с именем Аллаха ас-Салям",
+    "عيد ميلاد": "день рождения (спорный праздник)",
+    "مولد": "праздник мавлид (спорно)",
+    "الكريسماس": "чужой религиозный праздник",
+    "شكرا للقدر": "«спасибо судьбе»",
+    "لولا": "«если бы не ...» — может вести к приписыванию сотоварищей",
+}
+
+
+def check_aqidah():
+    bad = []
+    for n, d in enumerate(DIALOGS, 1):
+        texts = [ln[1] for ln in d["lines"]] + [d["card"][0]]
+        for t in texts:
+            for w, why in FORBIDDEN.items():
+                if w in t.replace("*", ""):
+                    bad.append(f"Урок {n}: «{t}» — {why}")
+    if bad:
+        raise SystemExit("Проверка акыды не пройдена:\n" + "\n".join(bad))
 
 
 def episode(n: int, d: dict) -> dict:
@@ -588,9 +621,17 @@ def episode(n: int, d: dict) -> dict:
     enter = order[-1] if len(order) == 2 and rng.random() < 0.4 else None
     cast = {k: v for k, v in places.items() if k != enter}
 
+    hooks = [
+        ("*{t}* — по-арабски", "{t} — по-арабски"),
+        ("Как сказать *«{t}»* по-арабски?", "Как сказать «{t}» по-арабски?"),
+        ("Скажи по-арабски: *{t}*", "Скажи по-арабски: {t}"),
+        ("Урок {n}: *{t}*. Слушай и повторяй!", "Урок {n}. {t}. Слушай и повторяй!"),
+    ]
+    hv, hs = hooks[n % len(hooks)]
+    t = d["topic"].rstrip("!?.")
     beats = [
         {"scene": d["scene"], "cast": cast},
-        {"hook": f"*{d['topic']}* — по-арабски", "speak": f"{d['topic']} — по-арабски"},
+        {"hook": hv.format(t=t, n=n), "speak": hs.format(t=t, n=n)},
     ]
     if enter:
         beats.append({"enter": enter, "to": places[enter]})
@@ -603,7 +644,7 @@ def episode(n: int, d: dict) -> dict:
             b["mood"] = "neutral"
         beats.append(b)
     car, ctr, cru = d["card"]
-    beats.append({"card": {"label": "ЗАПОМНИ", "ar": car, "tr": ctr, "ru": cru}})
+    beats.append({"quiz": {"ru": cru, "ar": car, "tr": ctr}})
     return {
         "title": f"Урок {n}: *{d['topic']}*",
         "channel": "MY ARABIC",
@@ -618,6 +659,7 @@ def episode(n: int, d: dict) -> dict:
 
 def main():
     assert len(DIALOGS) == 100, len(DIALOGS)
+    check_aqidah()
     out = HERE / "episodes"
     out.mkdir(exist_ok=True)
     for old in out.glob("dialog_*.json"):
@@ -633,7 +675,7 @@ def main():
             who = CHARACTERS[ln[0]]["name"]
             md.append(f"- **{who}:** {ln[1].replace('*', '')} — _{ln[2].replace('*', '')}_ — {ln[3].replace('*', '')}")
         car, ctr, cru = d["card"]
-        md.append(f"- 📌 **Запомни:** {car} — _{ctr}_ — {cru}")
+        md.append(f"- ❓ **Викторина:** «{cru}» → {car} — _{ctr}_")
         md.append("")
     (HERE / "DIALOGS.md").write_text("\n".join(md), encoding="utf-8")
     print(f"✓ {len(DIALOGS)} эпизодов → {out}, список → {HERE / 'DIALOGS.md'}")

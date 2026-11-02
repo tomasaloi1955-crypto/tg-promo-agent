@@ -46,7 +46,7 @@
  },
  "beats": [
   {
-   "scene": "street_day",
+   "scene": "cafe_day",
    "cast": {
     "yusuf": 0.27
    }
@@ -88,11 +88,10 @@
    "mood": "happy"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "лёгкий / трудный",
     "ar": "سهل / صعب",
-    "tr": "sahl / sa'b",
-    "ru": "лёгкий / трудный"
+    "tr": "sahl / sa'b"
    }
   }
  ],

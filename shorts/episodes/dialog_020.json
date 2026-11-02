@@ -64,11 +64,10 @@
    "mood": "neutral"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "пожалуйста",
     "ar": "من فضلك",
-    "tr": "min fadlik",
-    "ru": "пожалуйста"
+    "tr": "min fadlik"
    }
   }
  ],

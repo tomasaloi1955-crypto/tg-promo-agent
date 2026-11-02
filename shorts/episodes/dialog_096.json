@@ -68,11 +68,10 @@
    "mood": "happy"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "да воздаст тебе Аллах добром",
     "ar": "جزاك الله خيرا",
-    "tr": "jazāka llāhu khayran",
-    "ru": "да воздаст тебе Аллах добром"
+    "tr": "jazāka llāhu khayran"
    }
   }
  ],

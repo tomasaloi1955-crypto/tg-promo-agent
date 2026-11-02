@@ -191,8 +191,21 @@ SCENES = {
                      sadu=((40, 120, 110), (30, 40, 44), (245, 235, 215)), night=False, props="shop"),
     "classroom_day": dict(wall=(222, 236, 226), wall2=(200, 220, 208), floor=(206, 164, 116), floor2=(188, 146, 100),
                           sadu=((60, 110, 170), (30, 40, 60), (240, 240, 235)), night=False, props="classroom"),
-    "street_day": dict(night=False, props="street"),
+    "street_day": dict(night=False, props="street", outdoor=True),
+    "park_day": dict(night=False, props="park", outdoor=True),
+    "beach_day": dict(night=False, props="beach", outdoor=True),
+    "courtyard_day": dict(night=False, props="courtyard", outdoor=True),
+    "desert_night": dict(night=True, props="desert", outdoor=True, fire=(0.5, 0.86)),
+    "bedroom_night": dict(wall=(70, 70, 130), wall2=(58, 58, 112), floor=(150, 110, 80), floor2=(130, 94, 66),
+                          sadu=((120, 70, 150), (40, 30, 60), (230, 220, 240)), night=True, props="bedroom"),
+    "clinic_day": dict(wall=(232, 244, 248), wall2=(210, 230, 238), floor=(200, 210, 214), floor2=(180, 192, 198),
+                       sadu=((60, 150, 170), (40, 60, 70), (245, 250, 252)), night=False, props="clinic"),
+    "cafe_day": dict(wall=(244, 222, 190), wall2=(222, 190, 150), floor=(160, 100, 70), floor2=(140, 86, 58),
+                     sadu=((190, 60, 50), (50, 36, 40), (250, 236, 210)), night=False, props="cafe"),
+    "airport_day": dict(wall=(236, 240, 244), wall2=(214, 222, 230), floor=(190, 196, 204), floor2=(170, 176, 186),
+                        sadu=((40, 110, 160), (30, 40, 60), (240, 244, 248)), night=False, props="airport"),
 }
+OUTDOOR = {"street": "street_bg", "park": "park_bg", "beach": "beach_bg", "courtyard": "courtyard_bg", "desert": "desert_night_bg"}
 
 
 def draw_window(d, x, y, w, h, night):
@@ -283,8 +296,8 @@ def draw_dallah(d, x, y, s, color=(222, 170, 60)):
 @functools.lru_cache(None)
 def scene_bg(name: str) -> Image.Image:
     c = SCENES[name]
-    if c["props"] == "street":
-        return street_bg()
+    if c["props"] in OUTDOOR:
+        return globals()[OUTDOOR[c["props"]]]()
     w, h = W * SS, SCENE_H * SS
     im = Image.new("RGB", (w, h), c["wall"])
     d = ImageDraw.Draw(im)
@@ -298,12 +311,15 @@ def scene_bg(name: str) -> Image.Image:
         d.line([(i, floor_y), (i - 120 * s, h)], fill=c["floor2"], width=4 * s)
     d.rectangle([0, floor_y, w, floor_y + 10 * s], fill=c["floor2"])
 
-    draw_window(d, int(w * 0.66), int(h * 0.12), int(w * 0.24), int(h * 0.26), c["night"])
+    if c["props"] not in ("airport", "clinic"):
+        draw_window(d, int(w * 0.66), int(h * 0.12), int(w * 0.24), int(h * 0.26), c["night"])
 
     # подвесная лампа
-    lx = int(w * 0.42) if c["props"] in ("kitchen", "majlis") else int(w * 0.56)
-    d.line([(lx, 0), (lx, 110 * s)], fill=INK, width=4 * s)
-    d.pieslice([lx - 50 * s, 90 * s, lx + 50 * s, 190 * s], 180, 360, fill=(230, 160, 60), outline=INK, width=4 * s)
+    lx = {"kitchen": 0.42, "majlis": 0.42, "bedroom": 0.3, "shop": 0.56, "classroom": 0.56}.get(c["props"])
+    lx = int(w * (lx or 0.42))
+    if c["props"] in ("kitchen", "majlis", "bedroom", "shop", "classroom"):
+        d.line([(lx, 0), (lx, 110 * s)], fill=INK, width=4 * s)
+        d.pieslice([lx - 50 * s, 90 * s, lx + 50 * s, 190 * s], 180, 360, fill=(230, 160, 60), outline=INK, width=4 * s)
     if c["night"]:
         glow = Image.new("L", (w, h), 0)
         ImageDraw.Draw(glow).ellipse([lx - 260 * s, 0, lx + 260 * s, 480 * s], fill=70)
@@ -330,6 +346,8 @@ def scene_bg(name: str) -> Image.Image:
         for k, col in enumerate([(240, 240, 240), (240, 200, 120)]):
             px = int(w * 0.5) + k * 130 * s
             d.ellipse([px, ty - 22 * s, px + 110 * s, ty + 6 * s], fill=col, outline=INK, width=3 * s)
+    elif c["props"] in ("bedroom", "clinic", "cafe", "airport"):
+        indoor_extra(im, d, c, w, h, floor_y)
     elif c["props"] == "shop":
         # полки с товарами
         rnd = random.Random(5)
@@ -416,6 +434,290 @@ def scene_bg(name: str) -> Image.Image:
 
 # ─────────────────────────── персонажи ───────────────────────────
 
+# ─────────────────────────── дополнительные сцены ───────────────────────────
+
+def _sky(d, w, h, top, bottom, upto):
+    for y in range(0, int(upto), 4 * SS):
+        k = y / max(1, upto)
+        d.rectangle([0, y, w, y + 4 * SS], fill=tuple(int(top[i] + (bottom[i] - top[i]) * k) for i in range(3)))
+
+
+def _cloud(d, x, y, s, sc=1.0):
+    for dx, dy, r in [(0, 20, 50), (50, 0, 60), (110, 20, 48)]:
+        r *= sc
+        d.ellipse([x + dx * s * sc - r * s, y + dy * s * sc - r * s * 0.7, x + dx * s * sc + r * s, y + dy * s * sc + r * s * 0.7], fill=WHITE)
+
+
+def _palm(d, px, py, s, height=12):
+    for i in range(height):
+        d.ellipse([px - 18 * s + i * 2 * s, py - (i + 1) * 36 * s, px + 18 * s + i * 2 * s, py - i * 36 * s + 6 * s],
+                  fill=(150, 100, 60), outline=INK, width=3 * s)
+    tx, ty = px + height * 2 * s, py - height * 36 * s
+    for ang in (200, 235, 270, 305, 340, 20):
+        r = math.radians(ang)
+        ex, ey = tx + math.cos(r) * 170 * s, ty + math.sin(r) * 90 * s + 40 * s
+        d.polygon([(tx, ty), (ex, ey), (tx + math.cos(r) * 90 * s, ty + math.sin(r) * 40 * s + 50 * s)], fill=(70, 150, 70), outline=INK)
+    d.ellipse([tx - 24 * s, ty - 10 * s, tx + 24 * s, ty + 30 * s], fill=(140, 90, 50))
+
+
+def _tree(d, x, ground, s, r=150, col=(80, 160, 90)):
+    d.rectangle([x - 22 * s, ground - 260 * s, x + 22 * s, ground], fill=(130, 90, 55), outline=INK, width=4 * s)
+    for dx, dy, rr in [(0, -330, r), (-90, -260, r * 0.75), (90, -260, r * 0.75)]:
+        d.ellipse([x + dx * s - rr * s, ground + dy * s - rr * s, x + dx * s + rr * s, ground + dy * s + rr * s],
+                  fill=col, outline=INK, width=4 * s)
+
+
+def park_bg():
+    s = SS
+    w, h = W * s, SCENE_H * s
+    im = Image.new("RGB", (w, h))
+    d = ImageDraw.Draw(im)
+    _sky(d, w, h, (120, 190, 245), (215, 238, 250), h * 0.6)
+    d.ellipse([int(w * 0.08), int(h * 0.06), int(w * 0.2), int(h * 0.06) + int(w * 0.12)], fill=(255, 214, 80))
+    _cloud(d, int(w * 0.5), int(h * 0.08), s)
+    _cloud(d, int(w * 0.8), int(h * 0.16), s, 0.7)
+    for i in range(9):  # дальние деревья
+        x = i * w / 8
+        d.ellipse([x - 120 * s, h * 0.42, x + 120 * s, h * 0.62], fill=(110, 175, 110))
+    d.rectangle([0, int(h * 0.56), w, h], fill=(120, 190, 100))
+    ground = int(h * 0.80)
+    d.polygon([(0, ground - 30 * s), (w, ground - 30 * s), (w, h), (0, h)], fill=(226, 206, 160))  # дорожка
+    d.line([(0, ground - 30 * s), (w, ground - 30 * s)], fill=(190, 170, 120), width=6 * s)
+    _tree(d, int(w * 0.1), int(h * 0.74), s)
+    _tree(d, int(w * 0.9), int(h * 0.72), s, 130, (90, 170, 80))
+    # скамейка
+    bx, by = int(w * 0.36), int(h * 0.70)
+    d.rounded_rectangle([bx, by - 60 * s, bx + 300 * s, by - 40 * s], 6 * s, fill=(180, 110, 60), outline=INK, width=4 * s)
+    d.rounded_rectangle([bx, by - 20 * s, bx + 300 * s, by], 6 * s, fill=(180, 110, 60), outline=INK, width=4 * s)
+    for lx in (bx + 20 * s, bx + 270 * s):
+        d.rectangle([lx, by, lx + 14 * s, by + 50 * s], fill=(80, 80, 90))
+    # качели
+    sx = int(w * 0.66)
+    d.line([(sx, int(h * 0.74)), (sx + 60 * s, int(h * 0.40))], fill=(200, 70, 60), width=10 * s)
+    d.line([(sx + 240 * s, int(h * 0.74)), (sx + 180 * s, int(h * 0.40))], fill=(200, 70, 60), width=10 * s)
+    d.line([(sx + 50 * s, int(h * 0.41)), (sx + 190 * s, int(h * 0.41))], fill=(200, 70, 60), width=12 * s)
+    d.line([(sx + 120 * s, int(h * 0.41)), (sx + 120 * s, int(h * 0.62))], fill=INK, width=3 * s)
+    d.rounded_rectangle([sx + 90 * s, int(h * 0.62), sx + 150 * s, int(h * 0.635)], 4 * s, fill=(240, 180, 50), outline=INK, width=3 * s)
+    rnd = random.Random(3)
+    for _ in range(40):  # цветы
+        fx, fy = rnd.random() * w, h * (0.58 + rnd.random() * 0.12)
+        c = rnd.choice([(250, 120, 140), (255, 220, 80), (255, 255, 255), (200, 120, 230)])
+        d.ellipse([fx - 7 * s, fy - 7 * s, fx + 7 * s, fy + 7 * s], fill=c)
+    return im.resize((W, SCENE_H), Image.LANCZOS)
+
+
+def beach_bg():
+    s = SS
+    w, h = W * s, SCENE_H * s
+    im = Image.new("RGB", (w, h))
+    d = ImageDraw.Draw(im)
+    _sky(d, w, h, (100, 180, 245), (210, 236, 250), h * 0.5)
+    d.ellipse([int(w * 0.72), int(h * 0.06), int(w * 0.86), int(h * 0.06) + int(w * 0.14)], fill=(255, 214, 80))
+    _cloud(d, int(w * 0.18), int(h * 0.1), s)
+    d.rectangle([0, int(h * 0.46), w, int(h * 0.66)], fill=(40, 150, 200))
+    for row in range(5):  # волны
+        y = int(h * (0.48 + row * 0.035))
+        for x in range(-40 * s, w, 120 * s):
+            d.arc([x + (row % 2) * 60 * s, y, x + 80 * s + (row % 2) * 60 * s, y + 24 * s], 200, 340, fill=(200, 235, 250), width=4 * s)
+    d.ellipse([-200 * s, int(h * 0.62), w + 200 * s, int(h * 0.74)], fill=(250, 250, 250))  # пена
+    d.rectangle([0, int(h * 0.68), w, h], fill=(244, 216, 160))
+    d.ellipse([-200 * s, int(h * 0.64), w + 200 * s, int(h * 0.72)], fill=(244, 216, 160))
+    _palm(d, int(w * 0.08), int(h * 0.80), s, 13)
+    # зонтик
+    ux, uy = int(w * 0.8), int(h * 0.42)
+    d.line([(ux, uy), (ux + 30 * s, int(h * 0.80))], fill=(120, 90, 60), width=8 * s)
+    cols = [(230, 70, 70), WHITE] * 3
+    for i, c in enumerate(cols):
+        d.pieslice([ux - 200 * s, uy - 90 * s, ux + 200 * s, uy + 110 * s], 180 + i * 30, 210 + i * 30, fill=c, outline=INK, width=3 * s)
+    # мяч и ведёрко
+    d.ellipse([int(w * 0.6), int(h * 0.84), int(w * 0.6) + 70 * s, int(h * 0.84) + 70 * s], fill=(255, 210, 60), outline=INK, width=4 * s)
+    d.chord([int(w * 0.6), int(h * 0.84), int(w * 0.6) + 70 * s, int(h * 0.84) + 70 * s], 200, 340, fill=(60, 140, 220))
+    d.polygon([(int(w * 0.3), int(h * 0.86)), (int(w * 0.3) + 70 * s, int(h * 0.86)), (int(w * 0.3) + 60 * s, int(h * 0.86) + 70 * s),
+               (int(w * 0.3) + 10 * s, int(h * 0.86) + 70 * s)], fill=(240, 120, 40), outline=INK, width=4 * s)
+    return im.resize((W, SCENE_H), Image.LANCZOS)
+
+
+def desert_night_bg():
+    s = SS
+    w, h = W * s, SCENE_H * s
+    im = Image.new("RGB", (w, h))
+    d = ImageDraw.Draw(im)
+    _sky(d, w, h, (14, 18, 52), (60, 50, 110), h * 0.7)
+    rnd = random.Random(9)
+    for _ in range(90):
+        x, y, r = rnd.random() * w, rnd.random() * h * 0.55, rnd.choice([2, 3, 4, 5]) * s
+        d.ellipse([x - r, y - r, x + r, y + r], fill=(255, 250, 220))
+    mx, my = int(w * 0.18), int(h * 0.1)
+    d.ellipse([mx, my, mx + 150 * s, my + 150 * s], fill=(250, 236, 180))
+    d.ellipse([mx + 45 * s, my - 15 * s, mx + 195 * s, my + 135 * s], fill=(20, 24, 62))
+    d.ellipse([-300 * s, int(h * 0.5), int(w * 0.7), int(h * 1.1)], fill=(150, 96, 60))  # барханы
+    d.ellipse([int(w * 0.35), int(h * 0.55), int(w * 1.4), int(h * 1.1)], fill=(130, 82, 52))
+    d.rectangle([0, int(h * 0.78), w, h], fill=(170, 112, 70))
+    # бедуинский шатёр
+    tx0, tx1, ty = int(w * 0.56), int(w * 0.98), int(h * 0.42)
+    d.polygon([(tx0, int(h * 0.78)), (tx0 + 40 * s, ty), (tx1 - 40 * s, ty), (tx1, int(h * 0.78))], fill=(50, 40, 40), outline=INK)
+    d.polygon([(tx0 + 40 * s, ty), (int((tx0 + tx1) / 2), ty - 60 * s), (tx1 - 40 * s, ty)], fill=(60, 48, 46), outline=INK)
+    sadu_band(d, tx0 + 40 * s, int(h * 0.5), tx1 - 40 * s, 40 * s, (170, 40, 50), (30, 24, 30), (230, 210, 180))
+    d.rectangle([int((tx0 + tx1) / 2) - 70 * s, int(h * 0.6), int((tx0 + tx1) / 2) + 70 * s, int(h * 0.78)], fill=(255, 190, 90))
+    # фонарь
+    lx, ly = int(w * 0.5), int(h * 0.5)
+    d.line([(lx, ly - 80 * s), (lx, ly)], fill=INK, width=3 * s)
+    d.rounded_rectangle([lx - 26 * s, ly, lx + 26 * s, ly + 70 * s], 10 * s, fill=(255, 200, 90), outline=INK, width=4 * s)
+    # костёр (камни и дрова; пламя рисуется анимацией)
+    fx, fy = int(w * 0.5), int(h * 0.88)
+    for k in range(7):
+        a = math.radians(180 + k * 30)
+        cx, cy = fx + math.cos(a) * 80 * s, fy + 10 * s
+        d.ellipse([cx - 24 * s, cy - 16 * s, cx + 24 * s, cy + 16 * s], fill=(110, 100, 100), outline=INK, width=3 * s)
+    d.line([(fx - 60 * s, fy), (fx + 60 * s, fy - 20 * s)], fill=(110, 70, 40), width=16 * s)
+    d.line([(fx - 60 * s, fy - 20 * s), (fx + 60 * s, fy)], fill=(120, 76, 44), width=16 * s)
+    glow = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(glow).ellipse([fx - 380 * s, fy - 320 * s, fx + 380 * s, fy + 200 * s], fill=80)
+    glow = glow.filter(ImageFilter.GaussianBlur(70 * s))
+    im = Image.composite(Image.new("RGB", (w, h), (255, 170, 80)), im, glow)
+    return im.resize((W, SCENE_H), Image.LANCZOS)
+
+
+def courtyard_bg():
+    s = SS
+    w, h = W * s, SCENE_H * s
+    im = Image.new("RGB", (w, h))
+    d = ImageDraw.Draw(im)
+    _sky(d, w, h, (120, 190, 245), (220, 238, 250), h * 0.5)
+    _cloud(d, int(w * 0.62), int(h * 0.05), s, 0.8)
+    # минарет и купол за галереей
+    d.rectangle([int(w * 0.08), int(h * 0.04), int(w * 0.13), int(h * 0.5)], fill=(240, 232, 214), outline=INK, width=4 * s)
+    d.polygon([(int(w * 0.07), int(h * 0.04)), (int(w * 0.14), int(h * 0.04)), (int(w * 0.105), -10 * s)], fill=(60, 140, 130), outline=INK)
+    d.pieslice([int(w * 0.62), int(h * 0.08), int(w * 0.92), int(h * 0.44)], 180, 360, fill=(60, 140, 130), outline=INK, width=4 * s)
+    # галерея с арками
+    gy0, gy1 = int(h * 0.26), int(h * 0.74)
+    d.rectangle([0, gy0, w, gy1], fill=(246, 240, 226), outline=INK, width=4 * s)
+    d.rectangle([0, gy0, w, gy0 + 30 * s], fill=(214, 196, 160), outline=INK, width=3 * s)
+    aw = w / 6
+    for i in range(6):
+        ax = i * aw + aw * 0.15
+        aw2 = aw * 0.7
+        d.rectangle([ax, gy0 + 140 * s, ax + aw2, gy1], fill=(70, 130, 150))
+        d.pieslice([ax, gy0 + 60 * s, ax + aw2, gy0 + 60 * s + aw2], 180, 360, fill=(70, 130, 150))
+        d.arc([ax, gy0 + 60 * s, ax + aw2, gy0 + 60 * s + aw2], 180, 360, fill=INK, width=4 * s)
+    # пол-плитка
+    d.rectangle([0, gy1, w, h], fill=(236, 226, 206))
+    tile = 90 * s
+    for yy in range(gy1, h, tile):
+        for xx in range(0, w, tile):
+            if ((xx // tile) + (yy // tile)) % 2 == 0:
+                d.rectangle([xx, yy, xx + tile, yy + tile], fill=(214, 200, 176))
+    # фонтан
+    fx, fy = int(w * 0.5), int(h * 0.78)
+    d.ellipse([fx - 170 * s, fy - 40 * s, fx + 170 * s, fy + 40 * s], fill=(90, 170, 200), outline=INK, width=5 * s)
+    d.rectangle([fx - 18 * s, fy - 120 * s, fx + 18 * s, fy - 10 * s], fill=(230, 222, 204), outline=INK, width=4 * s)
+    d.ellipse([fx - 70 * s, fy - 140 * s, fx + 70 * s, fy - 100 * s], fill=(120, 190, 220), outline=INK, width=4 * s)
+    return im.resize((W, SCENE_H), Image.LANCZOS)
+
+
+def indoor_extra(im, d, c, w, h, floor_y):
+    """Пропсы для дополнительных комнат (рисуются поверх стен/пола)."""
+    s = SS
+    kind = c["props"]
+    if kind == "bedroom":
+        # кровать
+        bx0, bx1, by = int(w * 0.52), int(w * 0.98), int(h * 0.62)
+        d.rounded_rectangle([bx0, by - 120 * s, bx0 + 40 * s, floor_y + 30 * s], 10 * s, fill=(150, 100, 70), outline=INK, width=4 * s)
+        d.rounded_rectangle([bx0 + 20 * s, by, bx1, floor_y], 20 * s, fill=(110, 140, 220), outline=INK, width=4 * s)
+        d.rounded_rectangle([bx0 + 50 * s, by - 50 * s, bx0 + 190 * s, by + 20 * s], 26 * s, fill=WHITE, outline=INK, width=4 * s)
+        for k in range(5):  # звёздочки на одеяле
+            sx, sy = bx0 + 240 * s + k * 70 * s, by + 50 * s + (k % 2) * 40 * s
+            d.regular_polygon((sx, sy, 16 * s), 5, fill=(255, 220, 90))
+        # тумбочка с ночником
+        tx = int(w * 0.36)
+        d.rounded_rectangle([tx, int(h * 0.62), tx + 120 * s, floor_y], 8 * s, fill=(170, 120, 80), outline=INK, width=4 * s)
+        d.polygon([(tx + 20 * s, int(h * 0.56)), (tx + 100 * s, int(h * 0.56)), (tx + 80 * s, int(h * 0.50)), (tx + 40 * s, int(h * 0.50))],
+                  fill=(255, 210, 120), outline=INK)
+        d.rectangle([tx + 55 * s, int(h * 0.56), tx + 65 * s, int(h * 0.62)], fill=INK)
+        # коврик
+        d.ellipse([int(w * 0.02), floor_y + 50 * s, int(w * 0.5), h - 20 * s], fill=(200, 80, 90), outline=INK, width=4 * s)
+        # полка с книгами
+        sx, sy = int(w * 0.05), int(h * 0.3)
+        d.rectangle([sx, sy, sx + 300 * s, sy + 12 * s], fill=(130, 84, 52))
+        for i, col in enumerate([(220, 80, 60), (80, 160, 110), (90, 130, 210), (240, 180, 50), (170, 90, 160)]):
+            d.rectangle([sx + 20 * s + i * 50 * s, sy - 90 * s + (i % 2) * 10 * s, sx + 60 * s + i * 50 * s, sy], fill=col, outline=INK, width=3 * s)
+    elif kind == "clinic":
+        # шкаф с лекарствами
+        cx0 = int(w * 0.05)
+        d.rounded_rectangle([cx0, int(h * 0.12), cx0 + 300 * s, int(h * 0.48)], 10 * s, fill=WHITE, outline=INK, width=4 * s)
+        d.line([(cx0 + 150 * s, int(h * 0.12)), (cx0 + 150 * s, int(h * 0.48))], fill=INK, width=4 * s)
+        for row in range(3):
+            for k in range(4):
+                bx = cx0 + 20 * s + k * 68 * s
+                by = int(h * (0.18 + row * 0.1))
+                d.rounded_rectangle([bx, by, bx + 40 * s, by + 60 * s], 8 * s, fill=[(240, 120, 90), (90, 170, 220), (250, 210, 80), (120, 200, 140)][(k + row) % 4],
+                                    outline=INK, width=3 * s)
+        # знак Красного Полумесяца
+        px, py = int(w * 0.62), int(h * 0.2)
+        d.rounded_rectangle([px - 90 * s, py - 90 * s, px + 90 * s, py + 90 * s], 16 * s, fill=WHITE, outline=INK, width=4 * s)
+        d.ellipse([px - 55 * s, py - 55 * s, px + 55 * s, py + 55 * s], fill=(220, 40, 50))
+        d.ellipse([px - 30 * s, py - 62 * s, px + 70 * s, py + 48 * s], fill=WHITE)
+        # кушетка
+        kx0 = int(w * 0.5)
+        d.rounded_rectangle([kx0, int(h * 0.64), int(w * 0.98), int(h * 0.7)], 14 * s, fill=(120, 190, 200), outline=INK, width=4 * s)
+        for lx in (kx0 + 30 * s, int(w * 0.98) - 44 * s):
+            d.rectangle([lx, int(h * 0.7), lx + 14 * s, floor_y + 20 * s], fill=(160, 160, 170), outline=INK, width=3 * s)
+        # растение
+        d.rounded_rectangle([int(w * 0.36), int(h * 0.66), int(w * 0.44), floor_y], 8 * s, fill=(200, 110, 70), outline=INK, width=4 * s)
+        for a in range(-60, 61, 30):
+            r = math.radians(a - 90)
+            d.ellipse([int(w * 0.4) + math.cos(r) * 70 * s - 26 * s, int(h * 0.62) + math.sin(r) * 90 * s - 40 * s,
+                       int(w * 0.4) + math.cos(r) * 70 * s + 26 * s, int(h * 0.62) + math.sin(r) * 90 * s + 40 * s], fill=(80, 160, 90), outline=INK, width=3 * s)
+    elif kind == "cafe":
+        # фонари
+        for k, col in enumerate([(240, 160, 60), (220, 80, 80), (80, 170, 150)]):
+            lx = int(w * (0.12 + k * 0.18))
+            d.line([(lx, 0), (lx, 90 * s)], fill=INK, width=3 * s)
+            d.polygon([(lx - 30 * s, 90 * s), (lx + 30 * s, 90 * s), (lx + 40 * s, 150 * s), (lx, 190 * s), (lx - 40 * s, 150 * s)], fill=col, outline=INK)
+        # меню
+        mx0, my0 = int(w * 0.06), int(h * 0.24)
+        d.rounded_rectangle([mx0, my0, mx0 + 420 * s, my0 + 300 * s], 14 * s, fill=(40, 50, 48), outline=(130, 84, 52), width=10 * s)
+        md = ImageDraw.Draw(im)
+        for i, txt in enumerate(["قهوة", "شاي", "عصير"]):
+            md.text((mx0 + 210 * s, my0 + 60 * s + i * 85 * s), txt, font=font("Cairo-Bold", 52 * s), fill=(240, 236, 220), anchor="mm", **text_kw(txt))
+        # стойка с кофемашиной
+        ty = int(h * 0.6)
+        d.rounded_rectangle([int(w * 0.5), ty, int(w * 0.99), ty + 36 * s], 10 * s, fill=(110, 76, 56), outline=INK, width=4 * s)
+        d.rectangle([int(w * 0.52), ty + 36 * s, int(w * 0.97), floor_y + 30 * s], fill=(150, 104, 76), outline=INK, width=4 * s)
+        d.rounded_rectangle([int(w * 0.8), ty - 140 * s, int(w * 0.95), ty], 12 * s, fill=(170, 170, 180), outline=INK, width=4 * s)
+        d.ellipse([int(w * 0.84), ty - 110 * s, int(w * 0.91), ty - 60 * s], fill=(60, 60, 70))
+        draw_dallah(d, int(w * 0.62), ty, s * 0.9)
+        for k in range(3):
+            cx = int(w * 0.68) + k * 50 * s
+            d.polygon([(cx, ty), (cx + 30 * s, ty), (cx + 36 * s, ty - 30 * s), (cx - 6 * s, ty - 30 * s)], fill=WHITE, outline=INK)
+    elif kind == "airport":
+        # большое окно с самолётом
+        wx0, wy0, wx1, wy1 = int(w * 0.04), int(h * 0.08), int(w * 0.62), int(h * 0.48)
+        d.rectangle([wx0, wy0, wx1, wy1], fill=(150, 205, 245), outline=(90, 100, 110), width=10 * s)
+        for k in range(1, 4):
+            x = wx0 + (wx1 - wx0) * k / 4
+            d.line([(x, wy0), (x, wy1)], fill=(90, 100, 110), width=8 * s)
+        d.rectangle([wx0 + 5 * s, int(h * 0.42), wx1 - 5 * s, wy1 - 5 * s], fill=(150, 150, 150))
+        px, py = int(w * 0.32), int(h * 0.33)
+        d.rounded_rectangle([px - 220 * s, py - 30 * s, px + 220 * s, py + 30 * s], 30 * s, fill=WHITE, outline=INK, width=4 * s)
+        d.polygon([(px - 40 * s, py), (px + 40 * s, py), (px - 20 * s, py + 110 * s), (px - 90 * s, py + 110 * s)], fill=(220, 225, 235), outline=INK)
+        d.polygon([(px - 200 * s, py - 20 * s), (px - 160 * s, py - 20 * s), (px - 200 * s, py - 110 * s), (px - 230 * s, py - 110 * s)], fill=(40, 130, 120), outline=INK)
+        for k in range(6):
+            d.ellipse([px - 100 * s + k * 50 * s, py - 12 * s, px - 80 * s + k * 50 * s, py + 8 * s], fill=(90, 150, 220))
+        # табло вылетов
+        bx0, by0 = int(w * 0.68), int(h * 0.08)
+        d.rounded_rectangle([bx0, by0, bx0 + 300 * s, by0 + 230 * s], 10 * s, fill=(30, 34, 44), outline=INK, width=4 * s)
+        bd = ImageDraw.Draw(im)
+        bd.text((bx0 + 150 * s, by0 + 40 * s), "رحلات", font=font("Cairo-Bold", 46 * s), fill=GOLD, anchor="mm", **text_kw("رحلات"))
+        for i, txt in enumerate(["DXB 10:30", "JED 12:15", "CAI 14:00"]):
+            bd.text((bx0 + 150 * s, by0 + 100 * s + i * 44 * s), txt, font=font("Nunito-ExtraBold", 34 * s), fill=(120, 230, 160), anchor="mm")
+        # чемоданы
+        for k, col in enumerate([(220, 80, 70), (70, 120, 200)]):
+            sx = int(w * 0.04) + k * 130 * s
+            d.rounded_rectangle([sx, floor_y - 150 * s + k * 30 * s, sx + 110 * s, floor_y + 20 * s], 14 * s, fill=col, outline=INK, width=4 * s)
+            d.rounded_rectangle([sx + 30 * s, floor_y - 180 * s + k * 30 * s, sx + 80 * s, floor_y - 150 * s + k * 30 * s], 8 * s, outline=INK, width=4 * s)
+
+
 CHAR_TYPES = {
     # тип: цвета и детали. Высота спрайта берётся из scale.
     "man": dict(skin=(232, 184, 140), cloth=(246, 246, 242), head="ghutra", beard=True, scale=1.0),
@@ -429,7 +731,7 @@ SPR_W, SPR_H = 340, 600  # размер спрайта в 1x
 
 
 @functools.lru_cache(None)
-def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = ()) -> Image.Image:
+def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = (), pose: str = "idle") -> Image.Image:
     """Рисует персонажа (в 2x, потом уменьшает). mouth: closed|open|wide, mood: neutral|happy|angry|sad|surprised."""
     t = dict(CHAR_TYPES[kind])
     for k, v in colors:
@@ -447,9 +749,10 @@ def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = ()) ->
     d.ellipse(P(60, 572, 280, 598), fill=(0, 0, 0, 60))
     # руки (за телом)
     d.rounded_rectangle(P(52, 330, 100, 480), 22 * s, fill=cloth, outline=INK, width=ow)
-    d.rounded_rectangle(P(240, 330, 288, 480), 22 * s, fill=cloth, outline=INK, width=ow)
     d.ellipse(P(54, 462, 98, 506), fill=skin, outline=INK, width=ow)
-    d.ellipse(P(242, 462, 286, 506), fill=skin, outline=INK, width=ow)
+    if not pose.startswith("wave"):
+        d.rounded_rectangle(P(240, 330, 288, 480), 22 * s, fill=cloth, outline=INK, width=ow)
+        d.ellipse(P(242, 462, 286, 506), fill=skin, outline=INK, width=ow)
     # тело (тоб / платье)
     d.polygon(P(100, 310, 240, 310, 262, 572, 78, 572), fill=cloth, outline=INK, width=ow)
     d.rounded_rectangle(P(96, 300, 244, 380), 40 * s, fill=cloth, outline=INK, width=ow)
@@ -536,6 +839,14 @@ def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = ()) ->
             mw = 16
         d.ellipse(P(170 - mw, my - 8, 170 + mw, my - 8 + mh), fill=(110, 30, 40), outline=INK, width=4 * s)
         d.ellipse(P(170 - mw * 0.55, my - 8 + mh * 0.5, 170 + mw * 0.55, my - 8 + mh - 2), fill=(230, 110, 110))
+    if pose.startswith("wave"):  # поднятая машущая рука
+        sx, sy = 252, 345
+        hx, hy = (312, 206) if pose == "wave1" else (292, 196)
+        d.line(P(sx, sy, hx, hy), fill=INK, width=58 * s)
+        d.line(P(sx, sy, hx, hy), fill=cloth, width=46 * s)
+        d.ellipse(P(sx - 28, sy - 28, sx + 28, sy + 28), fill=INK)
+        d.ellipse(P(sx - 22, sy - 22, sx + 22, sy + 22), fill=cloth)
+        d.ellipse(P(hx - 26, hy - 26, hx + 26, hy + 26), fill=skin, outline=INK, width=ow)
     return im.resize((SPR_W, SPR_H), Image.LANCZOS)
 
 
@@ -650,6 +961,90 @@ def clock_chip(text: str, night: bool) -> Image.Image:
     return im
 
 
+@functools.lru_cache(None)
+def reaction_icon(mood: str) -> Image.Image | None:
+    """Значок эмоции над головой персонажа."""
+    s = 2
+    im = Image.new("RGBA", (130 * s, 130 * s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    if mood == "happy":
+        for cx, cy, r in [(45, 70, 30), (95, 35, 20), (100, 95, 14)]:
+            pts = []
+            for k in range(8):
+                a = math.radians(k * 45 - 90)
+                rr = r if k % 2 == 0 else r * 0.38
+                pts.append(((cx + math.cos(a) * rr) * s, (cy + math.sin(a) * rr) * s))
+            d.polygon(pts, fill=(255, 210, 60), outline=INK)
+    elif mood == "angry":
+        c = (230, 50, 50)
+        for sx, sy in [(-1, -1), (1, -1), (-1, 1), (1, 1)]:
+            cx, cy = 65 + sx * 22, 65 + sy * 22
+            d.arc([(cx - 22) * s, (cy - 22) * s, (cx + 22) * s, (cy + 22) * s],
+                  {(-1, -1): 0, (1, -1): 90, (-1, 1): 270, (1, 1): 180}[(sx, sy)],
+                  {(-1, -1): 90, (1, -1): 180, (-1, 1): 360, (1, 1): 270}[(sx, sy)], fill=c, width=10 * s)
+    elif mood == "sad":
+        d.polygon([(65 * s, 15 * s), (40 * s, 70 * s), (90 * s, 70 * s)], fill=(110, 180, 250))
+        d.ellipse([38 * s, 45 * s, 92 * s, 105 * s], fill=(110, 180, 250), outline=INK, width=3 * s)
+        d.ellipse([52 * s, 62 * s, 64 * s, 76 * s], fill=WHITE)
+    elif mood == "surprised":
+        d.ellipse([10 * s, 10 * s, 120 * s, 120 * s], fill=(255, 220, 70), outline=INK, width=5 * s)
+        d.rounded_rectangle([57 * s, 28 * s, 73 * s, 80 * s], 7 * s, fill=INK)
+        d.ellipse([56 * s, 88 * s, 74 * s, 106 * s], fill=INK)
+    else:
+        return None
+    return im.resize((130, 130), Image.LANCZOS)
+
+
+def quiz_card(ru: str, num) -> Image.Image:
+    cw, ch = 820, 600
+    im, p = rounded_card((cw, ch), (255, 252, 244, 255), 44, outline=INK, width=6)
+    d = ImageDraw.Draw(im)
+    f = font("Nunito-Black", 36)
+    label = "ПРОВЕРЬ СЕБЯ"
+    lw = tlen(f, label) + 60
+    d.rounded_rectangle([p + cw / 2 - lw / 2, p - 30, p + cw / 2 + lw / 2, p + 34], 32, fill=(120, 80, 200), outline=INK, width=4)
+    draw_text(d, (p + cw / 2, p + 2), label, f, WHITE, anchor="mm")
+    cx = p + cw / 2
+    draw_text(d, (cx, p + 80), "Как сказать по-арабски:", font("Nunito-ExtraBold", 44), (120, 110, 130), anchor="mm")
+    y = rich_text(d, cx, p + 130, f"«{ru}»", font("Nunito-Black", 68), (220, 90, 40), (220, 90, 40), cw - 80)
+    r = 80
+    cy = p + ch - 130
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(120, 80, 200) if num != "?" else GOLD, outline=INK, width=6)
+    draw_text(d, (cx, cy - 6), str(num), font("Nunito-Black", 96), WHITE if num != "?" else INK, anchor="mm")
+    return im
+
+
+def draw_birds(d, t, w):
+    for k in range(3):
+        x = ((t * (70 + k * 15) + k * 420) % (w + 300)) - 150
+        y = 110 + k * 60 + math.sin(t * 2 + k) * 14
+        flap = 10 + 8 * math.sin(t * 12 + k * 2)
+        d.line([(x - 22, y - flap), (x, y), (x + 22, y - flap)], fill=INK, width=5, joint="curve")
+
+
+def draw_fire(scene, cx, cy, t):
+    lay = Image.new("RGBA", (260, 300), (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    for k, (col, sc) in enumerate([((255, 120, 40), 1.0), ((255, 190, 60), 0.7), ((255, 240, 150), 0.4)]):
+        hgt = (200 + 30 * math.sin(t * 9 + k)) * sc
+        wid = (110 + 12 * math.sin(t * 7 + k * 2)) * sc
+        sway = 14 * math.sin(t * 5 + k)
+        d.polygon([(130 - wid / 2, 290), (130 - wid / 3, 290 - hgt * 0.55), (130 + sway, 290 - hgt), (130 + wid / 3, 290 - hgt * 0.5),
+                   (130 + wid / 2, 290)], fill=col)
+    scene.alpha_composite(lay, (int(cx - 130), int(cy - 290)))
+
+
+def draw_twinkles(d, t, w, h):
+    rnd = random.Random(21)
+    for k in range(18):
+        x, y = rnd.random() * w, rnd.random() * h * 0.45
+        a = (math.sin(t * 3 + k * 1.7) + 1) / 2
+        r = 3 + 5 * a
+        c = (255, 255, int(200 + 55 * a))
+        d.line([(x - r * 2, y), (x + r * 2, y)], fill=c, width=2)
+        d.line([(x, y - r * 2), (x, y + r * 2)], fill=c, width=2)
+
+
 def rewind_icon(d, cx, cy, s, color):
     for k in (0, 1):
         x = cx - k * s * 0.9
@@ -730,6 +1125,42 @@ def sfx(kind: str) -> np.ndarray:
         t = np.arange(n) / SR
         noise = np.random.default_rng(2).standard_normal(n)
         return 0.18 * noise * np.sin(np.pi * t / t[-1]) ** 2
+    if kind == "tick":
+        n = int(0.08 * SR)
+        t = np.arange(n) / SR
+        return 0.3 * np.sin(2 * np.pi * 1500 * t) * np.exp(-t * 70)
+    if kind == "ding":
+        n = int(1.0 * SR)
+        t = np.arange(n) / SR
+        return 0.25 * (np.sin(2 * np.pi * 1046 * t) + 0.6 * np.sin(2 * np.pi * 1568 * t) + 0.3 * np.sin(2 * np.pi * 2093 * t)) * np.exp(-t * 4)
+    if kind == "sparkle":
+        out = np.zeros(int(0.5 * SR))
+        for k, f in enumerate([1318, 1568, 1976, 2637]):
+            n = int(0.25 * SR)
+            t = np.arange(n) / SR
+            seg = 0.12 * np.sin(2 * np.pi * f * t) * np.exp(-t * 18)
+            pos = int(k * 0.06 * SR)
+            out[pos:pos + n] += seg[: len(out) - pos]
+        return out
+    if kind == "boing":
+        n = int(0.45 * SR)
+        t = np.arange(n) / SR
+        f = 300 + 500 * np.exp(-t * 6) + 40 * np.sin(2 * np.pi * 14 * t)
+        return 0.3 * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 5)
+    if kind == "grr":
+        n = int(0.35 * SR)
+        t = np.arange(n) / SR
+        saw = 2 * ((np.cumsum(90 + 20 * np.sin(2 * np.pi * 30 * t)) / SR) % 1) - 1
+        return 0.12 * saw * np.sin(np.pi * t / t[-1])
+    if kind == "aww":
+        n = int(0.6 * SR)
+        t = np.arange(n) / SR
+        f = 520 - 260 * t / t[-1]
+        return 0.18 * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / t[-1])
+    if kind == "step":
+        n = int(0.07 * SR)
+        t = np.arange(n) / SR
+        return 0.18 * np.random.default_rng(5).standard_normal(n) * np.exp(-t * 80) + 0.2 * np.sin(2 * np.pi * 120 * t) * np.exp(-t * 50)
     if kind == "blip":
         n = int(0.06 * SR)
         t = np.arange(n) / SR
@@ -844,6 +1275,8 @@ class Segment:
     data: dict = field(default_factory=dict)
 
 
+MOOD_SFX = {"happy": "sparkle", "surprised": "boing", "angry": "grr", "sad": "aww"}
+
 LIGHT_VOICES = {"man": "ar-SA-HamedNeural", "boy": "ar-SA-HamedNeural", "grandpa": "ar-SA-HamedNeural",
                 "woman": "ar-SA-ZariyahNeural", "girl": "ar-SA-ZariyahNeural"}
 
@@ -877,7 +1310,7 @@ class Episode:
             base = len(self.timeline)
             for i in range(n):
                 fr = {"scene": st["scene"], "clock": st["clock"], "caption": st["caption"], "actors": actors_snapshot(),
-                      "talk": {}, "overlay": None, "fx": None}
+                      "talk": {}, "talk_i": 0, "overlay": None, "fx": None}
                 for k, fn in per_frame.items():
                     fr[k] = fn(i, n, base + i) if callable(fn) else fn
                 self.timeline.append(fr)
@@ -929,6 +1362,8 @@ class Episode:
                     t = (i + 1) / n
                     e = 1 - (1 - t) ** 2
                     a.x = start + (end - start) * e
+                    if i % 9 == 0:
+                        self.audio_events.append((at(0), sfx("step")))
                     push(1, walk={a.key: i})
                 a.x = end
                 if not entering:
@@ -945,6 +1380,8 @@ class Episode:
             if "say" in b:
                 a = self.actors[b["say"]]
                 if "mood" in b:
+                    if b["mood"] != a.mood and b["mood"] in MOOD_SFX:
+                        self.audio_events.append((at(0), sfx(MOOD_SFX[b["mood"]])))
                     a.mood = b["mood"]
                 audio = tts(b.get("speak", plain(b["ar"])), a.voice, a.pitch, a.rate)
                 if audio is not None:
@@ -963,7 +1400,7 @@ class Episode:
                         if m != "closed" and (i == 0 or mt[i - 1] == "closed"):
                             self.audio_events.append((at(0) + i, sfx("blip")))
                 card = subtitle_card(a.name, a.color, b["ar"], b.get("tr", ""), b.get("ru", ""))
-                push(n, talk=lambda i, n_, f, k=a.key, mt=mt: {k: mt[i]},
+                push(n, talk=lambda i, n_, f, k=a.key, mt=mt: {k: mt[i]}, talk_i=lambda i, n_, f: i,
                      overlay=lambda i, n_, f, card=card: ("sub", card, min(1, i / 5)))
                 continue
 
@@ -976,6 +1413,27 @@ class Episode:
                 if audio is not None:
                     self.audio_events.append((at(0.4), audio))
                 push(int(dur * FPS), overlay=lambda i, n, f, img=img: ("card", img, i))
+                continue
+
+            if "quiz" in b:  # «Проверь себя»: вопрос → 3-2-1 → ответ
+                q = b["quiz"]
+                qa = tts(q.get("q_speak", f"Как сказать по-арабски: {plain(q['ru'])}?"), self.narrator["ru"])
+                self.audio_events.append((at(0), sfx("pop")))
+                if qa is not None:
+                    self.audio_events.append((at(0.3), qa))
+                q0 = quiz_card(q["ru"], "?")
+                push(int(max(1.6, (len(qa) / SR + 0.5) if qa is not None else 0) * FPS), overlay=lambda i, n, f: ("card", q0, i))
+                for num in (3, 2, 1):
+                    img = quiz_card(q["ru"], num)
+                    self.audio_events.append((at(0), sfx("tick")))
+                    push(int(0.8 * FPS), overlay=lambda i, n, f, img=img: ("card", img, 99))
+                ans = word_card("ОТВЕТ", q["ar"], q.get("tr", ""), q["ru"])
+                audio = tts(q.get("speak", plain(q["ar"])), self.narrator["ar"])
+                self.audio_events.append((at(0), sfx("ding")))
+                if audio is not None:
+                    self.audio_events.append((at(0.45), audio))
+                dur = max(2.8, (len(audio) / SR + 1.7) if audio is not None else 0)
+                push(int(dur * FPS), overlay=lambda i, n, f: ("card", ans, i))
                 continue
 
             if "compare" in b:
@@ -1020,6 +1478,20 @@ class Episode:
         dur = max(2.6, (len(audio) / SR + 0.8) if audio is not None else 0)
         push(int(dur * FPS), overlay=lambda i, n, f: ("outro", cap, min(1, i / 8)))
 
+        # камера: плавный наезд на говорящего
+        targets = []
+        for fr in self.timeline:
+            if fr["talk"]:
+                k = next(iter(fr["talk"]))
+                targets.append((1.09, fr["actors"][k][0]))
+            else:
+                targets.append((1.0, 0.5))
+        self.cam = []
+        win = 14
+        for i in range(len(targets)):
+            seg = targets[max(0, i - win): i + 1]
+            self.cam.append((sum(z for z, _ in seg) / len(seg), sum(x for _, x in seg) / len(seg)))
+
     # --- отрисовка ---
     @functools.cached_property
     def header(self) -> Image.Image:
@@ -1049,9 +1521,13 @@ class Episode:
 
         scene = scene_bg(fr["scene"]).copy().convert("RGBA")
         t = idx / FPS
-        if fr["clock"]:
-            chip = clock_chip(fr["clock"], SCENES[fr["scene"]]["night"])
-            scene.alpha_composite(chip, (10, 16))
+        sc_info = SCENES[fr["scene"]]
+        if sc_info.get("outdoor"):
+            ad = ImageDraw.Draw(scene)
+            if sc_info["night"]:
+                draw_twinkles(ad, t, W, SCENE_H)
+            else:
+                draw_birds(ad, t, W)
 
         # персонажи — по возрастанию x, чтобы не было хаоса со слоями
         floor_y = int(SCENE_H * 0.80) + 120
@@ -1063,7 +1539,12 @@ class Episode:
             mouth = fr["talk"].get(k, "closed")
             phase = (hash(k) % 100) / 100
             blink = ((t + phase * 3) % 3.4) < 0.12
-            spr = sprite(a.kind, blink, mouth, mood, a.colors)
+            talking = k in fr["talk"]
+            ti = fr.get("talk_i", 0) if talking else 0
+            pose = "idle"
+            if talking and mood == "happy":
+                pose = "wave1" if (idx // 7) % 2 == 0 else "wave2"
+            spr = sprite(a.kind, blink, mouth, mood, a.colors, pose)
             sc = CHAR_TYPES[a.kind]["scale"] * 1.05
             if mouth != "closed":
                 bob = math.sin(t * 14) * 3
@@ -1080,6 +1561,30 @@ class Episode:
             px = int(x * W - sw / 2)
             py = int(floor_y - img.height + bob)
             scene.alpha_composite(img, (px, py)) if 0 <= px and px + sw <= W else _paste_clip(scene, img, px, py)
+            icon = reaction_icon(mood) if talking else None
+            if icon is not None:
+                pop = min(1.0, ti / 6)
+                isz = max(1, int(110 * (0.4 + 0.6 * pop + 0.12 * math.sin(min(ti, 12) / 12 * math.pi))))
+                ic = icon.resize((isz, isz), Image.BILINEAR)
+                side = -1 if flip else 1
+                ix = int(x * W + side * sw * 0.32 - isz / 2)
+                iy = int(py + sh * 0.02 - isz * 0.6 + math.sin(t * 5) * 6)
+                _paste_clip(scene, ic, ix, iy)
+
+        if fr["scene"] and SCENES[fr["scene"]].get("fire"):
+            fxr, fyr = SCENES[fr["scene"]]["fire"]
+            draw_fire(scene, fxr * W, fyr * SCENE_H, t)
+
+        # камера
+        z, cxr = self.cam[idx]
+        if z > 1.001:
+            cw_, ch_ = W / z, SCENE_H / z
+            cx_ = min(max(cxr * W, cw_ / 2), W - cw_ / 2)
+            cy_ = min(max(SCENE_H * 0.6, ch_ / 2), SCENE_H - ch_ / 2)
+            scene = scene.resize((W, SCENE_H), Image.BILINEAR, box=(cx_ - cw_ / 2, cy_ - ch_ / 2, cx_ + cw_ / 2, cy_ + ch_ / 2))
+        if fr["clock"]:
+            chip = clock_chip(fr["clock"], SCENES[fr["scene"]]["night"])
+            scene.alpha_composite(chip, (10, 16))
 
         ov = fr["overlay"]
         if ov and ov[0] in ("card", "compare"):
@@ -1184,10 +1689,12 @@ def rewind_fx(img: Image.Image, p: float, label: str, idx: int) -> Image.Image:
 
 # ─────────────────────────── сборка видео ───────────────────────────
 
-def render(spec_path: Path, out_dir: Path, use_voice: bool, preview: bool = False) -> Path:
+def render(spec_path: Path, out_dir: Path, use_voice: bool, preview: bool = False, strict_voice: bool = False) -> Path:
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
     voice = Voice(use_voice, HERE / ".tts_cache")
     ep = Episode(spec, voice)
+    if strict_voice and not voice.enabled:
+        raise RuntimeError("озвучка отвалилась во время сборки — ролик не публикуем")
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / f"{spec_path.stem}.mp4"
     nframes = len(ep.timeline)

@@ -31,7 +31,7 @@
  },
  "beats": [
   {
-   "scene": "majlis_night",
+   "scene": "bedroom_night",
    "cast": {
     "maryam": 0.27
    }
@@ -59,11 +59,10 @@
    "mood": "happy"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "не бойся",
     "ar": "لا تخف",
-    "tr": "lā takhaf",
-    "ru": "не бойся"
+    "tr": "lā takhaf"
    }
   }
  ],

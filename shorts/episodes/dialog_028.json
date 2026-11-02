@@ -37,7 +37,7 @@
  },
  "beats": [
   {
-   "scene": "majlis_day",
+   "scene": "desert_night",
    "cast": {
     "dad": 0.27
    }
@@ -72,11 +72,10 @@
    "mood": "neutral"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "кофе / финики",
     "ar": "قهوة / تمر",
-    "tr": "qahwa / tamr",
-    "ru": "кофе / финики"
+    "tr": "qahwa / tamr"
    }
   }
  ],

@@ -46,7 +46,7 @@
  },
  "beats": [
   {
-   "scene": "majlis_day",
+   "scene": "park_day",
    "cast": {
     "yusuf": 0.27
    }
@@ -81,11 +81,10 @@
    "mood": "happy"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "семья",
     "ar": "عائلة",
-    "tr": "'ā'ila",
-    "ru": "семья"
+    "tr": "'ā'ila"
    }
   }
  ],

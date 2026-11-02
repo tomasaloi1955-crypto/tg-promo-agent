@@ -31,7 +31,7 @@
  },
  "beats": [
   {
-   "scene": "majlis_day",
+   "scene": "bedroom_night",
    "cast": {
     "maryam": 0.27
    }
@@ -66,11 +66,10 @@
    "mood": "neutral"
   },
   {
-   "card": {
-    "label": "ЗАПОМНИ",
+   "quiz": {
+    "ru": "выздоравливай",
     "ar": "سلامتك",
-    "tr": "salāmatak",
-    "ru": "выздоравливай"
+    "tr": "salāmatak"
    }
   }
  ],
