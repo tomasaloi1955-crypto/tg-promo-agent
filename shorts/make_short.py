@@ -976,21 +976,26 @@ class Episode:
     def mix(self) -> np.ndarray:
         n = int(len(self.timeline) / FPS * SR) + SR
         out = np.zeros(n, np.float32)
-        bgm = music(n / SR, self.spec.get("music_seed", 3)) * self.spec.get("music_volume", 0.55)
         voice_mask = np.zeros(n, np.float32)
         for fr, a in self.audio_events:
             pos = int(fr / FPS * SR)
             a = a[: max(0, n - pos)]
             out[pos:pos + len(a)] += a
-            if len(a) > SR * 0.3:  # это речь — приглушаем музыку
+            if len(a) > SR * 0.3:  # это речь
                 voice_mask[pos:pos + len(a)] = 1
-        k = int(0.25 * SR)
-        voice_mask = np.convolve(voice_mask, np.ones(k) / k, mode="same")
-        out += bgm[:n] * (1 - 0.6 * voice_mask)
+        # Музыка по умолчанию выключена; включить: "music": true в JSON эпизода
+        if self.spec.get("music", False):
+            bgm = music(n / SR, self.spec.get("music_seed", 3)) * self.spec.get("music_volume", 0.55)
+            k = int(0.25 * SR)
+            voice_mask = np.convolve(voice_mask, np.ones(k) / k, mode="same")
+            out += bgm[:n] * (1 - 0.6 * voice_mask)
         fade = int(0.8 * SR)
         out[-fade:] *= np.linspace(1, 0, fade)
         peak = np.max(np.abs(out)) or 1
-        return (out / peak * 0.9).astype(np.float32)
+        # с голосом — нормализуем громкость; без голоса только не даём клиппинг,
+        # чтобы тихие звуки (щелчки, «вжух») не стали громкими
+        gain = 0.9 / peak if voice_mask.any() else min(1.0, 0.9 / peak)
+        return (out * gain).astype(np.float32)
 
 
 def _paste_clip(dst, img, px, py):
