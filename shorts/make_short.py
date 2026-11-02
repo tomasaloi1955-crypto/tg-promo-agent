@@ -1231,7 +1231,8 @@ def mouth_track(audio: np.ndarray | None, text: str, frames: int, seed: int) -> 
     """Для каждого кадра — форма рта. С голосом — по громкости, без — по слогам."""
     if audio is not None and len(audio):
         hop = SR // FPS
-        rms = np.array([np.sqrt(np.mean(audio[i * hop:(i + 1) * hop] ** 2) + 1e-9) for i in range(frames)])
+        rms = np.array([np.sqrt(np.mean(audio[i * hop:(i + 1) * hop] ** 2) + 1e-9) if i * hop < len(audio) else 0.0
+                        for i in range(frames)])
         top = np.percentile(rms[rms > 0.005], 90) if np.any(rms > 0.005) else 1
         out = []
         for r in rms:
