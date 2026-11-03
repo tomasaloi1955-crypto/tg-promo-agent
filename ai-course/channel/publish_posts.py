@@ -86,9 +86,13 @@ async def resolve_channel(client, query: str):
     if query.startswith("@") or "t.me/" in query or query.lstrip("-").isdigit():
         return await client.get_entity(int(query) if query.lstrip("-").isdigit() else query)
     q = query.lower().replace(" ", "")
-    mine, hits = [], []
+    mine, hits, seen = [], [], []
     async for d in client.iter_dialogs():
         e = d.entity
+        if getattr(e, "broadcast", False) and ("halal" in (e.title or "").lower() or "neuro" in (e.title or "").lower()
+                                                or "нейро" in (e.title or "").lower()):
+            seen.append(f"{e.title} (@{getattr(e, 'username', None) or '—'}, админ: "
+                        f"{bool(getattr(e, 'creator', False) or getattr(e, 'admin_rights', None))})")
         if not getattr(e, "broadcast", False) or not (getattr(e, "creator", False) or getattr(e, "admin_rights", None)):
             continue
         mine.append(e)
@@ -96,6 +100,7 @@ async def resolve_channel(client, query: str):
             hits.append(e)
     print("Мои каналы (владелец/админ): " + "; ".join(
         f"{e.title} (@{getattr(e, 'username', None) or '—'}, id {e.id})" for e in mine))
+    print("Похожие каналы в подписках аккаунта: " + ("; ".join(seen) or "нет"))
     if len(hits) != 1:
         sys.exit(f"По «{query}» найдено каналов: {len(hits)} — нужен ровно один. Ничего не отправлено.")
     return hits[0]
@@ -120,6 +125,8 @@ async def main() -> None:
     client = TelegramClient(StringSession(os.environ["TELETHON_SESSION"]),
                             int(os.environ["API_ID"]), os.environ["API_HASH"])
     await client.start()
+    me = await client.get_me()
+    print(f"Аккаунт: {me.first_name or ''} @{me.username or '—'} (id {me.id})")
     try:
         channel = await resolve_channel(client, env("CHANNEL"))
         print(f"Нашла канал: {getattr(channel, 'title', channel)}")

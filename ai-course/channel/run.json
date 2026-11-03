@@ -3,5 +3,6 @@
   "mode": "now",
   "bot_username": "",
   "only": "",
-  "dry_run": false
+  "dry_run": false,
+  "check": 2
 }
