@@ -26,7 +26,8 @@ jobs:
           API_ID: ${{ secrets.API_ID }}
           API_HASH: ${{ secrets.API_HASH }}
           TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          # Новый бот Нейропотока (секрет NEURO_BOT_TOKEN); пока его нет — бот промо-агента
+          BOT_TOKEN: ${{ secrets.NEURO_BOT_TOKEN || secrets.BOT_TOKEN }}
           TZ: Asia/Almaty
         run: |
           eval "$(python - <<'PY'
