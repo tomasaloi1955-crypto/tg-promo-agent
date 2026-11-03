@@ -22,7 +22,7 @@ WORDS = [
     ("نافذة", "nāfidha", "окно", "*النافذة* مفتوحة", "*an-nāfidha* maftūha", "*Окно* открыто", "kitchen_day", "mom"),
     ("غرفة", "ghurfa", "комната", "هذه *غرفتي*", "hādhihi *ghurfatī*", "Это моя *комната*", "bedroom_night", "maryam"),
     ("كرسي", "kursī", "стул", "اجلس على *الكرسي*", "ijlis 'alā *l-kursī*", "Садись на *стул*", "classroom_day"),
-    ("طاولة", "tāwila", "стол", "الكتاب على *الطاولة*", "al-kitāb 'alā *t-tāwila*", "Книга на *столе*", "kitchen_day", "mom"),
+    ("طاولة", "tāwila", "стол", "المفتاح على *الطاولة*", "al-miftāh 'alā *t-tāwila*", "Ключ на *столе*", "kitchen_day", "mom"),
     ("سرير", "sarīr", "кровать", "*السرير* مريح", "*as-sarīr* murīh", "*Кровать* удобная", "bedroom_night", "maryam"),
     ("مفتاح", "miftāh", "ключ", "أين *المفتاح*؟", "ayna *l-miftāh*?", "Где *ключ*?", "majlis_day", "dad"),
     ("مطبخ", "matbakh", "кухня", "أمي في *المطبخ*", "ummī fī *l-matbakh*", "Мама на *кухне*", "kitchen_day", "ahmad"),
@@ -50,7 +50,7 @@ WORDS = [
     ("صديق", "sadīq", "друг", "يوسف *صديقي*", "yūsuf *sadīqī*", "Юсуф — мой *друг*", "park_day", "ahmad"),
     ("طفل", "tifl", "ребёнок", "*الطفل* يلعب", "*at-tifl* yal'ab", "*Ребёнок* играет", "park_day", "mom"),
     # ── Школа ──
-    ("كتاب", "kitāb", "книга", "هذا *كتاب* عربي", "hādhā *kitāb* 'arabī", "Это арабская *книга*", "classroom_day"),
+    ("صفحة", "safha", "страница", "اقرأ هذه *الصفحة*", "iqra' hādhihi *s-safha*", "Прочитай эту *страницу*", "classroom_day"),
     ("قلم", "qalam", "ручка", "*قلمي* أزرق", "*qalamī* azraq", "Моя *ручка* синяя", "classroom_day", "ahmad"),
     ("دفتر", "daftar", "тетрадь", "اكتب في *الدفتر*", "uktub fī *d-daftar*", "Пиши в *тетради*", "classroom_day"),
     ("مدرسة", "madrasa", "школа", "أذهب إلى *المدرسة*", "adhhabu ilā *l-madrasa*", "Я иду в *школу*", "street_day", "ahmad"),
