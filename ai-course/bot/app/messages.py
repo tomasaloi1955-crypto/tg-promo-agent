@@ -16,7 +16,7 @@ CAPTION_LIMIT = 1024
 
 
 def name_of(u) -> str:
-    return html.escape((u["first_name"] if u else None) or "друг")
+    return html.escape((u["first_name"] if u else None) or "сестра")
 
 
 async def say(bot: Bot, tg_id: int, text: str,
@@ -75,6 +75,8 @@ def price_vars(u, now: datetime | None = None) -> dict:
     for code in config.PLANS:
         out[f"p_{code}"] = keyboards.price(code, early)
         out[f"old_{code}"] = config.PLANS[code]["price_late"]
+    out["one_line"] = ((texts.ONE_LINE_EARLY if early else texts.ONE_LINE).format(**out)
+                       if keyboards.tracks_on_sale() else "")
     out["price_block"] = (texts.PRICE_BLOCK_EARLY if early else texts.PRICE_BLOCK).format(**out)
     if early and u and u["started_at"]:
         left = config.EARLY_LAST_DAY - funnel.funnel_day(u["started_at"], now, u["tz"]) + 1
@@ -106,7 +108,7 @@ async def send_action(bot: Bot, u, a: funnel.Action) -> str:
         if not rows:
             return await say(bot, tg_id, texts.WARM_REVIEWS_EMPTY)
         reviews = "\n\n".join(texts.REVIEW_ITEM.format(
-            text=html.escape(r["text"]), name=html.escape(r["first_name"] or "участник")) for r in rows)
+            text=html.escape(r["text"]), name=html.escape(r["first_name"] or "сестра")) for r in rows)
         return await say(bot, tg_id, texts.WARM_REVIEWS.format(reviews=reviews))
     if a.kind == "present":
         done = await db.done_count(tg_id)

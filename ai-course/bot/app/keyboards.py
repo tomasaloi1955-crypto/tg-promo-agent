@@ -70,10 +70,16 @@ def _pay_rows(code: str, early: bool) -> list:
     return rows
 
 
+def tracks_on_sale() -> bool:
+    """Продаём ли отдельные потоки: есть ссылка Tribute или цена в звёздах хоть у одного."""
+    return any(config.PLANS[c]["link"] or config.PLANS[c]["stars"] for c in config.TRACK_PLANS)
+
+
 def pay(early: bool) -> InlineKeyboardMarkup:
-    """Целиком, с наставником, «Один поток» (→ выбор потока), «Я оплатил(а)»."""
+    """Целиком, с наставницей, «Один поток» (→ выбор потока, если продаются), «Я оплатила»."""
     rows = _pay_rows("full", early) + _pay_rows("mentor", early)
-    rows.append([B(text=texts.ONE_TRACK_BUTTON.format(price=price("t1", early)), callback_data="tracks")])
+    if tracks_on_sale():
+        rows.append([B(text=texts.ONE_TRACK_BUTTON.format(price=price("t1", early)), callback_data="tracks")])
     rows.append([B(text=texts.I_PAID_BUTTON, callback_data="ipaid")])
     rows.append([B(text=texts.ASK_BUTTON, callback_data="ask")])
     return _kb(rows)
@@ -88,7 +94,8 @@ def tracks(early: bool) -> InlineKeyboardMarkup:
 
 
 def which_plan(prefix: str) -> InlineKeyboardMarkup:
-    return _kb([[B(text=texts.PLAN_NAMES[code], callback_data=f"{prefix}:{code}")] for code in config.PLANS])
+    codes = [c for c in config.PLANS if c not in config.TRACK_PLANS or tracks_on_sale()]
+    return _kb([[B(text=texts.PLAN_NAMES[code], callback_data=f"{prefix}:{code}")] for code in codes])
 
 
 def settings(unsubscribed: bool) -> InlineKeyboardMarkup:

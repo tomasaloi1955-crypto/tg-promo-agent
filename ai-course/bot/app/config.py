@@ -68,6 +68,7 @@ COURSE_CHAT_ID = _str("COURSE_CHAT_ID")
 _T1 = _str("COURSE_CHAT_T1") or COURSE_CHAT_ID
 _T2 = _str("COURSE_CHAT_T2") or COURSE_CHAT_ID
 _T3 = _str("COURSE_CHAT_T3") or COURSE_CHAT_ID
+_T4 = _str("COURSE_CHAT_T4") or COURSE_CHAT_ID
 _MENTOR = _str("COURSE_CHAT_MENTOR")
 
 
@@ -94,15 +95,16 @@ def _plan(code: str, early: str, late: str, chats: list[str]) -> dict:
     }
 
 
-# Коды тарифов: t1/t2/t3 — один поток, full — всё, mentor — всё + наставник.
+# Коды тарифов: t1–t4 — один поток, full — все 4, mentor — всё + наставник.
 PLANS = {
     "t1": _plan("t1", "4 900 ₽", "6 900 ₽", _uniq(_T1)),
     "t2": _plan("t2", "4 900 ₽", "6 900 ₽", _uniq(_T2)),
     "t3": _plan("t3", "4 900 ₽", "6 900 ₽", _uniq(_T3)),
-    "full": _plan("full", "9 900 ₽", "14 900 ₽", _uniq(_T1, _T2, _T3)),
-    "mentor": _plan("mentor", "24 900 ₽", "34 900 ₽", _uniq(_T1, _T2, _T3, _MENTOR)),
+    "t4": _plan("t4", "4 900 ₽", "6 900 ₽", _uniq(_T4)),
+    "full": _plan("full", "12 900 ₽", "17 900 ₽", _uniq(_T1, _T2, _T3, _T4)),
+    "mentor": _plan("mentor", "24 900 ₽", "34 900 ₽", _uniq(_T1, _T2, _T3, _T4, _MENTOR)),
 }
-TRACK_PLANS = ("t1", "t2", "t3")
+TRACK_PLANS = ("t1", "t2", "t3", "t4")
 
 TRIBUTE_API_KEY = _str("TRIBUTE_API_KEY").strip().strip('"\'').strip().replace("​", "").replace("﻿", "")
 

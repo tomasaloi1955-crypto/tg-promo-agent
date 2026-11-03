@@ -31,7 +31,7 @@ async def join_request(req: ChatJoinRequest, bot: Bot) -> None:
     source = source_from_link(req.invite_link.name if req.invite_link else None)
     me = await bot.me()
     url = f"https://t.me/{me.username}?start=src_{source}"
-    name = html.escape(req.from_user.first_name or "друг")
+    name = html.escape(req.from_user.first_name or "сестра")
     welcomed = approved = False
     try:
         await bot.send_message(

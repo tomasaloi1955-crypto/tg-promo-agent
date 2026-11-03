@@ -4,7 +4,7 @@ const { chromium } = require('playwright');
 const path = require('path');
 
 const C = { bg: '#0B0D17', bg2: '#141833', ink: '#F4F2EC', mute: '#A9ACC4',
-  ai: '#8B6CFF', code: '#3DDC97', auto: '#FFB547' };
+  ai: '#8B6CFF', code: '#3DDC97', auto: '#FFB547', mkt: '#FF6B8B' };
 
 const head = `<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;600;800&display=block" rel="stylesheet">
 <style>
@@ -18,13 +18,13 @@ body{background:${C.bg};color:${C.ink};font-family:Inter,sans-serif;overflow:hid
 .flow{position:absolute;inset:0}
 .pill{display:inline-block;border:2px solid currentColor;border-radius:999px;padding:.35em 1em;font-weight:600;letter-spacing:.04em}
 .brand{font-family:Unbounded;font-weight:900;letter-spacing:-.02em;line-height:.95}
-.grad{background:linear-gradient(90deg,${C.ai},${C.code} 55%,${C.auto});-webkit-background-clip:text;color:transparent}
+.grad{background:linear-gradient(90deg,${C.ai},${C.code} 40%,${C.auto} 70%,${C.mkt});-webkit-background-clip:text;color:transparent}
 .tag{font-family:'JetBrains Mono',monospace;color:${C.mute}}
 </style>`;
 
 // три «потока» — волнистые линии трёх цветов
 function flows(w, h, y0, amp, opacity = 1, sw = 10) {
-  const cols = [C.ai, C.code, C.auto];
+  const cols = [C.ai, C.code, C.auto, C.mkt];
   const paths = cols.map((c, i) => {
     const y = y0 + i * sw * 2.6;
     let d = `M -50 ${y}`;
@@ -48,7 +48,7 @@ const pages = {
     <div style="position:absolute;left:80px;top:70px">
       <div class="tag" style="font-size:22px">Halal AI · Freya &nbsp;/&nbsp; онлайн-курс</div>
       <div class="brand" style="font-size:118px;margin-top:28px">НЕЙРО<br><span class="grad">ПОТОК</span></div>
-      <div style="font-size:32px;margin-top:30px;color:${C.mute};font-weight:600">ИИ · Вайбкодинг · Автоматизация —<br><span style="color:${C.ink}">3 потока, чтобы ИИ работал на вас</span></div>
+      <div style="font-size:32px;margin-top:30px;color:${C.mute};font-weight:600">ИИ · Вайбкодинг · Автоматизация · Маркетинг —<br><span style="color:${C.ink}">4 потока: от первого бота до первой клиентки</span></div>
     </div></div>`],
 
   lead_magnet: [1280, 720, `<div class="wrap"><div class="grid"></div>${flows(1280, 720, 600, 50, .8, 10)}
@@ -63,6 +63,7 @@ const tracks = [
   ['track_1', C.ai, '01', 'ИИ-АССИСТЕНТ', 'Нейросети в работе', 'Промпты, свой ИИ-помощник,<br>тексты, таблицы, контент — в 5 раз быстрее'],
   ['track_2', C.code, '02', 'ВАЙБКОДИНГ', 'Код пишет ИИ — вы им управляете', 'Боты, сайты, мини-приложения<br>без опыта программирования'],
   ['track_3', C.auto, '03', 'АВТОМАТИЗАЦИЯ', 'Рутина работает сама', 'Заявки, оплаты, рассылки, отчёты —<br>связки n8n + Telegram + Таблицы'],
+  ['track_4', C.mkt, '04', 'МАРКЕТИНГ', 'Первая клиентка и свой прайс', 'Упаковка, поиск клиентов, цена и продажа —<br>халяльно и без навязчивости'],
 ];
 for (const [k, col, n, title, sub, desc] of tracks) {
   pages[k] = [1280, 720, `<div class="wrap" style="background:radial-gradient(circle at 90% 10%, ${col}33 0, transparent 50%), ${C.bg}"><div class="grid"></div>
@@ -92,6 +93,36 @@ pages.ad_story = [1080, 1920, `<div class="wrap"><div class="grid"></div>${flows
     <div style="font-size:42px;margin-top:60px;color:${C.mute};line-height:1.4">Бесплатно. Без опыта.<br>ИИ пишет код — вы управляете.</div>
     <div style="margin-top:90px"><span class="pill" style="color:${C.auto};font-size:44px">Начать в боте ↑</span></div>
   </div></div>`];
+
+// Для рекламы в каналах для сестёр: акцент на заработке из дома (без лиц и без обещаний дохода)
+const flower = (x, y, s, col) => `<svg style="position:absolute;left:${x}px;top:${y}px" width="${s}" height="${s}" viewBox="0 0 100 100">${
+  [0, 60, 120, 180, 240, 300].map(a => `<ellipse cx="50" cy="25" rx="13" ry="25" fill="${col}" opacity=".85" transform="rotate(${a} 50 50)"/>`).join('')}<circle cx="50" cy="50" r="11" fill="${C.auto}"/></svg>`;
+
+pages.ad_square_sisters = [1080, 1080, `<div class="wrap" style="background:radial-gradient(circle at 85% 12%, #5b2147 0, transparent 45%), radial-gradient(circle at 10% 95%, #0f3b33 0, transparent 40%), ${C.bg}"><div class="grid"></div>
+  ${flower(820, 70, 190, C.mkt)}
+  <div style="position:absolute;left:70px;top:80px;right:70px">
+    <div class="tag" style="font-size:26px">для сестёр · бесплатно</div>
+    <div class="u" style="font-size:76px;font-weight:900;line-height:1.07;margin-top:60px">Зарабатывай<br>на своих ботах —<br><span class="grad">из дома</span></div>
+    <div style="font-size:36px;margin-top:44px;color:${C.mute};line-height:1.4">Первый бот за 3 вечера.<br>Код пишет ИИ, опыт не нужен.</div>
+    <span class="pill" style="color:${C.mkt};font-size:30px;margin-top:50px">Начать интенсив →</span>
+  </div>${flows(1080, 1080, 960, 50, .8, 12)}</div>`];
+
+pages.ad_story_sisters = [1080, 1920, `<div class="wrap" style="background:radial-gradient(circle at 85% 10%, #5b2147 0, transparent 45%), radial-gradient(circle at 10% 95%, #0f3b33 0, transparent 40%), ${C.bg}"><div class="grid"></div>
+  ${flower(700, 150, 280, C.mkt)}
+  <div style="position:absolute;left:80px;top:220px;right:80px">
+    <div class="tag" style="font-size:30px">Нейропоток · для сестёр</div>
+    <div class="u" style="font-size:96px;font-weight:900;line-height:1.08;margin-top:320px">Зарабатывай<br>на своих<br>ботах —<br><span class="grad">из дома</span></div>
+    <div style="font-size:44px;margin-top:70px;color:${C.mute};line-height:1.4">В своём ритме, между делами.<br>Первый бот — за 3 вечера,<br>бесплатно.</div>
+    <div style="margin-top:80px"><span class="pill" style="color:${C.auto};font-size:44px">Начать в боте ↑</span></div>
+  </div>${flows(1080, 1920, 1760, 80, .8, 16)}</div>`];
+
+pages.lead_magnet_sisters = [1280, 720, `<div class="wrap" style="background:radial-gradient(circle at 88% 15%, #5b2147 0, transparent 45%), ${C.bg}"><div class="grid"></div>
+  ${flower(1010, 60, 200, C.mkt)}
+  <div style="position:absolute;left:80px;top:64px;right:300px">
+    <span class="pill" style="color:${C.mkt};font-size:24px">ДЛЯ СЕСТЁР · БЕСПЛАТНО</span>
+    <div class="u" style="font-size:70px;font-weight:900;line-height:1.05;margin-top:34px">Свой бот за 3 вечера —<br><span class="grad">и как на нём зарабатывать</span></div>
+    <div style="font-size:30px;margin-top:28px;color:${C.mute}">Мини-интенсив Нейропотока. Код пишет ИИ,<br>ты ставишь задачу. Работа из дома, в своём ритме</div>
+  </div>${flows(1280, 720, 640, 40, .8, 9)}</div>`];
 
 pages.channel_post_header = [1280, 400, `<div class="wrap"><div class="grid"></div>${flows(1280, 400, 300, 30, .9, 9)}
   <div style="position:absolute;left:70px;top:60px"><div class="brand" style="font-size:96px">НЕЙРО<span class="grad">ПОТОК</span></div>
