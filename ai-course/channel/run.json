@@ -1,9 +1,10 @@
 {
-  "channel": "Halal Intelligence",
+  "channel": "@Halalaifreya",
   "via": "bot",
-  "candidates": "@Halalaifreya",
+  "candidates": "",
   "mode": "now",
   "bot_username": "",
   "only": "",
-  "dry_run": false
+  "dry_run": false,
+  "bot": "neuropotok_sisters_bot"
 }
