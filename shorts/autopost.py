@@ -205,6 +205,10 @@ def telegram_post(path: Path, caption: str) -> str:
     ch = os.getenv("TG_CHANNEL")
     if not ch or not os.getenv("TELETHON_SESSION"):
         raise SkipPlatform("нет TG_CHANNEL или TELETHON_SESSION")
+    # В эти дни в канал пишет текстовый автопостинг (pilatesbot: ср и вс) — роликом не мешаем.
+    skip = {int(x) for x in os.getenv("TG_SKIP_WEEKDAYS", "2,6").split(",") if x.strip()}
+    if dt.date.today().weekday() in skip:
+        raise SkipPlatform("сегодня в канале текстовый пост, ролик — завтра")
 
     async def run():
         from telethon.tl.types import DocumentAttributeVideo
