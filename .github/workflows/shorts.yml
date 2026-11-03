@@ -1,0 +1,55 @@
+# Собирает 5 Shorts «Нейропотока»: начитка голосом (Gemini TTS) + сцены → mp4 1080×1920.
+# Готовые видео бот присылает вам в Telegram (BOT_TOKEN + OWNER_ID), а ещё они лежат
+# в «Artifacts» этого запуска. Запуск: изменить ai-course/shorts/run.json или Run workflow.
+name: "Нейропоток: Shorts с озвучкой"
+
+on:
+  push:
+    paths:
+      - "ai-course/shorts/run.json"
+  workflow_dispatch:
+
+concurrency:
+  group: neuro-shorts
+  cancel-in-progress: false
+
+jobs:
+  shorts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Установить инструменты
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q "google-genai>=1.0" requests
+          cd ai-course/shorts && npm init -y >/dev/null && npm i -s playwright@1.48.2 && npx playwright install --with-deps chromium >/dev/null
+      - name: Собрать Shorts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: |
+          eval "$(python - <<'PY'
+          import json, shlex
+          c = json.load(open("ai-course/shorts/run.json", encoding="utf-8"))
+          for k, v in {"ONLY": c.get("only", ""), "VOICE": c.get("voice", ""),
+                       "BOT_USERNAME": c.get("bot_username", ""), "TTS_MODEL": c.get("tts_model", "")}.items():
+              print(f"export {k}={shlex.quote(str(v))}")
+          PY
+          )"
+          python ai-course/shorts/make_shorts.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shorts
+          path: |
+            ai-course/shorts/out/*.mp4
+            ai-course/shorts/out/*.txt
+          if-no-files-found: ignore
