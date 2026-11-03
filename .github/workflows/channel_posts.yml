@@ -1,0 +1,52 @@
+# Ставит стартовые посты «Нейропотока» в канал ОТЛОЖЕННЫМИ сообщениями.
+# Ничего не выходит сразу: посты ждут своего времени в «Отложенных» канала,
+# их можно поправить или удалить в Telegram. Отправляет ваш аккаунт
+# (секреты промо-агента API_ID, API_HASH, TELETHON_SESSION), он должен быть админом канала.
+
+name: "Нейропоток: посты в канал"
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Канал: @username или ссылка t.me/..."
+        required: true
+      start_date:
+        description: "День 1 (ГГГГ-ММ-ДД). Пусто — завтра"
+        required: false
+        default: ""
+      bot_username:
+        description: "Username бота без @ (пусто — закреп и пост 12 со ссылкой на бота пропустятся)"
+        required: false
+        default: ""
+      only:
+        description: "Только эти посты, через запятую (например 1,2,3). Пусто — все"
+        required: false
+        default: ""
+      dry_run:
+        description: "Только показать план, ничего не отправлять"
+        type: boolean
+        default: true
+
+jobs:
+  posts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "telethon>=1.36" tzdata
+      - name: Поставить посты в отложку
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          CHANNEL: ${{ inputs.channel }}
+          START_DATE: ${{ inputs.start_date }}
+          BOT_USERNAME: ${{ inputs.bot_username }}
+          ONLY: ${{ inputs.only }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+          TZ: Asia/Almaty
+        run: python ai-course/channel/publish_posts.py
