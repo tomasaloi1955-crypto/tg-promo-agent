@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #50: *пальма*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«пальма»*",
+   "speak": "Слово дня: пальма"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "*النخلة* طويلة",
+   "tr": "*an-nakhla* tawīla",
+   "ru": "*Пальма* высокая"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*نخلة*",
+   "tr": "*nakhla*",
+   "ru": "*пальма*",
+   "speak": "نخلة"
+  },
+  {
+   "quiz": {
+    "ru": "пальма",
+    "ar": "نخلة",
+    "tr": "nakhla"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

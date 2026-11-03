@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #93: *утро*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«утро»*",
+   "speak": "Слово дня: утро"
+  },
+  {
+   "say": "mom",
+   "mood": "happy",
+   "ar": "*صباح* الخير",
+   "tr": "*sabāh* al-khayr",
+   "ru": "Доброе *утро*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*صباح*",
+   "tr": "*sabāh*",
+   "ru": "*утро*",
+   "speak": "صباح"
+  },
+  {
+   "quiz": {
+    "ru": "утро",
+    "ar": "صباح",
+    "tr": "sabāh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

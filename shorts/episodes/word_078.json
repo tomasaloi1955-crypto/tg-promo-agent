@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #78: *открывает*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«открывает»*",
+   "speak": "Слово дня: открывает"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "أمي *تفتح* الباب",
+   "tr": "ummī *taftahu* l-bāb",
+   "ru": "Мама *открывает* дверь"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*يفتح*",
+   "tr": "*yaftahu*",
+   "ru": "*открывает*",
+   "speak": "يفتح"
+  },
+  {
+   "quiz": {
+    "ru": "открывает",
+    "ar": "يفتح",
+    "tr": "yaftahu"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

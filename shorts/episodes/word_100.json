@@ -1,0 +1,84 @@
+{
+ "title": "Слово дня #100: *мир*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "courtyard_day",
+   "cast": {
+    "ahmad": 0.3,
+    "yusuf": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«мир»*",
+   "speak": "Слово дня: мир"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*السلام* عليكم",
+   "tr": "*as-salāmu* 'alaykum",
+   "ru": "*Мир* вам"
+  },
+  {
+   "say": "yusuf",
+   "mood": "surprised",
+   "ar": "*سلام*",
+   "tr": "*salām*",
+   "ru": "*мир*",
+   "speak": "سلام"
+  },
+  {
+   "quiz": {
+    "ru": "мир",
+    "ar": "سلام",
+    "tr": "salām"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

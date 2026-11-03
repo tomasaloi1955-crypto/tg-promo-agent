@@ -110,7 +110,7 @@ async def old_from_telegram(st, dest: Path) -> dict | None:
 
 
 def pick_today(st, dry=False) -> dict:
-    want_old = st.get("last_kind") == "new"
+    want_old = st.get("last_kind") == "new"  # вчера был диалог → сегодня старый ролик или «Слово дня»
     if want_old:
         local = old_queue_local(st)
         if local:
@@ -122,18 +122,27 @@ def pick_today(st, dry=False) -> dict:
             if item:
                 item["kind"] = "old"
                 return item
+        # день «Слова дня»
+        w = st.get("next_word", 1)
+        spec = HERE / "episodes" / f"word_{w:03d}.json"
+        if spec.exists():
+            return {"kind": "word", "key": f"word:{w}", "n": w, "spec": spec}
     n = st["next_new"]
     spec = HERE / "episodes" / f"dialog_{n:03d}.json"
-    if not spec.exists():
-        return {"kind": "none"}
-    return {"kind": "new", "key": f"dialog:{n}", "n": n, "spec": spec}
+    if spec.exists():
+        return {"kind": "new", "key": f"dialog:{n}", "n": n, "spec": spec}
+    w = st.get("next_word", 1)  # диалоги кончились — идут слова
+    spec = HERE / "episodes" / f"word_{w:03d}.json"
+    if spec.exists():
+        return {"kind": "word", "key": f"word:{w}", "n": w, "spec": spec}
+    return {"kind": "none"}
 
 
 # ─────────────────────────── тексты публикации ───────────────────────────
 
 def texts_for(item) -> dict:
     tg_link = f"https://t.me/{os.getenv('TG_CHANNEL').lstrip('@')}" if os.getenv("TG_CHANNEL") else ""
-    if item["kind"] == "new":
+    if item["kind"] in ("new", "word"):
         spec = json.loads(Path(item["spec"]).read_text(encoding="utf-8"))
         topic = spec["title"].split(":", 1)[-1].replace("*", "").strip()
         lines = []
@@ -145,7 +154,11 @@ def texts_for(item) -> dict:
                 q = b["quiz"]
                 lines.append(f"\n❓ Как сказать «{q['ru']}»? Ответ: {q['ar']} ({q['tr']})")
         body = "\n".join(lines)
-        title = f"Урок {item['n']}: {topic} — арабский за 20 секунд"
+        if item["kind"] == "word":
+            q = next(b["quiz"] for b in spec["beats"] if "quiz" in b)
+            title = f"Слово дня: {q['ar']} — «{q['ru']}» | арабский за 15 секунд"
+        else:
+            title = f"Урок {item['n']}: {topic} — арабский за 20 секунд"
     else:
         cap = item.get("caption") or ""
         title = (cap.splitlines()[0] if cap else "Арабские слова") [:80]
@@ -281,7 +294,7 @@ def main():
     st = load_state()
     item = pick_today(st, args.dry_run)
     if item["kind"] == "none":
-        notify("📭 Автопостинг: все 100 уроков и старые ролики уже опубликованы. Добавьте новые!")
+        notify("📭 Автопостинг: все 100 уроков и 100 слов уже опубликованы. Добавьте новые!")
         return
     print("Сегодня:", item["kind"], item.get("key"))
     if args.dry_run:
@@ -289,7 +302,7 @@ def main():
         return
 
     try:
-        path = render_new(item) if item["kind"] == "new" else Path(item["path"])
+        path = render_new(item) if item["kind"] in ("new", "word") else Path(item["path"])
     except Exception as e:  # noqa: BLE001
         notify(f"❌ Автопостинг: не удалось подготовить видео ({item.get('key')}): {e}")
         raise
@@ -317,14 +330,16 @@ def main():
     if ok:  # двигаем очередь, только если опубликовали хотя бы куда-то
         if item["kind"] == "new":
             st["next_new"] = item["n"] + 1
+        elif item["kind"] == "word":
+            st["next_word"] = item["n"] + 1
         else:
             st["old_done"].append(item["key"])
-        st["last_kind"] = item["kind"]
+        st["last_kind"] = "new" if item["kind"] == "new" else "word"
         st["history"].append({"date": dt.date.today().isoformat(), "key": item["key"],
                               "results": {k: v[:200] for k, v in results.items()}})
         save_state(st)
 
-    kind = "новый урок" if item["kind"] == "new" else "старый шортс"
+    kind = {"new": "урок-диалог", "word": "слово дня"}.get(item["kind"], "старый шортс")
     notify(f"🎬 Автопостинг ({kind}): {tx['yt_title']}\n\n" + "\n".join(f"{k}: {v}" for k, v in results.items()))
     if not ok and any(v.startswith("❌") for v in results.values()):
         sys.exit(1)

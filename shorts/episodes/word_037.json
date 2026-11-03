@@ -1,0 +1,82 @@
+{
+ "title": "Слово дня #37: *урок*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«урок»*",
+   "speak": "Слово дня: урок"
+  },
+  {
+   "say": "teacher",
+   "mood": "happy",
+   "ar": "*الدرس* سهل",
+   "tr": "*ad-dars* sahl",
+   "ru": "*Урок* лёгкий"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*درس*",
+   "tr": "*dars*",
+   "ru": "*урок*",
+   "speak": "درس"
+  },
+  {
+   "quiz": {
+    "ru": "урок",
+    "ar": "درس",
+    "tr": "dars"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

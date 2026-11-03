@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #35: *учительница*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«учительница»*",
+   "speak": "Слово дня: учительница"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "*المعلمة* في الفصل",
+   "tr": "*al-mu'allima* fī l-fasl",
+   "ru": "*Учительница* в классе"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*معلمة*",
+   "tr": "*mu'allima*",
+   "ru": "*учительница*",
+   "speak": "معلمة"
+  },
+  {
+   "quiz": {
+    "ru": "учительница",
+    "ar": "معلمة",
+    "tr": "mu'allima"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

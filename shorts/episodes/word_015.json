@@ -1,0 +1,82 @@
+{
+ "title": "Слово дня #15: *яблоко*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "seller": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«яблоко»*",
+   "speak": "Слово дня: яблоко"
+  },
+  {
+   "say": "seller",
+   "mood": "happy",
+   "ar": "هذه *تفاحة* حمراء",
+   "tr": "hādhihi *tuffāha* hamrā'",
+   "ru": "Это красное *яблоко*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*تفاحة*",
+   "tr": "*tuffāha*",
+   "ru": "*яблоко*",
+   "speak": "تفاحة"
+  },
+  {
+   "quiz": {
+    "ru": "яблоко",
+    "ar": "تفاحة",
+    "tr": "tuffāha"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

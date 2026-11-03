@@ -1,6 +1,6 @@
 name: Автопостинг Shorts (YouTube + Telegram + Instagram)
 
-# Каждый день один ролик: через день «старый» шортс со словами и новый урок-мультик.
+# Каждый день один ролик: через день «Слово дня» и урок-диалог.
 # 13:17 UTC = 16:17 по Москве (не пересекается с промо-агентами, у них та же Telegram-сессия).
 on:
   schedule:
@@ -44,7 +44,8 @@ jobs:
           API_ID: ${{ secrets.API_ID }}
           API_HASH: ${{ secrets.API_HASH }}
           TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
-          TG_CHANNEL: ${{ secrets.TG_CHANNEL }}
+          TG_CHANNEL: ${{ secrets.TG_CHANNEL || 'myarabicl' }}
+          YT_MADE_FOR_KIDS: "true"
           TG_OLD_SOURCE: ${{ secrets.TG_OLD_SOURCE }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}

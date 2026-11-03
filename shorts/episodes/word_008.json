@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #8: *ключ*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«ключ»*",
+   "speak": "Слово дня: ключ"
+  },
+  {
+   "say": "dad",
+   "mood": "happy",
+   "ar": "أين *المفتاح*؟",
+   "tr": "ayna *l-miftāh*?",
+   "ru": "Где *ключ*?"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*مفتاح*",
+   "tr": "*miftāh*",
+   "ru": "*ключ*",
+   "speak": "مفتاح"
+  },
+  {
+   "quiz": {
+    "ru": "ключ",
+    "ar": "مفتاح",
+    "tr": "miftāh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

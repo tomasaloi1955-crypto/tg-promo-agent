@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #87: *самолёт*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "airport_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«самолёт»*",
+   "speak": "Слово дня: самолёт"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "*الطائرة* في السماء",
+   "tr": "*at-tā'ira* fī s-samā'",
+   "ru": "*Самолёт* в небе"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*طائرة*",
+   "tr": "*tā'ira*",
+   "ru": "*самолёт*",
+   "speak": "طائرة"
+  },
+  {
+   "quiz": {
+    "ru": "самолёт",
+    "ar": "طائرة",
+    "tr": "tā'ira"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

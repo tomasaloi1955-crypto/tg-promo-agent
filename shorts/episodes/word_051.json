@@ -1,0 +1,77 @@
+{
+ "title": "Слово дня #51: *голова*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "doctor": {
+   "type": "man",
+   "name": "Врач",
+   "color": [
+    60,
+    150,
+    200
+   ],
+   "voice": "ar-BH-AliNeural",
+   "colors": {
+    "cloth": [
+     236,
+     246,
+     252
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "clinic_day",
+   "cast": {
+    "ahmad": 0.3,
+    "doctor": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«голова»*",
+   "speak": "Слово дня: голова"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*رأسي* يؤلمني",
+   "tr": "*ra'sī* yu'limunī",
+   "ru": "У меня болит *голова*"
+  },
+  {
+   "say": "doctor",
+   "mood": "surprised",
+   "ar": "*رأس*",
+   "tr": "*ra's*",
+   "ru": "*голова*",
+   "speak": "رأس"
+  },
+  {
+   "quiz": {
+    "ru": "голова",
+    "ar": "رأس",
+    "tr": "ra's"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #21: *папа*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«папа»*",
+   "speak": "Слово дня: папа"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "*أبي* في البيت",
+   "tr": "*abī* fī l-bayt",
+   "ru": "Мой *папа* дома"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*أب*",
+   "tr": "*ab*",
+   "ru": "*папа*",
+   "speak": "أب"
+  },
+  {
+   "quiz": {
+    "ru": "папа",
+    "ar": "أب",
+    "tr": "ab"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #59: *зуб*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "mom": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«зуб»*",
+   "speak": "Слово дня: зуб"
+  },
+  {
+   "say": "mom",
+   "mood": "happy",
+   "ar": "نظف *أسنانك*",
+   "tr": "nazzif *asnānak*",
+   "ru": "Почисти *зубы*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*سن*",
+   "tr": "*sinn*",
+   "ru": "*зуб*",
+   "speak": "سن"
+  },
+  {
+   "quiz": {
+    "ru": "зуб",
+    "ar": "سن",
+    "tr": "sinn"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

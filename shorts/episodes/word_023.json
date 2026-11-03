@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #23: *брат*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«брат»*",
+   "speak": "Слово дня: брат"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "هذا *أخي* أحمد",
+   "tr": "hādhā *akhī* ahmad",
+   "ru": "Это мой *брат* Ахмад"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*أخ*",
+   "tr": "*akh*",
+   "ru": "*брат*",
+   "speak": "أخ"
+  },
+  {
+   "quiz": {
+    "ru": "брат",
+    "ar": "أخ",
+    "tr": "akh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

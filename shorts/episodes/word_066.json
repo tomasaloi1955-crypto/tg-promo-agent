@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #66: *большой*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«большой»*",
+   "speak": "Слово дня: большой"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "البيت *كبير*",
+   "tr": "al-bayt *kabīr*",
+   "ru": "Дом *большой*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*كبير*",
+   "tr": "*kabīr*",
+   "ru": "*большой*",
+   "speak": "كبير"
+  },
+  {
+   "quiz": {
+    "ru": "большой",
+    "ar": "كبير",
+    "tr": "kabīr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

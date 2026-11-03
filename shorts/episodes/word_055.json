@@ -1,0 +1,77 @@
+{
+ "title": "Слово дня #55: *рот*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "doctor": {
+   "type": "man",
+   "name": "Врач",
+   "color": [
+    60,
+    150,
+    200
+   ],
+   "voice": "ar-BH-AliNeural",
+   "colors": {
+    "cloth": [
+     236,
+     246,
+     252
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "clinic_day",
+   "cast": {
+    "doctor": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«рот»*",
+   "speak": "Слово дня: рот"
+  },
+  {
+   "say": "doctor",
+   "mood": "happy",
+   "ar": "افتح *فمك*",
+   "tr": "iftah *famak*",
+   "ru": "Открой *рот*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*فم*",
+   "tr": "*fam*",
+   "ru": "*рот*",
+   "speak": "فم"
+  },
+  {
+   "quiz": {
+    "ru": "рот",
+    "ar": "فم",
+    "tr": "fam"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

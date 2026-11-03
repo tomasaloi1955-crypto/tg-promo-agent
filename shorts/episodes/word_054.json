@@ -1,0 +1,77 @@
+{
+ "title": "Слово дня #54: *нос*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "doctor": {
+   "type": "man",
+   "name": "Врач",
+   "color": [
+    60,
+    150,
+    200
+   ],
+   "voice": "ar-BH-AliNeural",
+   "colors": {
+    "cloth": [
+     236,
+     246,
+     252
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "clinic_day",
+   "cast": {
+    "ahmad": 0.3,
+    "doctor": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«нос»*",
+   "speak": "Слово дня: нос"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*أنفي* أحمر",
+   "tr": "*anfī* ahmar",
+   "ru": "Мой *нос* красный"
+  },
+  {
+   "say": "doctor",
+   "mood": "surprised",
+   "ar": "*أنف*",
+   "tr": "*anf*",
+   "ru": "*нос*",
+   "speak": "أنف"
+  },
+  {
+   "quiz": {
+    "ru": "нос",
+    "ar": "أنف",
+    "tr": "anf"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

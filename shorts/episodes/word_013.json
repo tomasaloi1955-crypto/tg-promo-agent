@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #13: *молоко*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«молоко»*",
+   "speak": "Слово дня: молоко"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "أحب *الحليب*",
+   "tr": "uhibbu *l-halīb*",
+   "ru": "Я люблю *молоко*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*حليب*",
+   "tr": "*halīb*",
+   "ru": "*молоко*",
+   "speak": "حليب"
+  },
+  {
+   "quiz": {
+    "ru": "молоко",
+    "ar": "حليب",
+    "tr": "halīb"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

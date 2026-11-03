@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #6: *стол*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«стол»*",
+   "speak": "Слово дня: стол"
+  },
+  {
+   "say": "mom",
+   "mood": "happy",
+   "ar": "الكتاب على *الطاولة*",
+   "tr": "al-kitāb 'alā *t-tāwila*",
+   "ru": "Книга на *столе*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*طاولة*",
+   "tr": "*tāwila*",
+   "ru": "*стол*",
+   "speak": "طاولة"
+  },
+  {
+   "quiz": {
+    "ru": "стол",
+    "ar": "طاولة",
+    "tr": "tāwila"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}
