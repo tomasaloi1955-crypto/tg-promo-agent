@@ -54,6 +54,18 @@ def save_state(st: dict):
     STATE.write_text(json.dumps(st, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def bot_username() -> str:
+    """Имя бота-уведомителя (из BOT_TOKEN) — чтобы владелица знала, кого назначить админом канала."""
+    token = os.getenv("BOT_TOKEN")
+    if not token:
+        return ""
+    try:
+        r = requests.get(f"https://api.telegram.org/bot{token}/getMe", timeout=20).json()
+        return "@" + r["result"]["username"] if r.get("ok") else ""
+    except Exception:  # noqa: BLE001
+        return ""
+
+
 def notify(text: str):
     token, chat = os.getenv("BOT_TOKEN"), os.getenv("OWNER_ID")
     print(text)
@@ -203,12 +215,29 @@ def youtube_upload(path: Path, title: str, desc: str) -> str:
 
 def telegram_post(path: Path, caption: str) -> str:
     ch = os.getenv("TG_CHANNEL")
-    if not ch or not os.getenv("TELETHON_SESSION"):
-        raise SkipPlatform("нет TG_CHANNEL или TELETHON_SESSION")
+    if not ch:
+        raise SkipPlatform("нет TG_CHANNEL")
     # В эти дни в канал пишет текстовый автопостинг (pilatesbot: ср и вс) — роликом не мешаем.
     skip = {int(x) for x in os.getenv("TG_SKIP_WEEKDAYS", "2,6").split(",") if x.strip()}
     if dt.date.today().weekday() in skip:
         raise SkipPlatform("сегодня в канале текстовый пост, ролик — завтра")
+
+    # 1) Бот (BOT_TOKEN) — должен быть админом канала с правом «Публикация сообщений».
+    token = os.getenv("BOT_TOKEN")
+    bot_err = None
+    if token:
+        chat = ch if ch.startswith("@") or ch.lstrip("-").isdigit() else "@" + ch
+        with path.open("rb") as f:
+            r = requests.post(f"https://api.telegram.org/bot{token}/sendVideo",
+                              data={"chat_id": chat, "caption": caption, "supports_streaming": "true",
+                                    "width": 1080, "height": 1920, "duration": int(video_duration(path))},
+                              files={"video": (path.name, f, "video/mp4")}, timeout=300).json()
+        if r.get("ok"):
+            return f"https://t.me/{ch.lstrip('@')}/{r['result']['message_id']} (бот)"
+        bot_err = r.get("description", str(r))
+    # 2) Запасной путь — личный аккаунт (сессия Telethon), если он админ канала.
+    if not os.getenv("TELETHON_SESSION"):
+        raise RuntimeError(f"бот не смог опубликовать: {bot_err}")
 
     async def run():
         from telethon.tl.types import DocumentAttributeVideo
@@ -222,7 +251,12 @@ def telegram_post(path: Path, caption: str) -> str:
         finally:
             await c.disconnect()
 
-    return asyncio.run(run())
+    try:
+        return asyncio.run(run())
+    except Exception as e:  # noqa: BLE001
+        bot = bot_username() or "бот-уведомитель"
+        raise RuntimeError(f"нет прав публиковать в канал. Назначьте {bot} администратором канала "
+                           f"@{ch.lstrip('@')} с правом «Публикация сообщений». (бот: {bot_err}; аккаунт: {type(e).__name__})")
 
 
 # ─────────────────────────── Instagram Reels ───────────────────────────
@@ -293,7 +327,29 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,instagram")
+    ap.add_argument("--check", action="store_true", help="ничего не публиковать: бот назовёт себя и проверит права в канале")
     args = ap.parse_args()
+
+    if args.check:
+        token, ch = os.getenv("BOT_TOKEN"), (os.getenv("TG_CHANNEL") or "").lstrip("@")
+        me = bot_username()
+        status = "не удалось проверить"
+        if token and ch and me:
+            try:
+                bot_id = int(token.split(":")[0])
+                r = requests.get(f"https://api.telegram.org/bot{token}/getChatMember",
+                                 params={"chat_id": "@" + ch, "user_id": bot_id}, timeout=20).json()
+                m = r.get("result", {})
+                if m.get("status") == "administrator" and m.get("can_post_messages", True):
+                    status = "✅ я админ канала и могу публиковать — всё готово"
+                else:
+                    status = f"❌ я пока не админ канала ({r.get('description') or m.get('status')})"
+            except Exception as e:  # noqa: BLE001
+                status = f"ошибка проверки: {e}"
+        notify(f"👋 Я {me or 'бот-уведомитель'} — бот автопостинга мультиков.\n\nКанал @{ch}: {status}\n\n"
+               f"Чтобы я публиковал ролики: откройте канал → Управление каналом → Администраторы → "
+               f"Добавить администратора → найдите {me} → включите «Публикация сообщений» → Сохранить.")
+        return
 
     st = load_state()
     item = pick_today(st, args.dry_run)
@@ -344,7 +400,9 @@ def main():
         save_state(st)
 
     kind = {"new": "урок-диалог", "word": "слово дня"}.get(item["kind"], "старый шортс")
-    notify(f"🎬 Автопостинг ({kind}): {tx['yt_title']}\n\n" + "\n".join(f"{k}: {v}" for k, v in results.items()))
+    me = bot_username()
+    notify(f"🎬 Автопостинг ({kind}): {tx['yt_title']}\n\n" + "\n".join(f"{k}: {v}" for k, v in results.items())
+           + (f"\n\n(Пишет {me} — бот автопостинга мультиков)" if me else ""))
     if not ok and any(v.startswith("❌") for v in results.values()):
         sys.exit(1)
 
