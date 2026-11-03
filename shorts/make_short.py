@@ -730,7 +730,7 @@ CHAR_TYPES = {
 SPR_W, SPR_H = 340, 600  # размер спрайта в 1x
 
 # Глаза персонажей: "dots" — обычные, "hamza" — знак хамза «ء», "hamza_mirror" — хамзы зеркально (симметрично)
-EYE_STYLE = os.environ.get("EYE_STYLE", "dots")
+EYE_STYLE = os.environ.get("EYE_STYLE", "hamza")
 
 
 @functools.lru_cache(None)
