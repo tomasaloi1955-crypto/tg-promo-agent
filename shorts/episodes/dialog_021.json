@@ -1,0 +1,86 @@
+{
+ "title": "Урок 21: *Я голоден*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Как сказать *«Я голоден»* по-арабски?",
+   "speak": "Как сказать «Я голоден» по-арабски?"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "أنا *جائع* يا أمي",
+   "tr": "anā *jā'i'* yā ummī",
+   "ru": "Мама, я *голоден*",
+   "mood": "sad"
+  },
+  {
+   "say": "mom",
+   "ar": "الغداء جاهز",
+   "tr": "al-ghadā' jāhiz",
+   "ru": "Обед готов",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "ما هو الغداء؟",
+   "tr": "mā huwa l-ghadā'?",
+   "ru": "Что на обед?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "أرز ودجاج",
+   "tr": "aruzz wa dajāj",
+   "ru": "Рис и курица",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "голодный",
+    "ar": "جائع",
+    "tr": "jā'i'"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

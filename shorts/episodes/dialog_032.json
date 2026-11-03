@@ -1,0 +1,96 @@
+{
+ "title": "Урок 32: *Это дорого!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "mom": 0.27
+   }
+  },
+  {
+   "hook": "*Это дорого* — по-арабски",
+   "speak": "Это дорого — по-арабски"
+  },
+  {
+   "enter": "seller",
+   "to": 0.73
+  },
+  {
+   "say": "mom",
+   "ar": "بكم هذا الثوب؟",
+   "tr": "bi-kam hādhā th-thawb?",
+   "ru": "Сколько стоит эта одежда?",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "بمئة ريال",
+   "tr": "bi-mi'at riyāl",
+   "ru": "Сто риалов",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "هذا *غالٍ* جدا!",
+   "tr": "hādhā *ghālin* jiddan!",
+   "ru": "Это очень *дорого*!",
+   "mood": "surprised"
+  },
+  {
+   "say": "seller",
+   "ar": "طيب، بثمانين",
+   "tr": "tayyib, bi-thamānīn",
+   "ru": "Ладно, за восемьдесят",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "дорогой / дешёвый",
+    "ar": "غالٍ / رخيص",
+    "tr": "ghālin / rakhīs"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

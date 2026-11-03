@@ -1,0 +1,83 @@
+{
+ "title": "Урок 5: *Доброе утро*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Доброе утро»* по-арабски?",
+   "speak": "Как сказать «Доброе утро» по-арабски?"
+  },
+  {
+   "say": "mom",
+   "ar": "*صباح الخير* يا أحمد!",
+   "tr": "*sabāh al-khayr* yā ahmad!",
+   "ru": "*Доброе утро*, Ахмад!",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "صباح النور يا أمي!",
+   "tr": "sabāh an-nūr yā ummī!",
+   "ru": "Доброе утро, мама!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "هل نمت جيدا؟",
+   "tr": "hal nimta jayyidan?",
+   "ru": "Ты хорошо спал?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، الحمد لله",
+   "tr": "na'am, al-hamdu lillāh",
+   "ru": "Да, слава Аллаху",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "Доброе утро",
+    "ar": "صباح الخير",
+    "tr": "sabāh al-khayr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,76 @@
+{
+ "title": "Урок 30: *Чай горячий!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "grandpa": 0.27,
+    "maryam": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Чай горячий*",
+   "speak": "Скажи по-арабски: Чай горячий"
+  },
+  {
+   "say": "grandpa",
+   "ar": "الشاي *حار* جدا!",
+   "tr": "ash-shāy *hārr* jiddan!",
+   "ru": "Чай очень *горячий*!",
+   "mood": "surprised"
+  },
+  {
+   "say": "maryam",
+   "ar": "انتظر قليلا يا جدي",
+   "tr": "intazir qalīlan yā jaddī",
+   "ru": "Подожди немного, дедушка",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "معكِ حق",
+   "tr": "ma'aki haqq",
+   "ru": "Ты права",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "горячий / холодный",
+    "ar": "حار / بارد",
+    "tr": "hārr / bārid"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

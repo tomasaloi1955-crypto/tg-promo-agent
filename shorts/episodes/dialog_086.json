@@ -1,0 +1,88 @@
+{
+ "title": "Урок 86: *Уберём дом вместе*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.18,
+    "maryam": 0.5,
+    "ahmad": 0.82
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Уберём дом вместе*",
+   "speak": "Скажи по-арабски: Уберём дом вместе"
+  },
+  {
+   "say": "dad",
+   "ar": "هيا *ننظف* البيت معا",
+   "tr": "hayyā *nunazzif* al-bayt ma'an",
+   "ru": "Давайте вместе *уберём* дом",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا أنظف *غرفتي*",
+   "tr": "anā unazzifu *ghurfatī*",
+   "ru": "Я уберу *свою комнату*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "وأنا أساعد أبي",
+   "tr": "wa anā usā'idu abī",
+   "ru": "А я помогу папе",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "чистый",
+    "ar": "نظيف",
+    "tr": "nazīf"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

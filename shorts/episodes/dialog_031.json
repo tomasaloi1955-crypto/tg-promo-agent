@@ -1,0 +1,91 @@
+{
+ "title": "Урок 31: *Сколько стоит?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Урок 31: *Сколько стоит*. Слушай и повторяй!",
+   "speak": "Урок 31. Сколько стоит. Слушай и повторяй!"
+  },
+  {
+   "enter": "seller",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "*بكم* هذا؟",
+   "tr": "*bi-kam* hādhā?",
+   "ru": "*Сколько стоит* это?",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "بخمسة ريالات",
+   "tr": "bi-khamsat riyālāt",
+   "ru": "Пять риалов",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "حسنا، سآخذه",
+   "tr": "hasanan, sa-ākhudhuh",
+   "ru": "Хорошо, я возьму",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "Сколько стоит?",
+    "ar": "بكم؟",
+    "tr": "bi-kam?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

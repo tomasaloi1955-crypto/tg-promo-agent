@@ -1,0 +1,107 @@
+{
+ "title": "Урок 15: *Сколько тебе лет?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.18,
+    "ahmad": 0.5,
+    "maryam": 0.82
+   }
+  },
+  {
+   "hook": "Урок 15: *Сколько тебе лет*. Слушай и повторяй!",
+   "speak": "Урок 15. Сколько тебе лет. Слушай и повторяй!"
+  },
+  {
+   "say": "teacher",
+   "ar": "*كم عمرك* يا أحمد؟",
+   "tr": "*kam 'umruka* yā ahmad?",
+   "ru": "*Сколько тебе лет*, Ахмад?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "عمري عشر سنوات",
+   "tr": "'umrī 'ashr sanawāt",
+   "ru": "Мне десять лет",
+   "mood": "neutral"
+  },
+  {
+   "say": "teacher",
+   "ar": "وأنتِ يا مريم؟",
+   "tr": "wa anti yā maryam?",
+   "ru": "А тебе, Марьям?",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "عمري ثماني سنوات",
+   "tr": "'umrī thamānī sanawāt",
+   "ru": "Мне восемь лет",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "Сколько тебе лет?",
+    "ar": "كم عمرك؟",
+    "tr": "kam 'umruk?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

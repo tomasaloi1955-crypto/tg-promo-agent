@@ -1,0 +1,84 @@
+{
+ "title": "Слово дня #45: *дерево*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "park_day",
+   "cast": {
+    "ahmad": 0.3,
+    "yusuf": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«дерево»*",
+   "speak": "Слово дня: дерево"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*الشجرة* كبيرة",
+   "tr": "*ash-shajara* kabīra",
+   "ru": "*Дерево* большое"
+  },
+  {
+   "say": "yusuf",
+   "mood": "surprised",
+   "ar": "*شجرة*",
+   "tr": "*shajara*",
+   "ru": "*дерево*",
+   "speak": "شجرة"
+  },
+  {
+   "quiz": {
+    "ru": "дерево",
+    "ar": "شجرة",
+    "tr": "shajara"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

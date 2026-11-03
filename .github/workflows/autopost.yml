@@ -1,0 +1,67 @@
+name: Автопостинг Shorts (YouTube + Telegram + Instagram)
+
+# Каждый день один ролик: через день «Слово дня» и урок-диалог.
+# 13:17 UTC = 16:17 по Москве (не пересекается с промо-агентами, у них та же Telegram-сессия).
+on:
+  schedule:
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Только на эти платформы (youtube,telegram,instagram) — пусто = все"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autopost
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить ffmpeg и зависимости
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg libfribidi0 libraqm0
+          pip install -r shorts/requirements.txt
+
+      - name: Опубликовать ролик дня
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          TG_CHANNEL: ${{ secrets.TG_CHANNEL || 'myarabicl' }}
+          YT_MADE_FOR_KIDS: "true"
+          TG_OLD_SOURCE: ${{ secrets.TG_OLD_SOURCE }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_GRAPH_HOST: ${{ vars.IG_GRAPH_HOST || 'graph.instagram.com' }}
+        run: |
+          if [ -n "$ONLY" ]; then python shorts/autopost.py --only "$ONLY"; else python shorts/autopost.py; fi
+
+      - name: Сохранить память автопостинга
+        if: always()
+        run: |
+          git config user.name "shorts-autopost"
+          git config user.email "shorts-autopost@users.noreply.github.com"
+          git add shorts/autopost_state.json
+          git diff --cached --quiet || git commit -m "Автопостинг: обновление очереди"
+          git pull --rebase -q || true
+          git push || true

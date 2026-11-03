@@ -1,0 +1,84 @@
+{
+ "title": "Урок 6: *Добрый вечер*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "ahmad": 0.27,
+    "grandpa": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Добрый вечер*",
+   "speak": "Скажи по-арабски: Добрый вечер"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*مساء الخير* يا جدي!",
+   "tr": "*masā' al-khayr* yā jaddī!",
+   "ru": "*Добрый вечер*, дедушка!",
+   "mood": "happy"
+  },
+  {
+   "say": "grandpa",
+   "ar": "مساء النور يا حبيبي!",
+   "tr": "masā' an-nūr yā habībī!",
+   "ru": "Добрый вечер, дорогой!",
+   "mood": "happy"
+  },
+  {
+   "say": "grandpa",
+   "ar": "تعال واجلس معي",
+   "tr": "ta'āla wa-jlis ma'ī",
+   "ru": "Иди, садись со мной",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "حاضر!",
+   "tr": "hādir!",
+   "ru": "Хорошо!",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "Добрый вечер",
+    "ar": "مساء الخير",
+    "tr": "masā' al-khayr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

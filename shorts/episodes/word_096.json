@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #96: *месяц*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "grandpa": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«месяц»*",
+   "speak": "Слово дня: месяц"
+  },
+  {
+   "say": "grandpa",
+   "mood": "happy",
+   "ar": "رمضان *شهر* كريم",
+   "tr": "ramadān *shahr* karīm",
+   "ru": "Рамадан — щедрый *месяц*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*شهر*",
+   "tr": "*shahr*",
+   "ru": "*месяц*",
+   "speak": "شهر"
+  },
+  {
+   "quiz": {
+    "ru": "месяц",
+    "ar": "شهر",
+    "tr": "shahr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

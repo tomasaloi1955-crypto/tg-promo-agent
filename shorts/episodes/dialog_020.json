@@ -1,0 +1,76 @@
+{
+ "title": "Урок 20: *Помоги, пожалуйста*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Помоги, пожалуйста* — по-арабски",
+   "speak": "Помоги, пожалуйста — по-арабски"
+  },
+  {
+   "say": "mom",
+   "ar": "ساعدني *من فضلك*",
+   "tr": "sā'idnī *min fadlik*",
+   "ru": "Помоги мне, *пожалуйста*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "طبعا يا أمي! ماذا أفعل؟",
+   "tr": "tab'an yā ummī! mādhā af'al?",
+   "ru": "Конечно, мама! Что делать?",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "ضع الصحون على الطاولة",
+   "tr": "da' as-suhūn 'alā t-tāwila",
+   "ru": "Поставь тарелки на стол",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "пожалуйста",
+    "ar": "من فضلك",
+    "tr": "min fadlik"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

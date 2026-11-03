@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #79: *сидит*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«сидит»*",
+   "speak": "Слово дня: сидит"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*أجلس* مع جدي",
+   "tr": "*ajlisu* ma'a jaddī",
+   "ru": "Я *сижу* с дедушкой"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*يجلس*",
+   "tr": "*yajlisu*",
+   "ru": "*сидит*",
+   "speak": "يجلس"
+  },
+  {
+   "quiz": {
+    "ru": "сидит",
+    "ar": "يجلس",
+    "tr": "yajlisu"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

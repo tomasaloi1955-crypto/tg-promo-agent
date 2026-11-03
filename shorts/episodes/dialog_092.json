@@ -1,0 +1,76 @@
+{
+ "title": "Урок 92: *С праздником!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "ahmad": 0.27,
+    "dad": 0.73
+   }
+  },
+  {
+   "hook": "*С праздником* — по-арабски",
+   "speak": "С праздником — по-арабски"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*عيد مبارك* يا أبي!",
+   "tr": "*'īd mubārak* yā abī!",
+   "ru": "*С праздником*, папа!",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "عيدك مبارك يا بني!",
+   "tr": "'īduka mubārak yā bunayya!",
+   "ru": "И тебя с праздником, сынок!",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "هذه *هدية* لك",
+   "tr": "hādhihi *hadiyya* lak",
+   "ru": "Это тебе *подарок*",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "с праздником",
+    "ar": "عيد مبارك",
+    "tr": "'īd mubārak"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

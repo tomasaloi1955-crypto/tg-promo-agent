@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #14: *финики*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "grandpa": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«финики»*",
+   "speak": "Слово дня: финики"
+  },
+  {
+   "say": "grandpa",
+   "mood": "happy",
+   "ar": "*التمر* حلو",
+   "tr": "*at-tamr* hulw",
+   "ru": "*Финики* сладкие"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*تمر*",
+   "tr": "*tamr*",
+   "ru": "*финики*",
+   "speak": "تمر"
+  },
+  {
+   "quiz": {
+    "ru": "финики",
+    "ar": "تمر",
+    "tr": "tamr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

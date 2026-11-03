@@ -1,0 +1,85 @@
+{
+ "title": "Урок 18: *Когда папа вернётся?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Когда папа вернётся*",
+   "speak": "Скажи по-арабски: Когда папа вернётся"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "أين أبي؟",
+   "tr": "ayna abī?",
+   "ru": "Где папа?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "أبوكِ في العمل",
+   "tr": "abūki fī l-'amal",
+   "ru": "Твой папа на работе",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "*متى* يرجع؟",
+   "tr": "*matā* yarji'?",
+   "ru": "*Когда* он вернётся?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "يرجع في المساء",
+   "tr": "yarji'u fī l-masā'",
+   "ru": "Вечером",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "Когда?",
+    "ar": "متى؟",
+    "tr": "matā?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,76 @@
+{
+ "title": "Урок 54: *Пойдём в мечеть*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "courtyard_day",
+   "cast": {
+    "dad": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Пойдём в мечеть*",
+   "speak": "Скажи по-арабски: Пойдём в мечеть"
+  },
+  {
+   "say": "dad",
+   "ar": "هيا إلى *المسجد* يا أحمد",
+   "tr": "hayyā ilā *l-masjid* yā ahmad",
+   "ru": "Пойдём в *мечеть*, Ахмад",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل حان وقت *الصلاة*؟",
+   "tr": "hal hāna waqtu *s-salāh*?",
+   "ru": "Уже время *молитвы*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "نعم، هذا الأذان",
+   "tr": "na'am, hādhā l-adhān",
+   "ru": "Да, это азан",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "мечеть / молитва",
+    "ar": "مسجد / صلاة",
+    "tr": "masjid / salāh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

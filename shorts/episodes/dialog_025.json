@@ -1,0 +1,80 @@
+{
+ "title": "Урок 25: *Ты любишь яблоки?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "Как сказать *«Ты любишь яблоки»* по-арабски?",
+   "speak": "Как сказать «Ты любишь яблоки» по-арабски?"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "هل *تحب* التفاح؟",
+   "tr": "hal *tuhibbu* t-tuffāh?",
+   "ru": "Ты *любишь* яблоки?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، أحب التفاح. وأنتِ؟",
+   "tr": "na'am, uhibbu t-tuffāh. wa anti?",
+   "ru": "Да, люблю яблоки. А ты?",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا أحب الموز",
+   "tr": "anā uhibbu l-mawz",
+   "ru": "Я люблю бананы",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "яблоки / бананы",
+    "ar": "تفاح / موز",
+    "tr": "tuffāh / mawz"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

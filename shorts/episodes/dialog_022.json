@@ -1,0 +1,75 @@
+{
+ "title": "Урок 22: *Я хочу пить*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Я хочу пить*",
+   "speak": "Скажи по-арабски: Я хочу пить"
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا *عطشانة*",
+   "tr": "anā *'atshāna*",
+   "ru": "Я *хочу пить*",
+   "mood": "sad"
+  },
+  {
+   "say": "mom",
+   "ar": "تفضلي *الماء*",
+   "tr": "tafaddalī *al-mā'*",
+   "ru": "Вот, возьми *воды*",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "شكرا يا أمي!",
+   "tr": "shukran yā ummī!",
+   "ru": "Спасибо, мама!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "вода",
+    "ar": "ماء",
+    "tr": "mā'"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,98 @@
+{
+ "title": "Урок 55: *Я заблудился*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "man": {
+   "type": "man",
+   "name": "Прохожий",
+   "color": [
+    110,
+    110,
+    150
+   ],
+   "voice": "ar-QA-MoazNeural",
+   "colors": {
+    "cloth": [
+     214,
+     226,
+     240
+    ],
+    "skin": [
+     210,
+     160,
+     118
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Урок 55: *Я заблудился*. Слушай и повторяй!",
+   "speak": "Урок 55. Я заблудился. Слушай и повторяй!"
+  },
+  {
+   "enter": "man",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "عفوا، أنا *ضائع*",
+   "tr": "'afwan, anā *dā'i'*",
+   "ru": "Извините, я *заблудился*",
+   "mood": "sad"
+  },
+  {
+   "say": "man",
+   "ar": "أين *بيتك*؟",
+   "tr": "ayna *baytuk*?",
+   "ru": "Где твой *дом*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "بيتي قرب المسجد",
+   "tr": "baytī qurba l-masjid",
+   "ru": "Мой дом рядом с мечетью",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "تعال، سأساعدك",
+   "tr": "ta'āla, sa-usā'iduk",
+   "ru": "Пойдём, я помогу тебе",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "дом",
+    "ar": "بيت",
+    "tr": "bayt"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

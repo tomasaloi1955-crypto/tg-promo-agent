@@ -1,0 +1,84 @@
+{
+ "title": "Урок 28: *Угощайтесь кофе*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "guest": {
+   "type": "man",
+   "name": "Гость",
+   "color": [
+    150,
+    90,
+    160
+   ],
+   "voice": "ar-KW-FahedNeural",
+   "colors": {
+    "cloth": [
+     240,
+     236,
+     222
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "dad": 0.27
+   }
+  },
+  {
+   "hook": "*Угощайтесь кофе* — по-арабски",
+   "speak": "Угощайтесь кофе — по-арабски"
+  },
+  {
+   "enter": "guest",
+   "to": 0.73
+  },
+  {
+   "say": "dad",
+   "ar": "تفضل *القهوة*",
+   "tr": "tafaddal *al-qahwa*",
+   "ru": "Угощайтесь *кофе*",
+   "mood": "happy"
+  },
+  {
+   "say": "guest",
+   "ar": "شكرا، القهوة طيبة",
+   "tr": "shukran, al-qahwa tayyiba",
+   "ru": "Спасибо, кофе хороший",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "تفضل *التمر* أيضا",
+   "tr": "tafaddal *at-tamr* aydan",
+   "ru": "Угощайтесь и *финиками*",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "кофе / финики",
+    "ar": "قهوة / تمر",
+    "tr": "qahwa / tamr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

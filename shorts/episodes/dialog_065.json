@@ -1,0 +1,69 @@
+{
+ "title": "Урок 65: *Идёт дождь!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27,
+    "dad": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Идёт дождь»* по-арабски?",
+   "speak": "Как сказать «Идёт дождь» по-арабски?"
+  },
+  {
+   "say": "ahmad",
+   "ar": "انظر! إنها *تمطر*!",
+   "tr": "unzur! innahā *tumtir*!",
+   "ru": "Смотри! Идёт *дождь*!",
+   "mood": "surprised"
+  },
+  {
+   "say": "dad",
+   "ar": "الحمد لله على *المطر*",
+   "tr": "al-hamdu lillāh 'alā *l-matar*",
+   "ru": "Слава Аллаху за *дождь*",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "дождь",
+    "ar": "مطر",
+    "tr": "matar"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

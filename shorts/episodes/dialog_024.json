@@ -1,0 +1,67 @@
+{
+ "title": "Урок 24: *Очень вкусно!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "dad": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "*Очень вкусно* — по-арабски",
+   "speak": "Очень вкусно — по-арабски"
+  },
+  {
+   "say": "dad",
+   "ar": "هذا الطعام *لذيذ* جدا!",
+   "tr": "hādhā t-ta'ām *ladhīdh* jiddan!",
+   "ru": "Эта еда очень *вкусная*!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "بالهناء والشفاء",
+   "tr": "bi-l-hanā' wa-sh-shifā'",
+   "ru": "На здоровье!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "вкусный",
+    "ar": "لذيذ",
+    "tr": "ladhīdh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

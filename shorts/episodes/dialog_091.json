@@ -1,0 +1,86 @@
+{
+ "title": "Урок 91: *Рамадан карим!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "Урок 91: *Рамадан карим*. Слушай и повторяй!",
+   "speak": "Урок 91. Рамадан карим. Слушай и повторяй!"
+  },
+  {
+   "enter": "grandpa",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "*رمضان كريم* يا جدي!",
+   "tr": "*ramadān karīm* yā jaddī!",
+   "ru": "*Рамадан карим*, дедушка!",
+   "mood": "happy"
+  },
+  {
+   "say": "grandpa",
+   "ar": "الله أكرم!",
+   "tr": "allāhu akram!",
+   "ru": "Аллах щедрее!",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "هل أنت *صائم*؟",
+   "tr": "hal anta *sā'im*?",
+   "ru": "Ты *постишься*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "grandpa",
+   "ar": "نعم، الحمد لله",
+   "tr": "na'am, al-hamdu lillāh",
+   "ru": "Да, слава Аллаху",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "постящийся",
+    "ar": "صائم",
+    "tr": "sā'im"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

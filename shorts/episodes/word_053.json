@@ -1,0 +1,77 @@
+{
+ "title": "Слово дня #53: *ухо*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "doctor": {
+   "type": "man",
+   "name": "Врач",
+   "color": [
+    60,
+    150,
+    200
+   ],
+   "voice": "ar-BH-AliNeural",
+   "colors": {
+    "cloth": [
+     236,
+     246,
+     252
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "clinic_day",
+   "cast": {
+    "ahmad": 0.3,
+    "doctor": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«ухо»*",
+   "speak": "Слово дня: ухо"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "أسمع *بأذني*",
+   "tr": "asma'u *bi-udhunī*",
+   "ru": "Я слышу *ухом*"
+  },
+  {
+   "say": "doctor",
+   "mood": "surprised",
+   "ar": "*أذن*",
+   "tr": "*udhun*",
+   "ru": "*ухо*",
+   "speak": "أذن"
+  },
+  {
+   "quiz": {
+    "ru": "ухо",
+    "ar": "أذن",
+    "tr": "udhun"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

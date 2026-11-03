@@ -1,0 +1,75 @@
+{
+ "title": "Урок 69: *Ура, выходной!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "beach_day",
+   "cast": {
+    "maryam": 0.27,
+    "dad": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Ура, выходной»* по-арабски?",
+   "speak": "Как сказать «Ура, выходной» по-арабски?"
+  },
+  {
+   "say": "maryam",
+   "ar": "اليوم *عطلة*!",
+   "tr": "al-yawm *'utla*!",
+   "ru": "Сегодня *выходной*!",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "نعم، ولهذا جئنا إلى *البحر*",
+   "tr": "na'am, wa li-hādhā ji'nā ilā *l-bahr*",
+   "ru": "Да, поэтому мы приехали на *море*",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "رائع!",
+   "tr": "rā'i'!",
+   "ru": "Вот здорово!",
+   "mood": "surprised"
+  },
+  {
+   "quiz": {
+    "ru": "выходной, каникулы",
+    "ar": "عطلة",
+    "tr": "'utla"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

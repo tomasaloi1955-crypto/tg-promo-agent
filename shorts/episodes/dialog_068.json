@@ -1,0 +1,90 @@
+{
+ "title": "Урок 68: *Когда ты просыпаешься?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "yusuf": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Когда ты просыпаешься* — по-арабски",
+   "speak": "Когда ты просыпаешься — по-арабски"
+  },
+  {
+   "say": "yusuf",
+   "ar": "متى *تستيقظ*؟",
+   "tr": "matā *tastayqiz*?",
+   "ru": "Когда ты *просыпаешься*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "أستيقظ قبل الفجر",
+   "tr": "astayqizu qabla l-fajr",
+   "ru": "Я просыпаюсь до фаджра",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "ما شاء الله! أنا أستيقظ متأخرا",
+   "tr": "mā shā' allāh! anā astayqizu muta'akhkhiran",
+   "ru": "Машаллах! А я просыпаюсь поздно",
+   "mood": "surprised"
+  },
+  {
+   "quiz": {
+    "ru": "я просыпаюсь",
+    "ar": "أستيقظ",
+    "tr": "astayqizu"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

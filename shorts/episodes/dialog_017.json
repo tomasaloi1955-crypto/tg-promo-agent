@@ -1,0 +1,68 @@
+{
+ "title": "Урок 17: *Я люблю тебя, мама*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Я люблю тебя, мама»* по-арабски?",
+   "speak": "Как сказать «Я люблю тебя, мама» по-арабски?"
+  },
+  {
+   "say": "maryam",
+   "ar": "*أحبك* يا أمي!",
+   "tr": "*uhibbuki* yā ummī!",
+   "ru": "*Я люблю тебя*, мама!",
+   "mood": "happy"
+  },
+  {
+   "say": "mom",
+   "ar": "وأنا أحبك يا حبيبتي",
+   "tr": "wa anā uhibbuki yā habībatī",
+   "ru": "И я люблю тебя, дорогая",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "я тебя люблю",
+    "ar": "أحبك",
+    "tr": "uhibbuk"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,77 @@
+{
+ "title": "Урок 93: *Когда чихнул*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "courtyard_day",
+   "cast": {
+    "ahmad": 0.27,
+    "maryam": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Когда чихнул»* по-арабски?",
+   "speak": "Как сказать «Когда чихнул» по-арабски?"
+  },
+  {
+   "say": "ahmad",
+   "ar": "الحمد لله",
+   "tr": "al-hamdu lillāh",
+   "ru": "Слава Аллаху (после чиха)",
+   "mood": "surprised"
+  },
+  {
+   "say": "maryam",
+   "ar": "*يرحمك الله*",
+   "tr": "*yarhamuka llāh*",
+   "ru": "*Да помилует тебя Аллах*",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "يهدينا ويهديكم الله",
+   "tr": "yahdīnā wa yahdīkumu llāh",
+   "ru": "Да наставит Аллах нас и вас",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "да помилует тебя Аллах",
+    "ar": "يرحمك الله",
+    "tr": "yarhamuka llāh"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #82: *рынок*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "mom": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«рынок»*",
+   "speak": "Слово дня: рынок"
+  },
+  {
+   "say": "mom",
+   "mood": "happy",
+   "ar": "نذهب إلى *السوق*",
+   "tr": "nadhhabu ilā *s-sūq*",
+   "ru": "Мы идём на *рынок*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*سوق*",
+   "tr": "*sūq*",
+   "ru": "*рынок*",
+   "speak": "سوق"
+  },
+  {
+   "quiz": {
+    "ru": "рынок",
+    "ar": "سوق",
+    "tr": "sūq"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

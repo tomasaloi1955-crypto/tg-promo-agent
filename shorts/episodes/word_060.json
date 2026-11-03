@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #60: *волосы*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«волосы»*",
+   "speak": "Слово дня: волосы"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*شعري* أسود",
+   "tr": "*sha'rī* aswad",
+   "ru": "Мои *волосы* чёрные"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*شعر*",
+   "tr": "*sha'r*",
+   "ru": "*волосы*",
+   "speak": "شعر"
+  },
+  {
+   "quiz": {
+    "ru": "волосы",
+    "ar": "شعر",
+    "tr": "sha'r"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #11: *вода*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«вода»*",
+   "speak": "Слово дня: вода"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "أشرب *الماء*",
+   "tr": "ashrabu *l-mā'*",
+   "ru": "Я пью *воду*"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*ماء*",
+   "tr": "*mā'*",
+   "ru": "*вода*",
+   "speak": "ماء"
+  },
+  {
+   "quiz": {
+    "ru": "вода",
+    "ar": "ماء",
+    "tr": "mā'"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

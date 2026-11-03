@@ -1,0 +1,84 @@
+{
+ "title": "Слово дня #19: *сок*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "cafe_day",
+   "cast": {
+    "yusuf": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«сок»*",
+   "speak": "Слово дня: сок"
+  },
+  {
+   "say": "yusuf",
+   "mood": "happy",
+   "ar": "*عصير* البرتقال لذيذ",
+   "tr": "*'asīr* al-burtuqāl ladhīdh",
+   "ru": "Апельсиновый *сок* вкусный"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*عصير*",
+   "tr": "*'asīr*",
+   "ru": "*сок*",
+   "speak": "عصير"
+  },
+  {
+   "quiz": {
+    "ru": "сок",
+    "ar": "عصير",
+    "tr": "'asīr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,71 @@
+{
+ "title": "Урок 76: *Я боюсь темноты*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "*Я боюсь темноты* — по-арабски",
+   "speak": "Я боюсь темноты — по-арабски"
+  },
+  {
+   "enter": "dad",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا *خائفة* من الظلام",
+   "tr": "anā *khā'ifa* min az-zalām",
+   "ru": "Я *боюсь* темноты",
+   "mood": "sad"
+  },
+  {
+   "say": "dad",
+   "ar": "*لا تخافي*، أنا معكِ",
+   "tr": "*lā takhāfī*, anā ma'aki",
+   "ru": "*Не бойся*, я с тобой",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "не бойся",
+    "ar": "لا تخف",
+    "tr": "lā takhaf"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,91 @@
+{
+ "title": "Урок 36: *Большой или маленький?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "seller": 0.27
+   }
+  },
+  {
+   "hook": "*Большой или маленький* — по-арабски",
+   "speak": "Большой или маленький — по-арабски"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "seller",
+   "ar": "تريد *الكبير* أم *الصغير*؟",
+   "tr": "turīdu *l-kabīr* am *as-saghīr*?",
+   "ru": "Тебе *большой* или *маленький*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "الكبير من فضلك",
+   "tr": "al-kabīr min fadlik",
+   "ru": "Большой, пожалуйста",
+   "mood": "happy"
+  },
+  {
+   "say": "seller",
+   "ar": "تفضل",
+   "tr": "tafaddal",
+   "ru": "Держи",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "большой / маленький",
+    "ar": "كبير / صغير",
+    "tr": "kabīr / saghīr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

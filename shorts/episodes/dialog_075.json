@@ -1,0 +1,77 @@
+{
+ "title": "Урок 75: *Почему ты грустный?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "park_day",
+   "cast": {
+    "maryam": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Урок 75: *Почему ты грустный*. Слушай и повторяй!",
+   "speak": "Урок 75. Почему ты грустный. Слушай и повторяй!"
+  },
+  {
+   "say": "maryam",
+   "ar": "لماذا أنت *حزين*؟",
+   "tr": "limādhā anta *hazīn*?",
+   "ru": "Почему ты *грустный*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "ضاعت *كرتي*",
+   "tr": "dā'at *kuratī*",
+   "ru": "Мой *мяч* потерялся",
+   "mood": "sad"
+  },
+  {
+   "say": "maryam",
+   "ar": "لا تحزن، سنبحث عنها",
+   "tr": "lā tahzan, sa-nabhathu 'anhā",
+   "ru": "Не грусти, мы его поищем",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "грустный / радостный",
+    "ar": "حزين / سعيد",
+    "tr": "hazīn / sa'īd"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

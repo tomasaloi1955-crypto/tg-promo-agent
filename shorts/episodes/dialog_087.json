@@ -1,0 +1,80 @@
+{
+ "title": "Урок 87: *Ты спишь?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Урок 87: *Ты спишь*. Слушай и повторяй!",
+   "speak": "Урок 87. Ты спишь. Слушай и повторяй!"
+  },
+  {
+   "enter": "maryam",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل أنتِ *نائمة* يا مريم؟",
+   "tr": "hal anti *nā'ima* yā maryam?",
+   "ru": "Ты *спишь*, Марьям?",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "لا، أنا مستيقظة",
+   "tr": "lā, anā mustayqiza",
+   "ru": "Нет, я не сплю",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "هيا نلعب!",
+   "tr": "hayyā nal'ab!",
+   "ru": "Давай играть!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "спит / не спит",
+    "ar": "نائم / مستيقظ",
+    "tr": "nā'im / mustayqiz"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

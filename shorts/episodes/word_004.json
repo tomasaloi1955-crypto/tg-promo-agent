@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #4: *комната*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "maryam": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«комната»*",
+   "speak": "Слово дня: комната"
+  },
+  {
+   "say": "maryam",
+   "mood": "happy",
+   "ar": "هذه *غرفتي*",
+   "tr": "hādhihi *ghurfatī*",
+   "ru": "Это моя *комната*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*غرفة*",
+   "tr": "*ghurfa*",
+   "ru": "*комната*",
+   "speak": "غرفة"
+  },
+  {
+   "quiz": {
+    "ru": "комната",
+    "ar": "غرفة",
+    "tr": "ghurfa"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

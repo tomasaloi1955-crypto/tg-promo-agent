@@ -1,0 +1,77 @@
+{
+ "title": "Урок 84: *Где моя книга?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "maryam": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "*Где моя книга* — по-арабски",
+   "speak": "Где моя книга — по-арабски"
+  },
+  {
+   "say": "maryam",
+   "ar": "أين *كتابي*؟",
+   "tr": "ayna *kitābī*?",
+   "ru": "Где *моя книга*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*تحت* الكرسي",
+   "tr": "*taht* al-kursī",
+   "ru": "*Под* стулом",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "شكرا!",
+   "tr": "shukran!",
+   "ru": "Спасибо!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "под / над",
+    "ar": "تحت / فوق",
+    "tr": "taht / fawq"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

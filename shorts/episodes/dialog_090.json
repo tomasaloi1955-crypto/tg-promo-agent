@@ -1,0 +1,79 @@
+{
+ "title": "Урок 90: *Ты готов?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "dad": 0.27
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Ты готов*",
+   "speak": "Скажи по-арабски: Ты готов"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "dad",
+   "ar": "هل أنت *جاهز*؟",
+   "tr": "hal anta *jāhiz*?",
+   "ru": "Ты *готов*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*دقيقة* واحدة!",
+   "tr": "*daqīqa* wāhida!",
+   "ru": "Одну *минуту*!",
+   "mood": "neutral"
+  },
+  {
+   "say": "dad",
+   "ar": "*أسرع*، سنتأخر!",
+   "tr": "*asri'*, sa-nata'akhkhar!",
+   "ru": "*Быстрее*, мы опоздаем!",
+   "mood": "angry"
+  },
+  {
+   "quiz": {
+    "ru": "готов",
+    "ar": "جاهز",
+    "tr": "jāhiz"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

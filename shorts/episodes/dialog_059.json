@@ -1,0 +1,79 @@
+{
+ "title": "Урок 59: *Осторожно, машина!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "mom": 0.27
+   }
+  },
+  {
+   "hook": "Урок 59: *Осторожно, машина*. Слушай и повторяй!",
+   "speak": "Урок 59. Осторожно, машина. Слушай и повторяй!"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "mom",
+   "ar": "*انتبه!* سيارة!",
+   "tr": "*intabih!* sayyāra!",
+   "ru": "*Осторожно!* Машина!",
+   "mood": "surprised"
+  },
+  {
+   "say": "mom",
+   "ar": "امسك يدي",
+   "tr": "imsik yadī",
+   "ru": "Держи меня за руку",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "حاضر يا أمي",
+   "tr": "hādir yā ummī",
+   "ru": "Хорошо, мама",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "осторожно!",
+    "ar": "انتبه!",
+    "tr": "intabih!"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

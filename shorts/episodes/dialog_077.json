@@ -1,0 +1,83 @@
+{
+ "title": "Урок 77: *Ты в порядке?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "park_day",
+   "cast": {
+    "yusuf": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Ты в порядке»* по-арабски?",
+   "speak": "Как сказать «Ты в порядке» по-арабски?"
+  },
+  {
+   "say": "yusuf",
+   "ar": "هل أنت *بخير*؟",
+   "tr": "hal anta *bi-khayr*?",
+   "ru": "Ты *в порядке*?",
+   "mood": "surprised"
+  },
+  {
+   "say": "ahmad",
+   "ar": "سقطت، لكني بخير",
+   "tr": "saqattu, lākinnī bi-khayr",
+   "ru": "Я упал, но всё хорошо",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "в порядке, хорошо",
+    "ar": "بخير",
+    "tr": "bi-khayr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

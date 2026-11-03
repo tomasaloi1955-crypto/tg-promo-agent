@@ -1,0 +1,107 @@
+{
+ "title": "Урок 46: *Я не знаю*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.18,
+    "ahmad": 0.5,
+    "maryam": 0.82
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Я не знаю*",
+   "speak": "Скажи по-арабски: Я не знаю"
+  },
+  {
+   "say": "teacher",
+   "ar": "ما عاصمة مصر؟",
+   "tr": "mā 'āsimat misr?",
+   "ru": "Какая столица Египта?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*لا أعرف*",
+   "tr": "*lā a'rif*",
+   "ru": "*Я не знаю*",
+   "mood": "sad"
+  },
+  {
+   "say": "maryam",
+   "ar": "القاهرة!",
+   "tr": "al-qāhira!",
+   "ru": "Каир!",
+   "mood": "happy"
+  },
+  {
+   "say": "teacher",
+   "ar": "*صحيح* يا مريم!",
+   "tr": "*sahīh* yā maryam!",
+   "ru": "*Правильно*, Марьям!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "я не знаю",
+    "ar": "لا أعرف",
+    "tr": "lā a'rif"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,87 @@
+{
+ "title": "Урок 34: *Я хочу купить ручку*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "seller": {
+   "type": "man",
+   "name": "Продавец",
+   "color": [
+    200,
+    140,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     236,
+     226,
+     204
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "shop_day",
+   "cast": {
+    "maryam": 0.27,
+    "seller": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Я хочу купить ручку*",
+   "speak": "Скажи по-арабски: Я хочу купить ручку"
+  },
+  {
+   "say": "maryam",
+   "ar": "أريد أن *أشتري* قلما",
+   "tr": "urīdu an *ashtariya* qalaman",
+   "ru": "Я хочу *купить* ручку",
+   "mood": "neutral"
+  },
+  {
+   "say": "seller",
+   "ar": "أي *لون* تريدين؟",
+   "tr": "ayya *lawn* turīdīn?",
+   "ru": "Какой *цвет* хочешь?",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "الأزرق من فضلك",
+   "tr": "al-azraq min fadlik",
+   "ru": "Синий, пожалуйста",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "я покупаю",
+    "ar": "أشتري",
+    "tr": "ashtarī"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

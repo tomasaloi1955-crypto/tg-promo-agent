@@ -4,3 +4,5 @@ __pycache__/
 *.session
 *.session-journal
 venv/
+out/
+shorts/.tts_cache/

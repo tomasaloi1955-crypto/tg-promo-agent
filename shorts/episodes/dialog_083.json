@@ -1,0 +1,76 @@
+{
+ "title": "Урок 83: *Выключи свет*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Урок 83: *Выключи свет*. Слушай и повторяй!",
+   "speak": "Урок 83. Выключи свет. Слушай и повторяй!"
+  },
+  {
+   "say": "mom",
+   "ar": "*أطفئ* النور ونم",
+   "tr": "*atfi'* an-nūr wa nam",
+   "ru": "*Выключи* свет и спи",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "حاضر يا أمي",
+   "tr": "hādir yā ummī",
+   "ru": "Хорошо, мама",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "تصبحين على خير",
+   "tr": "tusbihīna 'alā khayr",
+   "ru": "Спокойной ночи",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "свет",
+    "ar": "نور",
+    "tr": "nūr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

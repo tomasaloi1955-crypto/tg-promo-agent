@@ -1,0 +1,93 @@
+{
+ "title": "Урок 53: *В такси*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "dad": {
+   "type": "man",
+   "name": "Папа",
+   "color": [
+    40,
+    130,
+    120
+   ],
+   "voice": "ar-SA-HamedNeural"
+  },
+  "driver": {
+   "type": "man",
+   "name": "Таксист",
+   "color": [
+    230,
+    170,
+    30
+   ],
+   "voice": "ar-AE-HamdanNeural",
+   "colors": {
+    "ghutra": [
+     200,
+     60,
+     60
+    ],
+    "cloth": [
+     214,
+     220,
+     200
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "airport_day",
+   "cast": {
+    "dad": 0.27,
+    "driver": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«В такси»* по-арабски?",
+   "speak": "Как сказать «В такси» по-арабски?"
+  },
+  {
+   "say": "dad",
+   "ar": "إلى *الفندق* من فضلك",
+   "tr": "ilā *l-funduq* min fadlik",
+   "ru": "В *гостиницу*, пожалуйста",
+   "mood": "neutral"
+  },
+  {
+   "say": "driver",
+   "ar": "حاضر. اركب",
+   "tr": "hādir. irkab",
+   "ru": "Хорошо. Садитесь",
+   "mood": "happy"
+  },
+  {
+   "say": "dad",
+   "ar": "بكم الأجرة؟",
+   "tr": "bi-kam al-ujra?",
+   "ru": "Сколько стоит поездка?",
+   "mood": "neutral"
+  },
+  {
+   "say": "driver",
+   "ar": "خمسون ريالا",
+   "tr": "khamsūna riyālan",
+   "ru": "Пятьдесят риалов",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "гостиница",
+    "ar": "فندق",
+    "tr": "funduq"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

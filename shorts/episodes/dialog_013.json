@@ -1,0 +1,100 @@
+{
+ "title": "Урок 13: *У тебя есть сестра?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "cafe_day",
+   "cast": {
+    "yusuf": 0.27
+   }
+  },
+  {
+   "hook": "Как сказать *«У тебя есть сестра»* по-арабски?",
+   "speak": "Как сказать «У тебя есть сестра» по-арабски?"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "yusuf",
+   "ar": "هل عندك *إخوة*؟",
+   "tr": "hal 'indaka *ikhwa*?",
+   "ru": "У тебя есть *братья и сёстры*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، عندي *أخت* واحدة",
+   "tr": "na'am, 'indī *ukht* wāhida",
+   "ru": "Да, у меня одна *сестра*",
+   "mood": "neutral"
+  },
+  {
+   "say": "yusuf",
+   "ar": "ما اسمها؟",
+   "tr": "mā smuhā?",
+   "ru": "Как её зовут?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "اسمها مريم",
+   "tr": "ismuhā maryam",
+   "ru": "Её зовут Марьям",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "брат / сестра",
+    "ar": "أخ / أخت",
+    "tr": "akh / ukht"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,84 @@
+{
+ "title": "Урок 29: *Что ты ешь?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "cafe_day",
+   "cast": {
+    "maryam": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Как сказать *«Что ты ешь»* по-арабски?",
+   "speak": "Как сказать «Что ты ешь» по-арабски?"
+  },
+  {
+   "say": "maryam",
+   "ar": "ماذا *تأكل*؟",
+   "tr": "mādhā *ta'kul*?",
+   "ru": "Что ты *ешь*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*آكل* سلطة",
+   "tr": "*ākulu* salata",
+   "ru": "*Я ем* салат",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "هل هي طيبة؟",
+   "tr": "hal hiya tayyiba?",
+   "ru": "Он вкусный?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "نعم، جربيها!",
+   "tr": "na'am, jarribīhā!",
+   "ru": "Да, попробуй!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "я ем",
+    "ar": "آكل",
+    "tr": "ākulu"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

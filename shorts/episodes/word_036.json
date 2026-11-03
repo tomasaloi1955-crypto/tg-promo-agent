@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #36: *ученик*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«ученик»*",
+   "speak": "Слово дня: ученик"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "أنا *طالب* مجتهد",
+   "tr": "anā *tālib* mujtahid",
+   "ru": "Я старательный *ученик*"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*طالب*",
+   "tr": "*tālib*",
+   "ru": "*ученик*",
+   "speak": "طالب"
+  },
+  {
+   "quiz": {
+    "ru": "ученик",
+    "ar": "طالب",
+    "tr": "tālib"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

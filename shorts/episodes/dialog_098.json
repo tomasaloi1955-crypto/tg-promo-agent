@@ -1,0 +1,86 @@
+{
+ "title": "Урок 98: *Прости меня*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Прости меня*",
+   "speak": "Скажи по-арабски: Прости меня"
+  },
+  {
+   "enter": "yusuf",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "أنا *آسف* يا يوسف",
+   "tr": "anā *āsif* yā yūsuf",
+   "ru": "*Прости меня*, Юсуф",
+   "mood": "sad"
+  },
+  {
+   "say": "yusuf",
+   "ar": "*لا مشكلة*، أنت أخي",
+   "tr": "*lā mushkila*, anta akhī",
+   "ru": "*Без проблем*, ты мне как брат",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "без проблем",
+    "ar": "لا مشكلة",
+    "tr": "lā mushkila"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

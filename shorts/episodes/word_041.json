@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #41: *солнце*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "beach_day",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«солнце»*",
+   "speak": "Слово дня: солнце"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "*الشمس* حارة",
+   "tr": "*ash-shams* hārra",
+   "ru": "*Солнце* жаркое"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*شمس*",
+   "tr": "*shams*",
+   "ru": "*солнце*",
+   "speak": "شمس"
+  },
+  {
+   "quiz": {
+    "ru": "солнце",
+    "ar": "شمس",
+    "tr": "shams"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

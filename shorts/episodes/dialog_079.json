@@ -1,0 +1,73 @@
+{
+ "title": "Урок 79: *Я соскучился!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "airport_day",
+   "cast": {
+    "grandpa": 0.27
+   }
+  },
+  {
+   "hook": "Урок 79: *Я соскучился*. Слушай и повторяй!",
+   "speak": "Урок 79. Я соскучился. Слушай и повторяй!"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "grandpa",
+   "ar": "*اشتقت إليك* يا أحمد!",
+   "tr": "*ishtaqtu ilayka* yā ahmad!",
+   "ru": "*Я соскучился по тебе*, Ахмад!",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "وأنا اشتقت إليك يا جدي!",
+   "tr": "wa anā shtaqtu ilayka yā jaddī!",
+   "ru": "И я по тебе, дедушка!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "я соскучился по тебе",
+    "ar": "اشتقت إليك",
+    "tr": "ishtaqtu ilayk"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

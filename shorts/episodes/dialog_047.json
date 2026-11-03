@@ -1,0 +1,80 @@
+{
+ "title": "Урок 47: *У тебя есть ручка?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Урок 47: *У тебя есть ручка*. Слушай и повторяй!",
+   "speak": "Урок 47. У тебя есть ручка. Слушай и повторяй!"
+  },
+  {
+   "enter": "maryam",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "هل عندكِ *قلم*؟",
+   "tr": "hal 'indaki *qalam*?",
+   "ru": "У тебя есть *ручка*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "maryam",
+   "ar": "نعم، تفضل",
+   "tr": "na'am, tafaddal",
+   "ru": "Да, держи",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا، سأرجعه بعد الدرس",
+   "tr": "shukran, sa-urji'uhu ba'da d-dars",
+   "ru": "Спасибо, верну после урока",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "ручка",
+    "ar": "قلم",
+    "tr": "qalam"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

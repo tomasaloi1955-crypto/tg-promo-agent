@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #65: *чёрный*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "grandpa": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«чёрный»*",
+   "speak": "Слово дня: чёрный"
+  },
+  {
+   "say": "grandpa",
+   "mood": "happy",
+   "ar": "الليل *أسود*",
+   "tr": "al-layl *aswad*",
+   "ru": "Ночь *чёрная*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*أسود*",
+   "tr": "*aswad*",
+   "ru": "*чёрный*",
+   "speak": "أسود"
+  },
+  {
+   "quiz": {
+    "ru": "чёрный",
+    "ar": "أسود",
+    "tr": "aswad"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #20: *чай*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "grandpa": {
+   "type": "grandpa",
+   "name": "Дедушка",
+   "color": [
+    130,
+    100,
+    70
+   ],
+   "voice": "ar-JO-TaimNeural",
+   "rate": "-8%"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "desert_night",
+   "cast": {
+    "grandpa": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«чай»*",
+   "speak": "Слово дня: чай"
+  },
+  {
+   "say": "grandpa",
+   "mood": "happy",
+   "ar": "تفضل *الشاي*",
+   "tr": "tafaddal *ash-shāy*",
+   "ru": "Угощайся *чаем*"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*شاي*",
+   "tr": "*shāy*",
+   "ru": "*чай*",
+   "speak": "شاي"
+  },
+  {
+   "quiz": {
+    "ru": "чай",
+    "ar": "شاي",
+    "tr": "shāy"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

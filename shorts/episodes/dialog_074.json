@@ -1,0 +1,90 @@
+{
+ "title": "Урок 74: *Поздравляю!*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "yusuf": {
+   "type": "boy",
+   "name": "Юсуф",
+   "color": [
+    200,
+    120,
+    40
+   ],
+   "voice": "ar-EG-ShakirNeural",
+   "pitch": "+40Hz",
+   "colors": {
+    "cloth": [
+     222,
+     234,
+     250
+    ],
+    "skin": [
+     214,
+     164,
+     120
+    ],
+    "kufi": true
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "cafe_day",
+   "cast": {
+    "yusuf": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Поздравляю*",
+   "speak": "Скажи по-арабски: Поздравляю"
+  },
+  {
+   "say": "yusuf",
+   "ar": "نجحت في الامتحان!",
+   "tr": "najahtu fī l-imtihān!",
+   "ru": "Я сдал экзамен!",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*مبروك!* أنا سعيد لك",
+   "tr": "*mabrūk!* anā sa'īd lak",
+   "ru": "*Поздравляю!* Я рад за тебя",
+   "mood": "happy"
+  },
+  {
+   "say": "yusuf",
+   "ar": "الله يبارك فيك",
+   "tr": "allāh yubārik fīk",
+   "ru": "Да благословит тебя Аллах",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "поздравляю",
+    "ar": "مبروك",
+    "tr": "mabrūk"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

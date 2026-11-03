@@ -1,0 +1,91 @@
+{
+ "title": "Урок 67: *Что ты делал вчера?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "teacher": {
+   "type": "woman",
+   "name": "Учительница",
+   "color": [
+    60,
+    140,
+    90
+   ],
+   "voice": "ar-JO-SanaNeural",
+   "colors": {
+    "hijab": [
+     70,
+     150,
+     100
+    ],
+    "cloth": [
+     60,
+     62,
+     74
+    ]
+   }
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "classroom_day",
+   "cast": {
+    "teacher": 0.27
+   }
+  },
+  {
+   "hook": "Урок 67: *Что ты делал вчера*. Слушай и повторяй!",
+   "speak": "Урок 67. Что ты делал вчера. Слушай и повторяй!"
+  },
+  {
+   "enter": "ahmad",
+   "to": 0.73
+  },
+  {
+   "say": "teacher",
+   "ar": "ماذا فعلت *أمس*؟",
+   "tr": "mādhā fa'alta *ams*?",
+   "ru": "Что ты делал *вчера*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "*قرأت* كتابا",
+   "tr": "*qara'tu* kitāban",
+   "ru": "Я *читал* книгу",
+   "mood": "neutral"
+  },
+  {
+   "say": "teacher",
+   "ar": "ما شاء الله!",
+   "tr": "mā shā' allāh!",
+   "ru": "Машаллах!",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "вчера / сегодня / завтра",
+    "ar": "أمس / اليوم / غدا",
+    "tr": "ams / al-yawm / ghadan"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

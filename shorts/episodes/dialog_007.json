@@ -1,0 +1,78 @@
+{
+ "title": "Урок 7: *Спокойной ночи*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "bedroom_night",
+   "cast": {
+    "maryam": 0.27
+   }
+  },
+  {
+   "hook": "Урок 7: *Спокойной ночи*. Слушай и повторяй!",
+   "speak": "Урок 7. Спокойной ночи. Слушай и повторяй!"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "maryam",
+   "ar": "أنا *نعسانة*",
+   "tr": "anā *na'sāna*",
+   "ru": "Я *хочу спать*",
+   "mood": "sad"
+  },
+  {
+   "say": "mom",
+   "ar": "*تصبحين على خير* يا مريم",
+   "tr": "*tusbihīna 'alā khayr* yā maryam",
+   "ru": "*Спокойной ночи*, Марьям",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "وأنتِ من أهله يا أمي",
+   "tr": "wa anti min ahlih yā ummī",
+   "ru": "И тебе, мама",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "Спокойной ночи",
+    "ar": "تصبح على خير",
+    "tr": "tusbih 'alā khayr"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

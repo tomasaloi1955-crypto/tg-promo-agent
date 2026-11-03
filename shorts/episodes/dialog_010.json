@@ -1,0 +1,95 @@
+{
+ "title": "Урок 10: *Извините, где…?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "man": {
+   "type": "man",
+   "name": "Прохожий",
+   "color": [
+    110,
+    110,
+    150
+   ],
+   "voice": "ar-QA-MoazNeural",
+   "colors": {
+    "cloth": [
+     214,
+     226,
+     240
+    ],
+    "skin": [
+     210,
+     160,
+     118
+    ]
+   }
+  }
+ },
+ "beats": [
+  {
+   "scene": "street_day",
+   "cast": {
+    "ahmad": 0.27,
+    "man": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Извините, где…*",
+   "speak": "Скажи по-арабски: Извините, где…"
+  },
+  {
+   "say": "ahmad",
+   "ar": "عفوا، *أين* المسجد؟",
+   "tr": "'afwan, *ayna* l-masjid?",
+   "ru": "Извините, *где* мечеть?",
+   "mood": "neutral"
+  },
+  {
+   "say": "man",
+   "ar": "المسجد هناك",
+   "tr": "al-masjid hunāk",
+   "ru": "Мечеть там",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "شكرا جزيلا!",
+   "tr": "shukran jazīlan!",
+   "ru": "Большое спасибо!",
+   "mood": "happy"
+  },
+  {
+   "say": "man",
+   "ar": "العفو",
+   "tr": "al-'afw",
+   "ru": "Не за что",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "Где...?",
+    "ar": "أين...؟",
+    "tr": "ayna...?"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

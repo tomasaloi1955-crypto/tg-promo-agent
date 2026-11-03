@@ -1,0 +1,75 @@
+{
+ "title": "Урок 62: *Сегодня пятница*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "courtyard_day",
+   "cast": {
+    "maryam": 0.27,
+    "mom": 0.73
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Сегодня пятница*",
+   "speak": "Скажи по-арабски: Сегодня пятница"
+  },
+  {
+   "say": "maryam",
+   "ar": "ما *اليوم*؟",
+   "tr": "mā *l-yawm*?",
+   "ru": "Какой *сегодня* день?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "اليوم *الجمعة*",
+   "tr": "al-yawm *al-jum'a*",
+   "ru": "Сегодня *пятница*",
+   "mood": "happy"
+  },
+  {
+   "say": "maryam",
+   "ar": "سأقرأ *سورة الكهف*",
+   "tr": "sa-aqra'u *sūrat al-kahf*",
+   "ru": "Я прочитаю *суру «Пещера»*",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "пятница",
+    "ar": "الجمعة",
+    "tr": "al-jum'a"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

@@ -1,0 +1,71 @@
+{
+ "title": "Слово дня #64: *белый*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "maryam": {
+   "type": "girl",
+   "name": "Марьям",
+   "color": [
+    220,
+    90,
+    140
+   ],
+   "voice": "ar-SA-ZariyahNeural",
+   "pitch": "+25Hz"
+  }
+ },
+ "beats": [
+  {
+   "scene": "majlis_day",
+   "cast": {
+    "ahmad": 0.3,
+    "maryam": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«белый»*",
+   "speak": "Слово дня: белый"
+  },
+  {
+   "say": "ahmad",
+   "mood": "happy",
+   "ar": "ثوبي *أبيض*",
+   "tr": "thawbī *abyad*",
+   "ru": "Моя одежда *белая*"
+  },
+  {
+   "say": "maryam",
+   "mood": "surprised",
+   "ar": "*أبيض*",
+   "tr": "*abyad*",
+   "ru": "*белый*",
+   "speak": "أبيض"
+  },
+  {
+   "quiz": {
+    "ru": "белый",
+    "ar": "أبيض",
+    "tr": "abyad"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

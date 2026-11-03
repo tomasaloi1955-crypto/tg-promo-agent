@@ -1,0 +1,79 @@
+{
+ "title": "Урок 14: *Где бабушка?*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  },
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "ahmad": 0.27
+   }
+  },
+  {
+   "hook": "Скажи по-арабски: *Где бабушка*",
+   "speak": "Скажи по-арабски: Где бабушка"
+  },
+  {
+   "enter": "mom",
+   "to": 0.73
+  },
+  {
+   "say": "ahmad",
+   "ar": "أين *جدتي*؟",
+   "tr": "ayna *jaddatī*?",
+   "ru": "Где *бабушка*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "mom",
+   "ar": "جدتك في الحديقة",
+   "tr": "jaddatuka fī l-hadīqa",
+   "ru": "Твоя бабушка в саду",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "سأذهب إليها",
+   "tr": "sa-adhhabu ilayhā",
+   "ru": "Я пойду к ней",
+   "mood": "happy"
+  },
+  {
+   "quiz": {
+    "ru": "дедушка / бабушка",
+    "ar": "جد / جدة",
+    "tr": "jadd / jadda"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

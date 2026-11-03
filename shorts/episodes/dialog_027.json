@@ -1,0 +1,76 @@
+{
+ "title": "Урок 27: *Я наелся*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.27,
+    "ahmad": 0.73
+   }
+  },
+  {
+   "hook": "Урок 27: *Я наелся*. Слушай и повторяй!",
+   "speak": "Урок 27. Я наелся. Слушай и повторяй!"
+  },
+  {
+   "say": "mom",
+   "ar": "هل تريد *المزيد*؟",
+   "tr": "hal turīdu *l-mazīd*?",
+   "ru": "Хочешь *ещё*?",
+   "mood": "neutral"
+  },
+  {
+   "say": "ahmad",
+   "ar": "لا، شكرا. *شبعت*",
+   "tr": "lā, shukran. *shabi'tu*",
+   "ru": "Нет, спасибо. *Я наелся*",
+   "mood": "happy"
+  },
+  {
+   "say": "ahmad",
+   "ar": "الحمد لله",
+   "tr": "al-hamdu lillāh",
+   "ru": "Слава Аллаху",
+   "mood": "neutral"
+  },
+  {
+   "quiz": {
+    "ru": "я наелся",
+    "ar": "شبعت",
+    "tr": "shabi'tu"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}

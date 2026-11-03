@@ -1,0 +1,70 @@
+{
+ "title": "Слово дня #3: *окно*",
+ "channel": "MY ARABIC",
+ "footer": "Учим арабский по мультикам",
+ "narrator": {
+  "ar": "ar-SA-HamedNeural",
+  "ru": "ru-RU-SvetlanaNeural"
+ },
+ "characters": {
+  "mom": {
+   "type": "woman",
+   "name": "Мама",
+   "color": [
+    190,
+    80,
+    120
+   ],
+   "voice": "ar-SA-ZariyahNeural"
+  },
+  "ahmad": {
+   "type": "boy",
+   "name": "Ахмад",
+   "color": [
+    70,
+    110,
+    200
+   ],
+   "voice": "ar-SA-HamedNeural",
+   "pitch": "+40Hz",
+   "rate": "+5%"
+  }
+ },
+ "beats": [
+  {
+   "scene": "kitchen_day",
+   "cast": {
+    "mom": 0.3,
+    "ahmad": 0.72
+   }
+  },
+  {
+   "hook": "Слово дня: *«окно»*",
+   "speak": "Слово дня: окно"
+  },
+  {
+   "say": "mom",
+   "mood": "happy",
+   "ar": "*النافذة* مفتوحة",
+   "tr": "*an-nāfidha* maftūha",
+   "ru": "*Окно* открыто"
+  },
+  {
+   "say": "ahmad",
+   "mood": "surprised",
+   "ar": "*نافذة*",
+   "tr": "*nāfidha*",
+   "ru": "*окно*",
+   "speak": "نافذة"
+  },
+  {
+   "quiz": {
+    "ru": "окно",
+    "ar": "نافذة",
+    "tr": "nāfidha"
+   }
+  }
+ ],
+ "outro": "Повтори вслух — и *подпишись*!",
+ "outro_speak": "Повтори вслух и подпишись!"
+}
