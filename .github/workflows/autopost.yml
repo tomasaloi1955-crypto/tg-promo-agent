@@ -11,6 +11,11 @@ on:
         description: "Только на эти платформы (youtube,telegram,instagram) — пусто = все"
         required: false
         default: ""
+      check:
+        description: "Только проверка (ничего не публиковать): бот назовёт себя и проверит права в канале"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -39,6 +44,7 @@ jobs:
       - name: Опубликовать ролик дня
         env:
           ONLY: ${{ github.event.inputs.only }}
+          CHECK: ${{ github.event.inputs.check }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_ID: ${{ secrets.OWNER_ID }}
           API_ID: ${{ secrets.API_ID }}
@@ -54,7 +60,9 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_GRAPH_HOST: ${{ vars.IG_GRAPH_HOST || 'graph.instagram.com' }}
         run: |
-          if [ -n "$ONLY" ]; then python shorts/autopost.py --only "$ONLY"; else python shorts/autopost.py; fi
+          if [ "$CHECK" = "true" ]; then python shorts/autopost.py --check
+          elif [ -n "$ONLY" ]; then python shorts/autopost.py --only "$ONLY"
+          else python shorts/autopost.py; fi
 
       - name: Сохранить память автопостинга
         if: always()
