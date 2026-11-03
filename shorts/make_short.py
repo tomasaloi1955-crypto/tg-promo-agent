@@ -729,6 +729,21 @@ CHAR_TYPES = {
 
 SPR_W, SPR_H = 340, 600  # размер спрайта в 1x
 
+# Глаза персонажей: "dots" — обычные, "hamza" — знак хамза «ء», "hamza_mirror" — хамзы зеркально (симметрично)
+EYE_STYLE = os.environ.get("EYE_STYLE", "dots")
+
+
+@functools.lru_cache(None)
+def hamza_eye(size: int, mirror: bool = False) -> Image.Image:
+    """Глаз в виде арабской хамзы «ء», обрезанный по контуру знака."""
+    f = font("Cairo-Black", size)
+    im = Image.new("RGBA", (size * 2, size * 2), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((size, size), prep_ar("ء"), font=f, fill=INK, anchor="mm", **text_kw("ء"))
+    im = im.crop(im.getbbox())
+    if mirror:
+        im = im.transpose(Image.FLIP_LEFT_RIGHT)
+    return im
+
 
 @functools.lru_cache(None)
 def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = (), pose: str = "idle") -> Image.Image:
@@ -799,6 +814,11 @@ def sprite(kind: str, blink: bool, mouth: str, mood: str, colors: tuple = (), po
     for i, x in enumerate(ex):
         if blink:
             d.arc(P(x - 16, ey - 8, x + 16, ey + 14), 200, 340, fill=INK, width=5 * s)
+        elif EYE_STYLE.startswith("hamza"):
+            big = 1.15 if mood == "surprised" else 1.0
+            g = hamza_eye(int(80 * s * big), mirror=(EYE_STYLE == "hamza_mirror" and i == 0))
+            im.alpha_composite(g, (int(x * s - g.width / 2), int((ey - 4) * s - g.height / 2)))
+            d = ImageDraw.Draw(im)
         else:
             rx, ry = (13, 20) if mood != "surprised" else (15, 23)
             d.ellipse(P(x - rx, ey - ry, x + rx, ey + ry), fill=INK)
