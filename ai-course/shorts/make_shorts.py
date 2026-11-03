@@ -69,15 +69,21 @@ class Gemini:
             response_modalities=["AUDIO"],
             speech_config=t.SpeechConfig(voice_config=t.VoiceConfig(
                 prebuilt_voice_config=t.PrebuiltVoiceConfig(voice_name=self.voice))))
-        for attempt in range(6):
+        for attempt in range(4):
             try:
                 r = self.client.models.generate_content(model=self.model, contents=STYLE + text, config=cfg)
                 return r.candidates[0].content.parts[0].inline_data.data
             except Exception as e:
-                wait = 20 * (attempt + 1)
-                print(f"  TTS ошибка ({type(e).__name__}: {str(e)[:150]}), жду {wait} с")
-                time.sleep(wait)
-        raise RuntimeError("TTS не ответил после 6 попыток")
+                msg = str(e)
+                print(f"  TTS ошибка ({type(e).__name__}: {msg[:300]})", flush=True)
+                if "PerDay" in msg or "per day" in msg.lower():
+                    raise QuotaError("дневной лимит озвучки Gemini исчерпан — повторите завтра") from e
+                time.sleep(30 * (attempt + 1))
+        raise RuntimeError("TTS не ответил после 4 попыток")
+
+
+class QuotaError(RuntimeError):
+    pass
 
 
 class Silent:
@@ -102,24 +108,24 @@ def build(short: dict, tts) -> Path:
     spec.write_text(json.dumps(cards, ensure_ascii=False), encoding="utf-8")
     run(["node", str(HERE / "cards.js"), str(spec)])
 
-    parts = []
-    for i, s in enumerate(scenes):
-        wav = WORK / f"s{n}_{i}.wav"
-        write_wav(wav, tts.speak(s["voice"]))
-        clip = WORK / f"s{n}_{i}.mp4"
-        dur = duration(wav) + 0.45                 # маленькая пауза между сценами
-        run(["ffmpeg", "-y", "-loop", "1", "-i", cards[i]["path"], "-i", str(wav),
-             "-af", "apad=pad_dur=0.45", "-t", f"{dur:.2f}",
-             "-vf", "scale=1080:1920,format=yuv420p", "-r", "30",
-             "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage",
-             "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "1", str(clip)])
-        parts.append(clip)
-        print(f"  сцена {i + 1}/{len(scenes)}: {dur:.1f} с")
-    lst = WORK / f"s{n}.txt"
-    lst.write_text("".join(f"file '{p}'\n" for p in parts), encoding="utf-8")
+    # Один запрос озвучки на весь ролик (бесплатный лимит Gemini маленький),
+    # сцены сменяются пропорционально длине своей фразы.
+    wav = WORK / f"s{n}.wav"
+    write_wav(wav, tts.speak(" ".join(s["voice"] for s in scenes)))
+    total = duration(wav) + 0.6
+    weights = [len(s["voice"]) + 12 for s in scenes]
+    durs = [total * w / sum(weights) for w in weights]
+    lst = WORK / f"s{n}_img.txt"
+    lst.write_text("".join(f"file '{c['path']}'\nduration {d:.3f}\n" for c, d in zip(cards, durs))
+                   + f"file '{cards[-1]['path']}'\n", encoding="utf-8")
     out = OUT / f"short_{n}_{short['slug']}.mp4"
-    run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy",
+    run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-i", str(wav),
+         "-af", "apad=pad_dur=0.6", "-t", f"{total:.2f}",
+         "-vf", "scale=1080:1920,format=yuv420p", "-r", "30", "-vsync", "cfr",
+         "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage",
+         "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "1",
          "-movflags", "+faststart", str(out)])
+    print(f"  {total:.1f} с, сцены: " + ", ".join(f"{d:.1f}" for d in durs), flush=True)
     bot = env("BOT_USERNAME").lstrip("@")
     link = f"https://t.me/{bot}?start=src_youtube_s{n}" if bot else "(ссылка на бота — добавить)"
     (OUT / f"short_{n}_{short['slug']}.txt").write_text(
@@ -147,16 +153,26 @@ def main() -> None:
     WORK.mkdir(parents=True, exist_ok=True)
     tts = Silent() if env("TTS") == "silent" else Gemini()
     only = {x.strip() for x in env("ONLY").split(",") if x.strip()}
-    made = []
+    made, failed = [], []
     for s in SHORTS:
         if only and str(s["id"]) not in only:
             continue
-        print(f"Shorts {s['id']}: {s['title']}")
-        made.append((s, build(s, tts)))
+        print(f"Shorts {s['id']}: {s['title']}", flush=True)
+        try:
+            made.append((s, build(s, tts)))
+        except QuotaError as e:
+            print(f"⛔ {e}")
+            failed.append(s["id"])
+            break
+        except Exception as e:
+            print(f"⚠️ Shorts {s['id']} не собран: {type(e).__name__}: {e}")
+            failed.append(s["id"])
     for s, path in made:
         info = (OUT / (path.stem + ".txt")).read_text(encoding="utf-8")
         send_to_owner(path, f"🎬 Shorts {s['id']} готов\n\n{info}")
-    print(f"Готово: {len(made)} видео в {OUT}")
+    print(f"Готово: {len(made)} видео в {OUT}" + (f"; не собраны: {failed}" if failed else ""))
+    if not made:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
