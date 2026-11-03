@@ -20,12 +20,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install "telethon>=1.36" tzdata
+      - run: pip install "telethon>=1.36" tzdata requests
       - name: Опубликовать / поставить в отложку
         env:
           API_ID: ${{ secrets.API_ID }}
           API_HASH: ${{ secrets.API_HASH }}
           TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TZ: Asia/Almaty
         run: |
           eval "$(python - <<'PY'
@@ -34,8 +35,13 @@ jobs:
           for k, v in {"CHANNEL": c.get("channel", ""), "MODE": c.get("mode", ""),
                        "BOT_USERNAME": c.get("bot_username", ""), "ONLY": c.get("only", ""),
                        "START_DATE": c.get("start_date", ""),
+                       "CANDIDATES": c.get("candidates", ""), "VIA": c.get("via", "account"),
                        "DRY_RUN": "1" if c.get("dry_run") else "0"}.items():
               print(f"export {k}={shlex.quote(str(v))}")
           PY
           )"
-          python ai-course/channel/publish_posts.py
+          if [ "$VIA" = "bot" ]; then
+            python ai-course/channel/bot_publish.py
+          else
+            python ai-course/channel/publish_posts.py
+          fi

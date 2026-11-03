@@ -1,8 +1,9 @@
 {
   "channel": "Halal Intelligence",
+  "via": "bot",
+  "candidates": "@Halalaifreya",
   "mode": "now",
   "bot_username": "",
   "only": "",
-  "dry_run": false,
-  "check": 2
+  "dry_run": false
 }
