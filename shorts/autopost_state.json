@@ -1,7 +1,17 @@
 {
  "next_new": 1,
  "old_done": [],
- "last_kind": "new",
- "history": [],
- "next_word": 1
+ "last_kind": "word",
+ "history": [
+  {
+   "date": "2026-11-03",
+   "key": "word:1",
+   "results": {
+    "youtube": "⏭ пропущено: нет секретов YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN",
+    "telegram": "✅ https://t.me/myarabicl/1101 (бот)",
+    "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
+   }
+  }
+ ],
+ "next_word": 2
 }
