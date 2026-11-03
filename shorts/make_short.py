@@ -1174,6 +1174,18 @@ def decode_audio(path: str) -> np.ndarray:
     return np.frombuffer(raw, np.int16).astype(np.float32) / 32768
 
 
+RU_SPEECH_FIXES = [
+    # Русский синтезатор читает «по-арабски» как «по харабски» — говорим иначе.
+    (re.compile(r"\b[Пп]о-арабски\b"), "на арабском"),
+]
+
+
+def ru_speech_fix(text: str) -> str:
+    for pat, repl in RU_SPEECH_FIXES:
+        text = pat.sub(repl, text)
+    return text
+
+
 class Voice:
     """Озвучка через edge-tts; кэширует файлы, при отсутствии сети отключается."""
 
@@ -1186,6 +1198,8 @@ class Voice:
     def say(self, text: str, voice: str, rate="+0%", pitch="+0Hz") -> np.ndarray | None:
         if not self.enabled or not text.strip():
             return None
+        if voice.startswith("ru-"):
+            text = ru_speech_fix(text)
         import hashlib
 
         key = hashlib.md5(f"{voice}|{rate}|{pitch}|{text}".encode()).hexdigest()
