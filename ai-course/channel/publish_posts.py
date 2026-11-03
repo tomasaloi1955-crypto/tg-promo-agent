@@ -13,6 +13,10 @@
   BOT_USERNAME username бота без @ — без него посты со ссылкой на бота (закреп, №12) пропускаются
   ONLY         номера постов через запятую (например 1,2,3) — по умолчанию все
   DRY_RUN      1 — только показать план, ничего не отправлять
+  MODE         now — опубликовать сразу, по порядку (без отложки)
+
+CHANNEL может быть и названием («Halal Intelligence»): тогда канал ищется среди тех,
+где аккаунт — владелец или админ. Нашлось не ровно один — ничего не отправляем.
 
 Запуск: GitHub → Actions → «Нейропоток: посты в канал» → Run workflow.
 """
@@ -49,7 +53,7 @@ def plan() -> list[tuple[datetime, dict]]:
             print(f"— пост {p['id']}: пропущен (нет BOT_USERNAME, а в нём ссылка на бота)")
             continue
         when = datetime.combine(start + timedelta(days=p["day"] - 1), time(p["hour"]), tz)
-        if when.astimezone(timezone.utc) < now + timedelta(minutes=5):
+        if env("MODE") != "now" and when.astimezone(timezone.utc) < now + timedelta(minutes=5):
             print(f"— пост {p['id']}: время {when:%d.%m %H:%M} уже прошло — пропущен (сдвиньте START_DATE)")
             continue
         out.append((when, p))
@@ -77,6 +81,26 @@ def make_poll(spec: dict):
     return types.InputMediaPoll(poll=types.Poll(**kwargs))
 
 
+async def resolve_channel(client, query: str):
+    """@username / ссылка — напрямую; иначе ищем по названию среди своих каналов."""
+    if query.startswith("@") or "t.me/" in query or query.lstrip("-").isdigit():
+        return await client.get_entity(int(query) if query.lstrip("-").isdigit() else query)
+    q = query.lower().replace(" ", "")
+    mine, hits = [], []
+    async for d in client.iter_dialogs():
+        e = d.entity
+        if not getattr(e, "broadcast", False) or not (getattr(e, "creator", False) or getattr(e, "admin_rights", None)):
+            continue
+        mine.append(e)
+        if q in (e.title or "").lower().replace(" ", "") or q in (getattr(e, "username", "") or "").lower():
+            hits.append(e)
+    print("Мои каналы (владелец/админ): " + "; ".join(
+        f"{e.title} (@{getattr(e, 'username', None) or '—'}, id {e.id})" for e in mine))
+    if len(hits) != 1:
+        sys.exit(f"По «{query}» найдено каналов: {len(hits)} — нужен ровно один. Ничего не отправлено.")
+    return hits[0]
+
+
 async def main() -> None:
     items = plan()
     if not env("CHANNEL"):
@@ -97,26 +121,30 @@ async def main() -> None:
                             int(os.environ["API_ID"]), os.environ["API_HASH"])
     await client.start()
     try:
-        channel = await client.get_entity(env("CHANNEL"))
+        channel = await resolve_channel(client, env("CHANNEL"))
         print(f"Нашла канал: {getattr(channel, 'title', channel)}")
         done = 0
         for when, p in items:
+            sched = None if env("MODE") == "now" else when
             try:
                 if p.get("poll"):
-                    await client.send_file(channel, make_poll(p["poll"]), schedule=when)
+                    msg = await client.send_file(channel, make_poll(p["poll"]), schedule=sched)
                 elif p.get("image") and (COVERS / p["image"]).exists():
-                    await client.send_file(channel, COVERS / p["image"], caption=render(p),
-                                           parse_mode="html", schedule=when)
+                    msg = await client.send_file(channel, COVERS / p["image"], caption=render(p),
+                                                 parse_mode="html", schedule=sched)
                 else:
-                    await client.send_message(channel, render(p), parse_mode="html",
-                                              link_preview=False, schedule=when)
+                    msg = await client.send_message(channel, render(p), parse_mode="html",
+                                                    link_preview=False, schedule=sched)
                 done += 1
-                print(f"✅ пост {p['id']} → отложен на {when:%d.%m %H:%M}")
+                if sched is None and p["id"] == "pin":
+                    await client.pin_message(channel, msg, notify=False)
+                print(f"✅ пост {p['id']} → " + ("опубликован" if sched is None else f"отложен на {when:%d.%m %H:%M}"))
             except Exception as e:  # один сбой не должен ронять остальные
                 print(f"⚠️ пост {p['id']}: {type(e).__name__}: {e}")
-            await asyncio.sleep(2)
-        print(f"Готово: {done} из {len(items)}. Проверьте в Telegram: канал → значок часов «Отложенные».")
-        if any(p["id"] == "pin" for _, p in items):
+            await asyncio.sleep(4 if env("MODE") == "now" else 2)
+        print(f"Готово: {done} из {len(items)}." + ("" if env("MODE") == "now"
+              else " Проверьте в Telegram: канал → значок часов «Отложенные»."))
+        if env("MODE") != "now" and any(p["id"] == "pin" for _, p in items):
             print("Закреп выйдет отложенным — когда опубликуется, закрепите его вручную.")
     finally:
         await client.disconnect()

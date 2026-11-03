@@ -1,0 +1,41 @@
+# Запуск публикации постов коммитом: меняете ai-course/channel/run.json — посты уходят.
+# Работает в любой ветке (для push GitHub берёт этот файл из самой ветки).
+name: "Нейропоток: посты в канал (по run.json)"
+
+on:
+  push:
+    paths:
+      - "ai-course/channel/run.json"
+
+concurrency:
+  group: neuro-channel-posts
+  cancel-in-progress: false
+
+jobs:
+  posts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "telethon>=1.36" tzdata
+      - name: Опубликовать / поставить в отложку
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          TZ: Asia/Almaty
+        run: |
+          eval "$(python - <<'PY'
+          import json, shlex
+          c = json.load(open("ai-course/channel/run.json", encoding="utf-8"))
+          for k, v in {"CHANNEL": c.get("channel", ""), "MODE": c.get("mode", ""),
+                       "BOT_USERNAME": c.get("bot_username", ""), "ONLY": c.get("only", ""),
+                       "START_DATE": c.get("start_date", ""),
+                       "DRY_RUN": "1" if c.get("dry_run") else "0"}.items():
+              print(f"export {k}={shlex.quote(str(v))}")
+          PY
+          )"
+          python ai-course/channel/publish_posts.py
