@@ -24,7 +24,7 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
 WORK = OUT / "work"
 RATE = 24000
-STYLE = "Прочитай по-русски тепло, спокойно и уверенно, как подруга, которая объясняет понятно: "
+# Без инструкции перед текстом: модель иногда читает её вслух. Тон задаёт сам голос (VOICE).
 
 DESCRIPTION = (
     "Бесплатный мини-интенсив для сестёр: свой бот за 3 вечера 👉 {bot_link}\n"
@@ -71,7 +71,7 @@ class Gemini:
                 prebuilt_voice_config=t.PrebuiltVoiceConfig(voice_name=self.voice))))
         for attempt in range(4):
             try:
-                r = self.client.models.generate_content(model=self.model, contents=STYLE + text, config=cfg)
+                r = self.client.models.generate_content(model=self.model, contents=text, config=cfg)
                 return r.candidates[0].content.parts[0].inline_data.data
             except Exception as e:
                 msg = str(e)
