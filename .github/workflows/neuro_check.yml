@@ -1,0 +1,23 @@
+# Проверка запуска бота «Нейропоток»: вебхук, сервер, права в каналах.
+name: "Нейропоток: проверка бота"
+on:
+  push:
+    paths:
+      - "ai-course/bot/check.json"
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - name: Проверить
+        env:
+          BOT_TOKEN: ${{ secrets.NEURO_BOT_TOKEN }}
+        run: |
+          export COURSE_CHAT_ID=$(python -c "import json;print(json.load(open('ai-course/bot/check.json'))['course_chat_id'])")
+          python ai-course/bot/check_deploy.py
