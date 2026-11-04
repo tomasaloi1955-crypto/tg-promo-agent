@@ -1163,6 +1163,18 @@ def steps_card(step: int, total: int, title: str, mock: str, channel: str = "Ara
         d.rounded_rectangle([sx0 + 24, sy1 - 110, sx1 - 24, sy1 - 50], 30, fill=(40, 110, 220))
         draw_text(d, ((sx0 + sx1) / 2, sy1 - 80), "Оплатить", small, WHITE, anchor="mm")
         tap = (b1[2] - 34, b1[3] - 4)
+    elif mock == "tariff1":  # один тариф — «Самостоятельно»
+        draw_text(d, ((sx0 + sx1) / 2, sy0 + 70), "Курс", font("Nunito-Black", 32), INK, anchor="mm")
+        b1 = [sx0 + 24, sy0 + 140, sx1 - 24, sy0 + 300]
+        d.rounded_rectangle(b1, 24, fill=(40, 160, 110))
+        draw_text(d, ((b1[0] + b1[2]) / 2, b1[1] + 55), "Самостоятельно", font("Nunito-Black", 32), WHITE, anchor="mm")
+        draw_text(d, ((b1[0] + b1[2]) / 2, b1[1] + 105), "уроки + материалы", small, WHITE, anchor="mm")
+        for k in range(3):
+            d.rounded_rectangle([sx0 + 30, sy0 + 340 + k * 34, sx1 - 30 - k * 60, sy0 + 356 + k * 34], 6, fill=(215, 215, 220))
+        pay = [sx0 + 24, sy1 - 130, sx1 - 24, sy1 - 50]
+        d.rounded_rectangle(pay, 36, fill=(40, 110, 220), outline=hl, width=6)
+        draw_text(d, ((sx0 + sx1) / 2, sy1 - 90), "Оплатить", font("Nunito-Black", 32), WHITE, anchor="mm")
+        tap = (pay[2] - 40, pay[3] - 4)
     elif mock == "telegram":
         d.rounded_rectangle([sx0, sy0, sx1, sy1], 26, fill=(210, 226, 238))
         bub = [sx0 + 18, sy0 + 30, sx1 - 18, sy1 - 40]
