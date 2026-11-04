@@ -181,9 +181,18 @@ def texts_for(item) -> dict:
         title = (cap.splitlines()[0] if cap else "Арабские слова") [:80]
         body = cap
     yt_title = (title[:90] + " #shorts") if "#shorts" not in title else title[:100]
-    yt_desc = f"{body}\n\nПовтори вслух и подпишись — арабский каждый день!\n{('Telegram: ' + tg_link) if tg_link else ''}\n\n{HASHTAGS}"
-    social = f"🎬 {title}\n\n{body}\n\nПовтори вслух! 🔁\n\n{HASHTAGS}"
-    return {"yt_title": yt_title.strip(), "yt_desc": yt_desc.strip()[:4900], "tg": social[:1000], "ig": social[:2100]}
+    import courses
+
+    ck = courses.course_for(item["kind"]) if item["kind"] in ("new", "word") else courses.course_for("word")
+    block = courses.description_block(ck)
+    yt_desc = (f"{block}\n{body}\n\nПовтори вслух и подпишись — арабский каждый день!\n"
+               f"{('Telegram: ' + tg_link) if tg_link else ''}\n\n{HASHTAGS}")
+    # Telegram: ссылки на курс кликаются прямо в подписи; подпись к видео — до 1024 символов
+    tg_tail = f"\n\nПовтори вслух! 🔁\n\n{block}"
+    tg = f"🎬 {title}\n\n{body}"
+    tg = (tg[: 1020 - len(tg_tail)] + tg_tail) if len(tg) + len(tg_tail) > 1020 else tg + tg_tail
+    ig = f"🎬 {title}\n\n{body}\n\nПовтори вслух! 🔁\n\n{courses.social_line(ck)}\n\n{HASHTAGS}"
+    return {"yt_title": yt_title.strip(), "yt_desc": yt_desc.strip()[:4900], "tg": tg.strip(), "ig": ig[:2100]}
 
 
 # ─────────────────────────── YouTube ───────────────────────────
@@ -325,7 +334,14 @@ def render_new(item) -> Path:
     # Проверяем, что озвучка работает, ДО сборки — немой ролик не публикуем
     if voice.say("مرحبا", "ar-SA-HamedNeural") is None:
         raise RuntimeError("озвучка недоступна — немой ролик публиковать не будем")
-    return make_short.render(Path(item["spec"]), OUT, use_voice=True, strict_voice=True)
+    import courses
+
+    spec = json.loads(Path(item["spec"]).read_text(encoding="utf-8"))
+    spec = courses.apply_to_spec(spec, courses.course_for(item["kind"]), item["n"])
+    tmp = OUT / "spec" / Path(item["spec"]).name  # то же имя файла → то же имя ролика
+    tmp.parent.mkdir(parents=True, exist_ok=True)
+    tmp.write_text(json.dumps(spec, ensure_ascii=False), encoding="utf-8")
+    return make_short.render(tmp, OUT, use_voice=True, strict_voice=True)
 
 
 def main():

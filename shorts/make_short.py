@@ -1545,7 +1545,10 @@ class Episode:
         im = Image.new("RGB", (W, H - FOOTER_Y), PAGE_BG)
         d = ImageDraw.Draw(im)
         sub = self.spec.get("footer", "Учим арабский по мультикам")
-        draw_text(d, (W / 2, 70), sub, font("Nunito-ExtraBold", 36), (170, 210, 205), anchor="mm")
+        if sub.startswith("Курс"):  # реклама курса — заметнее
+            draw_text(d, (W / 2, 68), sub, font("Nunito-Black", 40), GOLD, anchor="mm")
+        else:
+            draw_text(d, (W / 2, 70), sub, font("Nunito-ExtraBold", 36), (170, 210, 205), anchor="mm")
         return im
 
     def render_frame(self, idx: int) -> Image.Image:
