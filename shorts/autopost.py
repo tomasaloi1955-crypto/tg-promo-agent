@@ -35,6 +35,7 @@ import requests
 
 HERE = Path(__file__).resolve().parent
 STATE = HERE / "autopost_state.json"
+KINDS = "both"  # both — через день слово/диалог; new — только диалоги
 OLD_DIR = HERE / "old"
 OUT = HERE.parent / "out"
 
@@ -122,6 +123,10 @@ async def old_from_telegram(st, dest: Path) -> dict | None:
 
 
 def pick_today(st, dry=False) -> dict:
+    if KINDS == "new":  # только уроки-диалоги (например, для YouTube, где «Слово дня» уже есть)
+        n = st.get("next_new", 1)
+        spec = HERE / "episodes" / f"dialog_{n:03d}.json"
+        return {"kind": "new", "key": f"dialog:{n}", "n": n, "spec": spec} if spec.exists() else {"kind": "none"}
     want_old = st.get("last_kind") == "new"  # вчера был диалог → сегодня старый ролик или «Слово дня»
     if want_old:
         local = old_queue_local(st)
@@ -327,6 +332,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,instagram")
+    ap.add_argument("--state", help="свой файл очереди (например, для отдельного YouTube-автопостинга)")
+    ap.add_argument("--kinds", choices=["both", "new"], default="both", help="new — только уроки-диалоги")
     ap.add_argument("--check", action="store_true", help="ничего не публиковать: бот назовёт себя и проверит права в канале")
     args = ap.parse_args()
 
@@ -351,7 +358,12 @@ def main():
                f"Добавить администратора → найдите {me} → включите «Публикация сообщений» → Сохранить.")
         return
 
+    global STATE, KINDS
+    if args.state:
+        STATE = Path(args.state).resolve()
+    KINDS = args.kinds
     st = load_state()
+    st.setdefault("next_new", 1)
     item = pick_today(st, args.dry_run)
     if item["kind"] == "none":
         notify("📭 Автопостинг: все 100 уроков и 100 слов уже опубликованы. Добавьте новые!")
