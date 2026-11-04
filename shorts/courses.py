@@ -13,6 +13,10 @@
 """
 
 import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 COURSES = {
     "tajweed": {
@@ -23,6 +27,11 @@ COURSES = {
         "screen": "Курс «Алфавит + таджвид» — ссылка в профиле",
         "voice": "Хочешь читать Коран правильно? Мой курс по алфавиту и таджвиду — ссылка в профиле канала.",
         "outro": "Курс *«Алфавит + таджвид»* — ссылка в профиле!",
+        "bullets": ["Читаешь Коран с нуля — по книге «Муаллим сани»",
+                    "Видеоуроки в записи — учись, когда удобно",
+                    "С проверкой ДЗ — исправляю каждую ошибку"],
+        "promo_voice": "Курс «Алфавит и таджвид». Научишься читать Коран с нуля. Уроки в записи — учись, когда удобно. "
+                       "А с проверкой домашних заданий я исправлю каждую ошибку.",
     },
     "speaking": {
         "name": "Чтение + разговор по-арабски",
@@ -32,6 +41,11 @@ COURSES = {
         "screen": "Курс «Чтение + разговор» — ссылка в профиле",
         "voice": "Хочешь читать и говорить на арабском? Мой курс «Чтение и разговор» — ссылка в профиле канала.",
         "outro": "Курс *«Чтение + разговор»* — ссылка в профиле!",
+        "bullets": ["Читаешь и говоришь на арабском",
+                    "Новые уроки 3 раза в неделю",
+                    "С проверкой ДЗ — исправляю ошибки"],
+        "promo_voice": "Курс «Чтение и разговор на арабском». Научишься читать и говорить. Новые уроки три раза в неделю, "
+                       "а с проверкой домашних заданий я исправлю твои ошибки.",
     },
 }
 
@@ -85,3 +99,53 @@ def apply_to_spec(spec: dict, key: str | None, n: int) -> dict:
         spec["outro"] = c["outro"]
         spec["outro_speak"] = c["voice"]
     return spec
+
+
+PROMO_SCENES = ["classroom_day", "cafe_day", "park_day", "majlis_day", "courtyard_day", "kitchen_day"]
+
+
+def promo_course(week: int) -> str | None:
+    """Чей рекламный ролик на этой неделе: курсы чередуются, если у обоих есть ссылки."""
+    keys = [k for k in ("tajweed", "speaking") if enabled(k)]
+    return keys[week % len(keys)] if keys else None
+
+
+def promo_spec(key: str, week: int) -> dict:
+    """Еженедельный рекламный мультик: сценка → карточка курса → «куда нажать» → призыв."""
+    from dialogs import CHARACTERS
+
+    c = COURSES[key]
+    scene = PROMO_SCENES[week % len(PROMO_SCENES)]
+    a, b = ("ahmad", "maryam") if week % 2 == 0 else ("maryam", "ahmad")
+    wants = {"tajweed": ("أريد أن أقرأ القرآن!", "urīdu an aqra'a l-qur'ān!", "Хочу читать Коран!"),
+             "speaking": ("أريد أن أتكلم العربية!", "urīdu an atakallama l-'arabiyya!", "Хочу говорить по-арабски!")}[key]
+    return {
+        "title": f"Курс *«{c['name']}»*",
+        "channel": "MY ARABIC",
+        "footer": c["screen"],
+        "narrator": {"ar": "ar-SA-HamedNeural", "ru": "ru-RU-SvetlanaNeural"},
+        "characters": {k: CHARACTERS[k] for k in (a, b)},
+        "beats": [
+            {"scene": scene, "cast": {a: 0.3, b: 0.72}},
+            {"say": a, "mood": "happy", "ar": wants[0], "tr": wants[1], "ru": wants[2]},
+            # обращаемся к собеседнику: к мальчику — تعالَ, к девочке — تعالَي
+            {"say": b, "mood": "happy",
+             "ar": "تعال معي إلى الدرس!" if a == "ahmad" else "تعالي معي إلى الدرس!",
+             "tr": "ta'āla ma'ī ilā d-dars!" if a == "ahmad" else "ta'ālay ma'ī ilā d-dars!",
+             "ru": "Пойдём со мной на урок!"},
+            {"course": {"name": c["name"], "bullets": c["bullets"], "speak": c["promo_voice"],
+                        "note": "2 тарифа: *самостоятельно* или *с проверкой ДЗ*"}},
+            {"steps": [
+                {"title": "На YouTube: нажми на *название канала* внизу видео", "mock": "shorts",
+                 "speak": "На ютубе нажми на название канала внизу видео."},
+                {"title": "Открой *ссылку* в описании канала", "mock": "channel",
+                 "speak": "Открой ссылку в описании канала."},
+                {"title": "Выбери *тариф* и оплати", "mock": "tariffs",
+                 "speak": "Выбери тариф: самостоятельно или с проверкой домашних заданий."},
+                {"title": "В Telegram ещё проще: *ссылка прямо под видео*", "mock": "telegram",
+                 "speak": "А в телеграме ссылка прямо под видео."},
+            ]},
+        ],
+        "outro": "Жду тебя на курсе! *Ссылка в профиле*",
+        "outro_speak": "Жду тебя на курсе! Ссылка в профиле канала.",
+    }

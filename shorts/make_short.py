@@ -1065,6 +1065,134 @@ def draw_twinkles(d, t, w, h):
         d.line([(x, y - r * 2), (x, y + r * 2)], fill=c, width=2)
 
 
+# ─────────────────────────── рекламные карточки (курс, «куда нажать») ───────────────────────────
+
+PURPLE = (120, 80, 200)
+CARD_W, CARD_H = 860, 1030
+
+
+def _card_base(label: str, color=PURPLE):
+    im, p = rounded_card((CARD_W, CARD_H), (255, 252, 244, 255), 44, outline=INK, width=6)
+    d = ImageDraw.Draw(im)
+    f = font("Nunito-Black", 34)
+    lw = tlen(f, label) + 60
+    d.rounded_rectangle([p + CARD_W / 2 - lw / 2, p - 30, p + CARD_W / 2 + lw / 2, p + 34], 32, fill=color, outline=INK, width=4)
+    draw_text(d, (p + CARD_W / 2, p + 2), label, f, WHITE, anchor="mm")
+    return im, d, p
+
+
+def course_card(name: str, bullets: list[str], price_note: str = "") -> Image.Image:
+    im, d, p = _card_base("КУРС", (220, 90, 40))
+    cx = p + CARD_W / 2
+    y = rich_text(d, cx, p + 80, f"«{name}»", font("Nunito-Black", 70), INK, INK, CARD_W - 80, line_gap=0.95)
+    y += 50
+    bf = font("Nunito-ExtraBold", 50)
+    for b in bullets:
+        d.ellipse([p + 56, y + 16, p + 96, y + 56], fill=(40, 160, 110))
+        d.line([(p + 66, y + 36), (p + 74, y + 46), (p + 88, y + 26)], fill=WHITE, width=6)
+        yy = y
+        for line in wrap([(w, False, False) for w in b.split()], bf, CARD_W - 190, 14):
+            draw_text(d, (p + 116, yy), " ".join(t[0] for t in line), bf, INK)
+            yy += 66
+        y = yy + 34
+    if price_note:
+        rich_text(d, cx, p + CARD_H - 160, price_note, font("Nunito-Black", 44), (220, 90, 40), (220, 90, 40), CARD_W - 80)
+    return im
+
+
+def _phone(d, x0, y0, w, h):
+    d.rounded_rectangle([x0, y0, x0 + w, y0 + h], 48, fill=(30, 30, 40), outline=INK, width=5)
+    d.rounded_rectangle([x0 + 16, y0 + 40, x0 + w - 16, y0 + h - 30], 26, fill=WHITE)
+    d.rounded_rectangle([x0 + w / 2 - 50, y0 + 14, x0 + w / 2 + 50, y0 + 26], 6, fill=(70, 70, 80))
+    return x0 + 16, y0 + 40, x0 + w - 16, y0 + h - 30
+
+
+def steps_card(step: int, total: int, title: str, mock: str, channel: str = "Arabic for everyone"):
+    """Карточка шага с нарисованным телефоном. Возвращает (картинка, точка нажатия в координатах карточки)."""
+    im, d, p = _card_base(f"КАК ЗАПИСАТЬСЯ · ШАГ {step}/{total}")
+    cx = p + CARD_W / 2
+    rich_text(d, cx, p + 60, title, font("Nunito-Black", 50), INK, (220, 90, 40), CARD_W - 70, line_gap=0.92)
+    pw, ph = 420, 700
+    sx0, sy0, sx1, sy1 = _phone(d, cx - pw / 2, p + CARD_H - ph - 40, pw, ph)
+    sw = sx1 - sx0
+    hl = (242, 177, 52)
+    tap = (cx, (sy0 + sy1) / 2)
+    small = font("Nunito-ExtraBold", 26)
+    if mock == "shorts":
+        d.rounded_rectangle([sx0, sy0, sx1, sy1], 26, fill=(40, 44, 60))
+        d.ellipse([sx0 + sw / 2 - 70, sy0 + 120, sx0 + sw / 2 + 70, sy0 + 260], fill=(236, 190, 146))
+        d.rounded_rectangle([sx0 + sw / 2 - 90, sy0 + 260, sx0 + sw / 2 + 90, sy0 + 420], 30, fill=WHITE)
+        for k, yy in enumerate((sy0 + 200, sy0 + 290, sy0 + 380)):  # правые иконки
+            d.ellipse([sx1 - 70, yy, sx1 - 24, yy + 46], fill=(90, 90, 110))
+        by = sy1 - 120
+        d.ellipse([sx0 + 22, by, sx0 + 76, by + 54], fill=hl)
+        pill = [sx0 + 86, by + 4, sx0 + 86 + tlen(small, channel) + 30, by + 50]
+        d.rounded_rectangle(pill, 22, outline=hl, width=5)
+        draw_text(d, (pill[0] + 15, by + 27), channel, small, WHITE, anchor="lm")
+        d.rounded_rectangle([sx0 + 22, by + 66, sx1 - 90, by + 84], 8, fill=(110, 110, 130))
+        tap = (pill[2] - 22, pill[3] + 4)
+    elif mock == "channel":
+        d.rounded_rectangle([sx0, sy0, sx1, sy0 + 130], 26, fill=(70, 150, 140))
+        d.rectangle([sx0, sy0 + 100, sx1, sy0 + 130], fill=(70, 150, 140))
+        d.ellipse([sx0 + 24, sy0 + 150, sx0 + 114, sy0 + 240], fill=hl, outline=INK, width=3)
+        cf = font("Nunito-Black", 30)
+        while tlen(cf, channel) > sx1 - sx0 - 150 and cf.size > 16:
+            cf = font("Nunito-Black", cf.size - 2)
+        draw_text(d, (sx0 + 130, sy0 + 170), channel, cf, INK)
+        d.rounded_rectangle([sx0 + 130, sy0 + 214, sx0 + 290, sy0 + 230], 6, fill=(200, 200, 205))
+        for k in range(3):
+            d.rounded_rectangle([sx0 + 24, sy0 + 280 + k * 34, sx1 - 24 - k * 60, sy0 + 298 + k * 34], 6, fill=(215, 215, 220))
+        ly = sy0 + 400
+        link = [sx0 + 18, ly - 10, sx1 - 18, ly + 52]
+        d.rounded_rectangle(link, 16, fill=(255, 244, 214), outline=hl, width=5)
+        d.ellipse([sx0 + 34, ly + 6, sx0 + 64, ly + 36], outline=(40, 110, 220), width=5)
+        draw_text(d, (sx0 + 76, ly + 21), "web.tribute.tg/…", small, (40, 110, 220), anchor="lm")
+        d.rounded_rectangle([sx0 + 24, sy1 - 120, sx1 - 24, sy1 - 60], 30, fill=(30, 30, 40))
+        draw_text(d, ((sx0 + sx1) / 2, sy1 - 90), "Подписаться", small, WHITE, anchor="mm")
+        tap = (link[2] - 30, link[3] + 2)
+    elif mock == "tariffs":
+        draw_text(d, ((sx0 + sx1) / 2, sy0 + 70), "Выберите тариф", font("Nunito-Black", 32), INK, anchor="mm")
+        b1 = [sx0 + 24, sy0 + 140, sx1 - 24, sy0 + 270]
+        b2 = [sx0 + 24, sy0 + 300, sx1 - 24, sy0 + 430]
+        d.rounded_rectangle(b1, 24, fill=(40, 160, 110), outline=hl, width=6)
+        d.rounded_rectangle(b2, 24, fill=PURPLE)
+        draw_text(d, ((b1[0] + b1[2]) / 2, b1[1] + 45), "Самостоятельно", font("Nunito-Black", 32), WHITE, anchor="mm")
+        draw_text(d, ((b1[0] + b1[2]) / 2, b1[1] + 90), "уроки + материалы", small, WHITE, anchor="mm")
+        draw_text(d, ((b2[0] + b2[2]) / 2, b2[1] + 45), "С проверкой ДЗ", font("Nunito-Black", 32), WHITE, anchor="mm")
+        draw_text(d, ((b2[0] + b2[2]) / 2, b2[1] + 90), "исправляю ошибки", small, WHITE, anchor="mm")
+        d.rounded_rectangle([sx0 + 24, sy1 - 110, sx1 - 24, sy1 - 50], 30, fill=(40, 110, 220))
+        draw_text(d, ((sx0 + sx1) / 2, sy1 - 80), "Оплатить", small, WHITE, anchor="mm")
+        tap = (b1[2] - 34, b1[3] - 4)
+    elif mock == "telegram":
+        d.rounded_rectangle([sx0, sy0, sx1, sy1], 26, fill=(210, 226, 238))
+        bub = [sx0 + 18, sy0 + 30, sx1 - 18, sy1 - 40]
+        d.rounded_rectangle(bub, 22, fill=WHITE)
+        d.rounded_rectangle([bub[0] + 14, bub[1] + 14, bub[2] - 14, bub[1] + 300], 16, fill=(40, 44, 60))
+        d.polygon([(cx - 26, bub[1] + 130), (cx - 26, bub[1] + 190), (cx + 30, bub[1] + 160)], fill=WHITE)
+        for k in range(3):
+            d.rounded_rectangle([bub[0] + 20, bub[1] + 330 + k * 32, bub[2] - 40 - k * 50, bub[1] + 346 + k * 32], 6, fill=(215, 215, 220))
+        ly = bub[1] + 450
+        link = [bub[0] + 12, ly - 12, bub[2] - 12, ly + 50]
+        d.rounded_rectangle(link, 14, fill=(255, 244, 214), outline=hl, width=5)
+        draw_text(d, (bub[0] + 30, ly + 19), "web.tribute.tg/…", small, (40, 110, 220), anchor="lm")
+        tap = (link[2] - 30, link[3] + 2)
+    return im, tap
+
+
+def draw_tap(img: Image.Image, tap, i: int) -> Image.Image:
+    """Пульсирующая «точка нажатия» поверх карточки."""
+    img = img.copy()
+    d = ImageDraw.Draw(img)
+    x, y = tap
+    ph = (i % 24) / 24
+    for k in range(2):
+        r = 22 + ((ph + k * 0.5) % 1) * 46
+        a = int(220 * (1 - ((ph + k * 0.5) % 1)))
+        d.ellipse([x - r, y - r, x + r, y + r], outline=(220, 60, 60, a), width=6)
+    d.ellipse([x - 18, y - 18, x + 18, y + 18], fill=(220, 60, 60, 220), outline=WHITE, width=4)
+    return img
+
+
 def rewind_icon(d, cx, cy, s, color):
     for k in (0, 1):
         x = cx - k * s * 0.9
@@ -1489,6 +1617,31 @@ class Episode:
                 push(nL, overlay=lambda i, n, f: ("compare", imgs[0 if i > 10 else -1], i))
                 push(nR, overlay=lambda i, n, f: ("compare", imgs[1], 99))
                 push(hold, overlay=lambda i, n, f: ("compare", imgs[2], 99))
+                continue
+
+            if "course" in b:  # карточка курса + русский голос
+                c = b["course"]
+                img = course_card(c["name"], c.get("bullets", []), c.get("note", ""))
+                audio = tts(c.get("speak", ""), self.narrator["ru"]) if c.get("speak") else None
+                dur = max(b.get("hold", 4.0), (len(audio) / SR + 1.2) if audio is not None else 0)
+                self.audio_events.append((at(0), sfx("pop")))
+                if audio is not None:
+                    self.audio_events.append((at(0.4), audio))
+                push(int(dur * FPS), overlay=lambda i, n, f, img=img: ("card", img, i))
+                continue
+
+            if "steps" in b:  # «куда нажать»: телефон, пульсирующая точка нажатия, голос
+                steps = b["steps"]
+                for k, stp in enumerate(steps, 1):
+                    img, tap = steps_card(k, len(steps), stp["title"], stp["mock"], b.get("channel", "Arabic for everyone"))
+                    audio = tts(stp.get("speak", plain(stp["title"])), self.narrator["ru"])
+                    dur = max(3.0, (len(audio) / SR + 1.0) if audio is not None else 0)
+                    self.audio_events.append((at(0), sfx("pop") * 0.7))
+                    if audio is not None:
+                        self.audio_events.append((at(0.35), audio))
+                    for t_ in (1.2, 2.2):
+                        self.audio_events.append((at(t_), sfx("tick")))
+                    push(int(dur * FPS), overlay=lambda i, n, f, img=img, tap=tap: ("card", draw_tap(img, tap, i) if i > 9 else img, i))
                 continue
 
             if "rewind" in b:

@@ -122,7 +122,29 @@ async def old_from_telegram(st, dest: Path) -> dict | None:
     return None
 
 
+def promo_today(st) -> dict | None:
+    """Раз в неделю (по умолчанию в субботу) — рекламный мультик «как записаться на курс»."""
+    import courses
+
+    today = dt.date.today()
+    year, week, _ = today.isocalendar()
+    key = f"promo:{year}-{week:02d}"
+    if any(h.get("key") == key for h in st.get("history", [])):
+        return None
+    if KINDS != "promo" and today.weekday() != int(os.getenv("PROMO_WEEKDAY", "5")):
+        return None
+    course = courses.promo_course(week)
+    if not course:
+        return None
+    return {"kind": "promo", "key": key, "n": week, "course": course}
+
+
 def pick_today(st, dry=False) -> dict:
+    promo = promo_today(st)
+    if promo:
+        return promo
+    if KINDS == "promo":
+        return {"kind": "none"}
     if KINDS == "new":  # только уроки-диалоги (например, для YouTube, где «Слово дня» уже есть)
         n = st.get("next_new", 1)
         spec = HERE / "episodes" / f"dialog_{n:03d}.json"
@@ -159,7 +181,17 @@ def pick_today(st, dry=False) -> dict:
 
 def texts_for(item) -> dict:
     tg_link = f"https://t.me/{os.getenv('TG_CHANNEL').lstrip('@')}" if os.getenv("TG_CHANNEL") else ""
-    if item["kind"] in ("new", "word"):
+    if item["kind"] == "promo":
+        import courses
+
+        c = courses.COURSES[item["course"]]
+        title = f"Как записаться на курс «{c['name']}» — 3 шага"
+        body = ("1️⃣ На YouTube нажми на название канала внизу видео\n"
+                "2️⃣ Открой ссылку в описании канала\n"
+                "3️⃣ Выбери тариф: самостоятельно или с проверкой ДЗ\n"
+                "В Telegram — ссылка прямо под этим постом 👇\n\n"
+                + "\n".join("✅ " + b for b in c["bullets"]))
+    elif item["kind"] in ("new", "word"):
         spec = json.loads(Path(item["spec"]).read_text(encoding="utf-8"))
         topic = spec["title"].split(":", 1)[-1].replace("*", "").strip()
         lines = []
@@ -183,15 +215,19 @@ def texts_for(item) -> dict:
     yt_title = (title[:90] + " #shorts") if "#shorts" not in title else title[:100]
     import courses
 
-    ck = courses.course_for(item["kind"]) if item["kind"] in ("new", "word") else courses.course_for("word")
+    if item["kind"] == "promo":
+        ck = item["course"]
+    else:
+        ck = courses.course_for(item["kind"]) if item["kind"] in ("new", "word") else courses.course_for("word")
     block = courses.description_block(ck)
     yt_desc = (f"{block}\n{body}\n\nПовтори вслух и подпишись — арабский каждый день!\n"
                f"{('Telegram: ' + tg_link) if tg_link else ''}\n\n{HASHTAGS}")
     # Telegram: ссылки на курс кликаются прямо в подписи; подпись к видео — до 1024 символов
-    tg_tail = f"\n\nПовтори вслух! 🔁\n\n{block}"
+    tg_tail = f"\n\n{block}" if item["kind"] == "promo" else f"\n\nПовтори вслух! 🔁\n\n{block}"
     tg = f"🎬 {title}\n\n{body}"
     tg = (tg[: 1020 - len(tg_tail)] + tg_tail) if len(tg) + len(tg_tail) > 1020 else tg + tg_tail
-    ig = f"🎬 {title}\n\n{body}\n\nПовтори вслух! 🔁\n\n{courses.social_line(ck)}\n\n{HASHTAGS}"
+    rep_line = "" if item["kind"] == "promo" else "\n\nПовтори вслух! 🔁"
+    ig = f"🎬 {title}\n\n{body}{rep_line}\n\n{courses.social_line(ck)}\n\n{HASHTAGS}"
     return {"yt_title": yt_title.strip(), "yt_desc": yt_desc.strip()[:4900], "tg": tg.strip(), "ig": ig[:2100]}
 
 
@@ -336,9 +372,13 @@ def render_new(item) -> Path:
         raise RuntimeError("озвучка недоступна — немой ролик публиковать не будем")
     import courses
 
-    spec = json.loads(Path(item["spec"]).read_text(encoding="utf-8"))
-    spec = courses.apply_to_spec(spec, courses.course_for(item["kind"]), item["n"])
-    tmp = OUT / "spec" / Path(item["spec"]).name  # то же имя файла → то же имя ролика
+    if item["kind"] == "promo":
+        spec = courses.promo_spec(item["course"], item["n"])
+        tmp = OUT / "spec" / f"promo_{item['key'].split(':')[1]}.json"
+    else:
+        spec = json.loads(Path(item["spec"]).read_text(encoding="utf-8"))
+        spec = courses.apply_to_spec(spec, courses.course_for(item["kind"]), item["n"])
+        tmp = OUT / "spec" / Path(item["spec"]).name  # то же имя файла → то же имя ролика
     tmp.parent.mkdir(parents=True, exist_ok=True)
     tmp.write_text(json.dumps(spec, ensure_ascii=False), encoding="utf-8")
     return make_short.render(tmp, OUT, use_voice=True, strict_voice=True)
@@ -349,7 +389,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,instagram")
     ap.add_argument("--state", help="свой файл очереди (например, для отдельного YouTube-автопостинга)")
-    ap.add_argument("--kinds", choices=["both", "new"], default="both", help="new — только уроки-диалоги")
+    ap.add_argument("--kinds", choices=["both", "new", "promo"], default="both",
+                    help="new — только уроки-диалоги; promo — только рекламный ролик недели")
     ap.add_argument("--check", action="store_true", help="ничего не публиковать: бот назовёт себя и проверит права в канале")
     args = ap.parse_args()
 
@@ -390,7 +431,7 @@ def main():
         return
 
     try:
-        path = render_new(item) if item["kind"] in ("new", "word") else Path(item["path"])
+        path = render_new(item) if item["kind"] in ("new", "word", "promo") else Path(item["path"])
     except Exception as e:  # noqa: BLE001
         notify(f"❌ Автопостинг: не удалось подготовить видео ({item.get('key')}): {e}")
         raise
@@ -416,18 +457,21 @@ def main():
             results[name] = f"❌ {type(e).__name__}: {str(e)[:300]}"
 
     if ok:  # двигаем очередь, только если опубликовали хотя бы куда-то
-        if item["kind"] == "new":
+        if item["kind"] == "promo":
+            pass  # реклама не двигает очереди уроков
+        elif item["kind"] == "new":
             st["next_new"] = item["n"] + 1
         elif item["kind"] == "word":
             st["next_word"] = item["n"] + 1
         else:
             st["old_done"].append(item["key"])
-        st["last_kind"] = "new" if item["kind"] == "new" else "word"
+        if item["kind"] != "promo":
+            st["last_kind"] = "new" if item["kind"] == "new" else "word"
         st["history"].append({"date": dt.date.today().isoformat(), "key": item["key"],
                               "results": {k: v[:200] for k, v in results.items()}})
         save_state(st)
 
-    kind = {"new": "урок-диалог", "word": "слово дня"}.get(item["kind"], "старый шортс")
+    kind = {"new": "урок-диалог", "word": "слово дня", "promo": "реклама курса"}.get(item["kind"], "старый шортс")
     me = bot_username()
     notify(f"🎬 Автопостинг ({kind}): {tx['yt_title']}\n\n" + "\n".join(f"{k}: {v}" for k, v in results.items())
            + (f"\n\n(Пишет {me} — бот автопостинга мультиков)" if me else ""))
