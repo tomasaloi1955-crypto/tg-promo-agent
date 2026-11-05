@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Разовое приглашение подписчиц канала «Мусульманка на спорте» в бесплатную неделю.
+Разовое приглашение подписчиц канала «Домашние тренировки» в бесплатную неделю.
 
 Три раза в неделю (.github/workflows/invite.yml) пишет в личку следующим INVITE_PER_RUN
 подписчицам (по умолчанию 10) короткое приглашение: «неделя бесплатных тренировок
@@ -43,8 +43,10 @@ from promo import API_HASH, API_ID, SESSION_STRING
 BASE = Path(__file__).parent
 MEMORY_FILE = BASE / "invite_memory.json"
 
-CHANNEL = (os.getenv("INVITE_CHANNEL") or "ilikeislamandsport").strip()
-CHANNEL_TITLE = os.getenv("INVITE_CHANNEL_TITLE") or "Мусульманка на спорте"
+# Канал ищем по названию среди каналов, где аккаунт — администратор. Адрес
+# (INVITE_CHANNEL: @name, t.me/name или -100…) — если названий-двойников несколько.
+CHANNEL = (os.getenv("INVITE_CHANNEL") or "").strip()
+CHANNEL_TITLE = os.getenv("INVITE_CHANNEL_TITLE") or "Домашние тренировки"
 BOT_LINK = os.getenv("INVITE_BOT_LINK") or "https://t.me/pilatesmuslim_bot?start=src_dm_sport"
 PER_RUN = min(int(os.getenv("INVITE_PER_RUN") or "10"), 20)
 MIN_DELAY, MAX_DELAY = 180, 480   # 3–8 минут между сообщениями
@@ -56,7 +58,7 @@ SISTER_DB = os.getenv("SISTER_DATABASE_URL", "")
 # Два варианта, чтобы не слать всем одно и то же.
 MESSAGES = [
     "Ассаляму алейкум{name} 🤍\n\n"
-    "Пишу вам, потому что вы подписаны на наш канал «Мусульманка на спорте». "
+    "Пишу вам, потому что вы подписаны на наш канал «{channel}». "
     "Хотим сделать небольшой подарок: неделю бесплатных домашних тренировок в записи — "
     "3 спокойные тренировки, без зала и инвентаря, в удобное для вас время.\n\n"
     "Если интересно, начать можно здесь: {link}\n\n"
@@ -64,7 +66,7 @@ MESSAGES = [
     "Пусть Аллах дарует вам здоровье и силы 🌿",
 
     "Ассаляму алейкум{name} 🌸\n\n"
-    "Вы подписаны на «Мусульманку на спорте», и мне хотелось лично пригласить вас "
+    "Вы подписаны на наш канал «{channel}», и мне хотелось лично пригласить вас "
     "на неделю бесплатных тренировок в записи: 3 тренировки дома, через день, "
     "без зала — в своём темпе.\n\n"
     "Забрать можно по ссылке: {link}\n\n"
@@ -87,7 +89,7 @@ def message_for(user: types.User) -> str:
     name = (user.first_name or "").strip()
     # Имя только «человеческое»: без эмодзи-ников и длинных подписей вроде «Магазин платков».
     ok = name and len(name) <= 20 and name.replace("-", "").replace(" ", "").isalpha()
-    return random.choice(MESSAGES).format(name=f", {name}" if ok else "", link=BOT_LINK)
+    return random.choice(MESSAGES).format(name=f", {name}" if ok else "", link=BOT_LINK, channel=CHANNEL_TITLE)
 
 
 async def known_in_bot() -> set[int] | None:
@@ -117,20 +119,30 @@ def _channel_ref(raw: str):
     return int(raw) if raw.lstrip("-").isdigit() else raw
 
 
-async def find_channel(client: TelegramClient):
-    """Канал по адресу; не нашёлся (переименовали, сделали закрытым) — ищем среди
-    чатов аккаунта канал с таким названием, где аккаунт — администратор."""
-    try:
-        return await client.get_entity(_channel_ref(CHANNEL))
-    except (ValueError, errors.RPCError) as e:
-        print(f"  канал по адресу не найден ({e.__class__.__name__}) — ищу по названию")
+async def find_channel(client: TelegramClient) -> tuple[object, str]:
+    """(канал, «») или (None, причина). По адресу, если задан; иначе — канал с
+    этим названием среди тех, где аккаунт — администратор (ровно один)."""
+    if CHANNEL:
+        try:
+            return await client.get_entity(_channel_ref(CHANNEL)), ""
+        except (ValueError, errors.RPCError) as e:
+            print(f"  канал по адресу не найден ({e.__class__.__name__})")
+            return None, f"канал по адресу {CHANNEL} не найден"
     want = CHANNEL_TITLE.lower()
+    found = []
     async for d in client.iter_dialogs():
         e = d.entity
         if isinstance(e, types.Channel) and e.broadcast and want in (e.title or "").lower() \
                 and (e.creator or e.admin_rights):
-            return e
-    return None
+            found.append(e)
+    if len(found) == 1:
+        return found[0], ""
+    if not found:
+        return None, (f"не нашла канал «{CHANNEL_TITLE}» среди каналов, где аккаунт — администратор. "
+                      "Сделайте аккаунт администратором канала")
+    return None, (f"каналов с названием «{CHANNEL_TITLE}» несколько ("
+                  + ", ".join(f"«{c.title}»" for c in found[:5])
+                  + "). Укажите адрес нужного в переменной INVITE_CHANNEL")
 
 
 async def run() -> None:
@@ -151,11 +163,9 @@ async def run() -> None:
             print("Аккаунт ограничен — пропуск")
             return
         me = await client.get_me()
-        channel = await find_channel(client)
+        channel, why = await find_channel(client)
         if channel is None:
-            notify(f"⚠️ Приглашения: не нашла канал — ни по адресу {CHANNEL}, ни по названию "
-                   f"«{CHANNEL_TITLE}» среди каналов, где аккаунт — администратор. Никому не писала. "
-                   "Пришлите актуальную ссылку на канал.")
+            notify(f"⚠️ Приглашения: {why}. Никому не писала.")
             return
         admins = {u.id async for u in client.iter_participants(channel, filter=types.ChannelParticipantsAdmins)}
         try:
