@@ -165,7 +165,11 @@ async def run() -> None:
         me = await client.get_me()
         channel, why = await find_channel(client)
         if channel is None:
-            notify(f"⚠️ Приглашения: {why}. Никому не писала.")
+            who = " ".join(x for x in (me.first_name, me.last_name) if x) or "без имени"
+            who += f" (@{me.username})" if me.username else ""
+            who += f", телефон +{me.phone}" if me.phone else ""
+            notify(f"⚠️ Приглашения: {why}. Никому не писала.\n\n"
+                   f"Администратором канала нужно сделать этот аккаунт: {who}.")
             return
         admins = {u.id async for u in client.iter_participants(channel, filter=types.ChannelParticipantsAdmins)}
         try:
