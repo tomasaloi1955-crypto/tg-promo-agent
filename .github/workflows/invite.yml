@@ -1,0 +1,58 @@
+name: Приглашения в бесплатную неделю (разово)
+
+# Разовое задание: по вт, чт и сб пишет в личку следующим 10 подписчицам канала
+# «Мусульманка на спорте» приглашение в бесплатную неделю тренировок — каждой один
+# раз за всё время (см. invite.py). Когда все пройдены — пришлёт «готово» и дальше
+# ничего не делает; тогда workflow можно выключить (Actions → … → Disable workflow).
+# 12:00 UTC = 17:00 в Алматы (не поздно вечером и не в пятницу) — после promo (06:00), promo_sport (07:30), outreach (09:00),
+# ad_scout (10:30) и autopost (13:17): у всех одна Telegram-сессия.
+on:
+  schedule:
+    - cron: "7 12 * * 2,4,6"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # коммит памяти (кому уже писали)
+
+concurrency:
+  group: invite
+  cancel-in-progress: false
+
+jobs:
+  invite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Разослать приглашения
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          # обязательно: база sister-bot — чтобы не писать тем, кто уже в воронке (без неё не шлём)
+          SISTER_DATABASE_URL: ${{ secrets.SISTER_DATABASE_URL }}
+          INVITE_PER_RUN: ${{ vars.INVITE_PER_RUN }}
+        run: python invite.py
+
+      - name: Сохранить память
+        if: always()
+        run: |
+          git config user.name "invite-agent"
+          git config user.email "invite-agent@users.noreply.github.com"
+          git add invite_memory.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "Обновление памяти приглашений"
+          git pull --rebase
+          git push
