@@ -43,7 +43,8 @@ from promo import API_HASH, API_ID, SESSION_STRING
 BASE = Path(__file__).parent
 MEMORY_FILE = BASE / "invite_memory.json"
 
-CHANNEL = os.getenv("INVITE_CHANNEL") or "ilikeislamandsport"
+CHANNEL = (os.getenv("INVITE_CHANNEL") or "ilikeislamandsport").strip()
+CHANNEL_TITLE = os.getenv("INVITE_CHANNEL_TITLE") or "Мусульманка на спорте"
 BOT_LINK = os.getenv("INVITE_BOT_LINK") or "https://t.me/pilatesmuslim_bot?start=src_dm_sport"
 PER_RUN = min(int(os.getenv("INVITE_PER_RUN") or "10"), 20)
 MIN_DELAY, MAX_DELAY = 180, 480   # 3–8 минут между сообщениями
@@ -106,6 +107,32 @@ async def known_in_bot() -> set[int] | None:
         return None
 
 
+def _channel_ref(raw: str):
+    """«@name», «t.me/name», «https://t.me/name» или числовой id (-100…)."""
+    raw = raw.strip().rstrip("/")
+    for prefix in ("https://", "http://", "t.me/", "telegram.me/", "@"):
+        if raw.lower().startswith(prefix):
+            raw = raw[len(prefix):]
+    raw = raw.removeprefix("t.me/")
+    return int(raw) if raw.lstrip("-").isdigit() else raw
+
+
+async def find_channel(client: TelegramClient):
+    """Канал по адресу; не нашёлся (переименовали, сделали закрытым) — ищем среди
+    чатов аккаунта канал с таким названием, где аккаунт — администратор."""
+    try:
+        return await client.get_entity(_channel_ref(CHANNEL))
+    except (ValueError, errors.RPCError) as e:
+        print(f"  канал по адресу не найден ({e.__class__.__name__}) — ищу по названию")
+    want = CHANNEL_TITLE.lower()
+    async for d in client.iter_dialogs():
+        e = d.entity
+        if isinstance(e, types.Channel) and e.broadcast and want in (e.title or "").lower() \
+                and (e.creator or e.admin_rights):
+            return e
+    return None
+
+
 async def run() -> None:
     mem = load_memory()
     if mem.get("finished"):
@@ -124,12 +151,17 @@ async def run() -> None:
             print("Аккаунт ограничен — пропуск")
             return
         me = await client.get_me()
-        channel = await client.get_entity(CHANNEL)
+        channel = await find_channel(client)
+        if channel is None:
+            notify(f"⚠️ Приглашения: не нашла канал — ни по адресу {CHANNEL}, ни по названию "
+                   f"«{CHANNEL_TITLE}» среди каналов, где аккаунт — администратор. Никому не писала. "
+                   "Пришлите актуальную ссылку на канал.")
+            return
         admins = {u.id async for u in client.iter_participants(channel, filter=types.ChannelParticipantsAdmins)}
         try:
             members = [u async for u in client.iter_participants(channel)]
         except errors.ChatAdminRequiredError:
-            notify(f"⚠️ Приглашения: аккаунт не администратор канала @{CHANNEL} — Telegram не даёт "
+            notify(f"⚠️ Приглашения: аккаунт не администратор канала «{channel.title}» — Telegram не даёт "
                    "список подписчиц. Сделайте аккаунт админом канала.")
             return
         in_bot = await known_in_bot()
@@ -179,7 +211,7 @@ async def run() -> None:
             mem["finished"] = date.today().isoformat()
         save_memory(mem)
         print(f"Отправлено {sent}, не доставлено {failed}, осталось {left}" + (f", стоп: {stop}" if stop else ""))
-        report = (f"💌 Приглашения в бесплатную неделю (@{CHANNEL}): сегодня отправлено {sent}"
+        report = (f"💌 Приглашения в бесплатную неделю («{channel.title}»): сегодня отправлено {sent}"
                   + (f", не доставлено {failed} (закрыта личка)" if failed else "")
                   + (f", уже были в боте {skipped_bot}" if skipped_bot else "")
                   + f". Осталось: {max(left, 0)}.")
