@@ -47,7 +47,7 @@ MEMORY_FILE = BASE / "invite_memory.json"
 # (INVITE_CHANNEL: @name, t.me/name или -100…) — если названий-двойников несколько.
 CHANNEL = (os.getenv("INVITE_CHANNEL") or "").strip()
 CHANNEL_TITLE = os.getenv("INVITE_CHANNEL_TITLE") or "Домашние тренировки"
-BOT_LINK = os.getenv("INVITE_BOT_LINK") or "https://t.me/pilatesmuslim_bot?start=src_dm_sport"
+BOT_LINK = os.getenv("INVITE_BOT_LINK") or "https://t.me/Sisters_training_bot?start=src_dm_sport"
 PER_RUN = min(int(os.getenv("INVITE_PER_RUN") or "10"), 20)
 MIN_DELAY, MAX_DELAY = 180, 480   # 3–8 минут между сообщениями
 PAUSE_DAYS = 7                 # после предупреждения Telegram о спаме — неделя тишины
