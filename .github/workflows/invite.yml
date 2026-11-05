@@ -44,6 +44,7 @@ jobs:
           # обязательно: база sister-bot — чтобы не писать тем, кто уже в воронке (без неё не шлём)
           SISTER_DATABASE_URL: ${{ secrets.SISTER_DATABASE_URL }}
           INVITE_PER_RUN: ${{ vars.INVITE_PER_RUN }}
+          INVITE_CHANNEL: ${{ vars.INVITE_CHANNEL }}   # адрес канала, если не @ilikeislamandsport
         run: python invite.py
 
       - name: Сохранить память
