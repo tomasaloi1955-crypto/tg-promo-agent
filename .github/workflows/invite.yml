@@ -1,14 +1,14 @@
 name: Приглашения в бесплатную неделю (разово)
 
-# Разовое задание: каждый день пишет в личку следующим 20 подписчицам канала
+# Разовое задание: по вт, чт и сб пишет в личку следующим 10 подписчицам канала
 # «Мусульманка на спорте» приглашение в бесплатную неделю тренировок — каждой один
 # раз за всё время (см. invite.py). Когда все пройдены — пришлёт «готово» и дальше
 # ничего не делает; тогда workflow можно выключить (Actions → … → Disable workflow).
-# 15:00 UTC = 20:00 в Алматы — после promo (06:00), promo_sport (07:30), outreach (09:00),
+# 12:00 UTC = 17:00 в Алматы (не поздно вечером и не в пятницу) — после promo (06:00), promo_sport (07:30), outreach (09:00),
 # ad_scout (10:30) и autopost (13:17): у всех одна Telegram-сессия.
 on:
   schedule:
-    - cron: "0 15 * * *"
+    - cron: "7 12 * * 2,4,6"
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ concurrency:
 jobs:
   invite:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 150
     steps:
       - name: Забрать код
         uses: actions/checkout@v4
