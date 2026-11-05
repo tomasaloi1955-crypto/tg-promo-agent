@@ -10,9 +10,10 @@
 
 Кого пропускаем:
   • боты, удалённые аккаунты, админы канала, сам аккаунт;
-  • те, кто уже есть в базе бота воронки (нажимали /start), — если задан секрет
-    SISTER_DATABASE_URL (та же строка, что DATABASE_URL у sister-bot). Им бот сам
-    может написать командой /reweek, а прошедших анкету мы не беспокоим.
+  • те, кто уже есть в базе бота воронки (нажимали /start): им бот сам может
+    написать командой /reweek, а тех, кто в воронке, не беспокоим. Нужен секрет
+    SISTER_DATABASE_URL (та же строка, что DATABASE_URL у sister-bot); без него
+    или если база недоступна — не пишем никому.
 
 Защита аккаунта (это основной аккаунт промо-агента, 24.09.2026 его ограничивали):
   • перед прогоном — вопрос @SpamBot; ограничен — ничего не шлём;
@@ -88,16 +89,21 @@ def message_for(user: types.User) -> str:
     return random.choice(MESSAGES).format(name=f", {name}" if ok else "", link=BOT_LINK)
 
 
-async def known_in_bot() -> set[int]:
-    """id всех, кто есть в базе бота воронки (пусто, если база не подключена)."""
+async def known_in_bot() -> set[int] | None:
+    """id всех, кто есть в базе бота воронки. None — базу прочитать не удалось:
+    тогда не пишем никому, чтобы не задеть тех, кто уже в воронке."""
     if not SISTER_DB:
-        return set()
+        return None
     import asyncpg
-    con = await asyncpg.connect(SISTER_DB, statement_cache_size=0)
     try:
-        return {r["tg_id"] for r in await con.fetch("SELECT tg_id FROM users")}
-    finally:
-        await con.close()
+        con = await asyncpg.connect(SISTER_DB, statement_cache_size=0, timeout=30)
+        try:
+            return {r["tg_id"] for r in await con.fetch("SELECT tg_id FROM users")}
+        finally:
+            await con.close()
+    except Exception as e:
+        print(f"  ! база бота воронки недоступна: {e.__class__.__name__}")
+        return None
 
 
 async def run() -> None:
@@ -127,6 +133,11 @@ async def run() -> None:
                    "список подписчиц. Сделайте аккаунт админом канала.")
             return
         in_bot = await known_in_bot()
+        if in_bot is None:
+            notify("⚠️ Приглашения: не удалось проверить базу бота воронки (секрет SISTER_DATABASE_URL "
+                   "не задан или база недоступна). Чтобы не написать тем, кто уже в воронке, "
+                   "сегодня никому не пишу.")
+            return
         todo, skipped_bot = [], 0
         for u in members:
             if u.bot or u.deleted or u.id == me.id or u.id in admins:

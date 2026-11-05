@@ -41,7 +41,7 @@ jobs:
           TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_ID: ${{ secrets.OWNER_ID }}
-          # необязательно: база sister-bot — чтобы не писать тем, кто уже есть в боте
+          # обязательно: база sister-bot — чтобы не писать тем, кто уже в воронке (без неё не шлём)
           SISTER_DATABASE_URL: ${{ secrets.SISTER_DATABASE_URL }}
           INVITE_PER_RUN: ${{ vars.INVITE_PER_RUN }}
         run: python invite.py
