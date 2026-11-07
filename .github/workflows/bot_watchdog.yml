@@ -1,0 +1,34 @@
+name: Сторож бота бесплатной недели (каждые 2 часа)
+
+# bot_watchdog.py проверяет @Sisters_training_bot (репозиторий sister-bot): отвечает ли
+# Render, принимает ли Telegram токен, работает ли база и вебхук, не упал ли деплой
+# и будильник, ведёт ли реклама в этого бота. Если что-то сломано — пишет владелице
+# в Telegram (BOT_TOKEN / OWNER_ID — тот же бот, что присылает «Новый лид»).
+on:
+  schedule:
+    - cron: "41 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bot-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Проверить бота
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python bot_watchdog.py
