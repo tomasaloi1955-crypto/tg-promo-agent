@@ -37,6 +37,7 @@ DEPLOY_GRACE_MIN = 40
 WEBHOOK_ERROR_WINDOW_H = 3
 PENDING_LIMIT = 30
 TICK_STALE_MIN = 120
+RESTART_GRACE_S = 600
 
 
 def gh(path: str):
@@ -100,7 +101,10 @@ def check() -> list[str]:
                 problems.append("У бота не задан вебхук — сообщения не доходят до сервера. "
                                 "Render → Manual Deploy → Deploy latest commit.")
             at = st.get("webhook_error_at")
-            if at and time.time() - at < WEBHOOK_ERROR_WINDOW_H * 3600:
+            # Ошибка в первые минуты после запуска — это переключение на новую версию
+            # при деплое (Telegram стучался в старый процесс), не поломка.
+            after_restart = at and st.get("started_at") and at <= st["started_at"] + RESTART_GRACE_S
+            if at and not after_restart and time.time() - at < WEBHOOK_ERROR_WINDOW_H * 3600:
                 when = datetime.fromtimestamp(at, timezone.utc).strftime("%d.%m %H:%M UTC")
                 problems.append(f"Telegram не смог доставить сообщения боту ({when}): "
                                 f"{st.get('webhook_error', '')}")
