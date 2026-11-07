@@ -1,14 +1,27 @@
 {
  "done": {
+  "03b88d7789f8fe3a6be2": "in_bot",
+  "0da6987b2cc6d6745811": "sent",
+  "17f78fe53840da462c7d": "in_bot",
+  "33efd716edbe975ca9bd": "in_bot",
+  "4086a7f308d84838ebfc": "sent",
   "507d4234d12cef3f9eaa": "sent",
   "50d14b44cd278d281ad6": "sent",
+  "5c422f48b2bdff26757f": "sent",
+  "60f82b16ffda135fa463": "sent",
+  "64c1172343337226c422": "in_bot",
+  "71afd1fb512343724454": "in_bot",
   "8f5581220480fb2a7e93": "sent",
   "9dd9e12ce9aecce3f60a": "in_bot",
   "ac31626fe31001bb3d86": "sent",
   "b720332f8cb994a156d9": "in_bot",
+  "b8a095ab93a0ad4521c6": "in_bot",
+  "b99d97ab253eb988815b": "in_bot",
+  "bfb49caf4d5e54c77132": "in_bot",
   "d1f4b91b534fb1c2a2f4": "sent",
   "f0b81c9ae80d9dfdf1bc": "sent",
   "f9522adb2a118b4aecc9": "sent"
  },
- "finished": null
+ "finished": null,
+ "paused_until": "2026-11-14"
 }
