@@ -67,7 +67,7 @@ AUDIENCE = (
 )
 
 OUR_CHANNEL = "https://t.me/ilikeislamandsport"
-BOT_AD_LINK = "https://t.me/pilatesmuslim_bot?start=ad_{name}"
+BOT_AD_LINK = "https://t.me/Sisters_training_bot?start=ad_{name}"
 
 
 def load_memory() -> dict:
