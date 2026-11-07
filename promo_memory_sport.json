@@ -529,6 +529,18 @@
     "@english_chatting_russian_group": {
       "date": "2026-11-05",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@chatentropy": {
+      "date": "2026-11-07",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@schoolhack_chat": {
+      "date": "2026-11-07",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@mama_srilanka": {
+      "date": "2026-11-07",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
