@@ -18,6 +18,8 @@
   • деплой завис дольше 45 минут — отменяет и запускает заново;
   • бот упал во время работы и не поднялся — перезапускает (раз в 6 часов).
 
+  (будильники cron-job.org — проверяет, что срабатывают)
+
 Что только сообщает (нужен человек или Claude, чтобы поправить код):
   • деплой падает из-за ошибки в коде;
   • сервис приостановлен (кончились бесплатные часы и т. п.);
@@ -278,6 +280,40 @@ def wait_deploys(rep: Report, minutes: int = 20) -> None:
         rep.problems.append(f"{name}: деплой {did} не закончился за {minutes} мин.")
 
 
+def check_cron_jobs(rep: Report) -> None:
+    """Будильники на cron-job.org (ключ подставляет прокси или CRONJOB_API_KEY)."""
+    headers = {}
+    if os.getenv("CRONJOB_API_KEY"):
+        headers["Authorization"] = f"Bearer {os.environ['CRONJOB_API_KEY']}"
+    try:
+        r = requests.get("https://api.cron-job.org/jobs", headers=headers, timeout=30)
+        if r.status_code in (401, 403):
+            print("  (cron-job.org: нет ключа — будильники не проверены)")
+            return
+        r.raise_for_status()
+        jobs = r.json().get("jobs", [])
+    except Exception as e:
+        print(f"  ! cron-job.org не проверен: {e}")
+        return
+    for j in jobs:
+        if not j.get("enabled"):
+            continue  # выключен вручную
+        title = j.get("title") or re.sub(r"key=[^&]+", "key=…", j["url"])
+        try:
+            hist = requests.get(f"https://api.cron-job.org/jobs/{j['jobId']}/history",
+                                headers=headers, timeout=30).json().get("history", [])
+        except Exception:
+            hist = []
+        recent = hist[:3]
+        # status 1 = успех; остальное — ошибка (503, таймаут и т. п.)
+        if len(recent) >= 2 and all(h.get("status") != 1 for h in recent):
+            codes = ", ".join(str(h.get("httpStatus") or h.get("status")) for h in recent)
+            rep.problems.append(f"Будильник cron-job.org «{title}» не срабатывает {len(recent)} раза подряд "
+                                f"(ответы: {codes}).")
+        else:
+            rep.ok.append(f"будильник «{title}»: работает")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--fix", action="store_true", help="чинить, что чинится само")
@@ -291,6 +327,7 @@ def main() -> int:
             check_service(s, args.fix, rep)
         except Exception as e:
             rep.problems.append(f"{s['name']}: сторож не смог проверить ({type(e).__name__}: {e})")
+    check_cron_jobs(rep)
     if args.wait:
         wait_deploys(rep)
 
