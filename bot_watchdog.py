@@ -29,7 +29,7 @@ BASE = Path(__file__).resolve().parent
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 OWNER_ID = os.getenv("OWNER_ID", "")
 
-BOT_URL = os.getenv("SISTER_BOT_URL", "https://sister-bot.onrender.com").rstrip("/")
+BOT_URL = os.getenv("SISTER_BOT_URL", "https://sister-bot-e5q4.onrender.com").rstrip("/")
 REPO = "tomasaloi1955-crypto/sister-bot"
 GH_TOKEN = os.getenv("GITHUB_TOKEN", "")
 # Новый коммит в main должен оказаться на Render за это время, иначе деплой упал.
