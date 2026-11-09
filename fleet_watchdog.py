@@ -41,7 +41,8 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 API = "https://api.render.com/v1"
-OWNER_ID = os.getenv("RENDER_OWNER_ID", "tea-d8db27v40ujc73cgfkrg")
+# Пусто — проверять все кабинеты (workspaces), которые видит ключ.
+OWNER_ID = os.getenv("RENDER_OWNER_ID", "")
 KEY = os.getenv("RENDER_API_KEY", "")
 
 IN_PROGRESS = {"created", "queued", "build_in_progress", "update_in_progress", "pre_deploy_in_progress"}
@@ -96,9 +97,11 @@ def api(method: str, path: str, **kw):
 
 
 def services() -> list[dict]:
+    owners = [OWNER_ID] if OWNER_ID else [o["owner"]["id"] for o in api("GET", "/owners?limit=100")]
     out = []
-    for item in api("GET", f"/services?limit=100&ownerId={OWNER_ID}"):
-        out.append(item["service"])
+    for oid in owners:
+        for item in api("GET", f"/services?limit=100&ownerId={oid}"):
+            out.append(item["service"])
     return out
 
 
@@ -110,10 +113,13 @@ def events(sid: str, n: int = 60) -> list[dict]:
     return [e["event"] for e in api("GET", f"/services/{sid}/events?limit={n}")]
 
 
+SERVICE_OWNER: dict[str, str] = {}
+
+
 def logs(sid: str, start: datetime, end: datetime, kind: str | None = None,
          level: str | None = None, limit: int = 100) -> list[str]:
     params = {
-        "ownerId": OWNER_ID, "resource": sid, "limit": limit, "direction": "backward",
+        "ownerId": SERVICE_OWNER.get(sid, OWNER_ID), "resource": sid, "limit": limit, "direction": "backward",
         "startTime": start.isoformat().replace("+00:00", "Z"),
         "endTime": end.isoformat().replace("+00:00", "Z"),
     }
@@ -147,6 +153,7 @@ class Report:
 
 def check_service(s: dict, fix: bool, rep: Report) -> None:
     sid, name = s["id"], s["name"]
+    SERVICE_OWNER[sid] = s["ownerId"]
     repo = (s.get("repo") or "").replace("https://github.com/", "")
     where = f"{name} ({repo}, ветка {s.get('branch')})" if repo else name
     plan = (s.get("serviceDetails") or {}).get("plan", "")
