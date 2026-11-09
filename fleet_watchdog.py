@@ -326,6 +326,10 @@ def main() -> int:
     ap.add_argument("--fix", action="store_true", help="чинить, что чинится само")
     ap.add_argument("--wait", action="store_true", help="дождаться окончания запущенных деплоев")
     ap.add_argument("--json", action="store_true", help="вывести итог в JSON")
+    ap.add_argument("--notify", action="store_true",
+                    help="прислать итог в Telegram (BOT_TOKEN/OWNER_ID), если что-то починено или сломано")
+    ap.add_argument("--label", default="", help="подпись кабинета в уведомлении")
+    ap.add_argument("--no-cron", action="store_true", help="не проверять cron-job.org")
     args = ap.parse_args()
 
     rep = Report()
@@ -334,7 +338,8 @@ def main() -> int:
             check_service(s, args.fix, rep)
         except Exception as e:
             rep.problems.append(f"{s['name']}: сторож не смог проверить ({type(e).__name__}: {e})")
-    check_cron_jobs(rep)
+    if not args.no_cron:
+        check_cron_jobs(rep)
     if args.wait:
         wait_deploys(rep)
 
@@ -348,7 +353,27 @@ def main() -> int:
                 print(f"\n{title}:")
                 for i in items:
                     print("• " + i.replace("\n", "\n    "))
+    if args.notify and (rep.fixed or rep.problems):
+        notify_telegram(rep, args.label)
     return 1 if rep.problems else 0
+
+
+def notify_telegram(rep: Report, label: str) -> None:
+    token, chat = os.getenv("BOT_TOKEN", ""), os.getenv("OWNER_ID", "")
+    if not token or not chat:
+        return
+    parts = [f"🛡 Сторож Render{(' — ' + label) if label else ''}"]
+    if rep.fixed:
+        parts.append("🔧 Починила сама:\n" + "\n".join("• " + i.split("\n")[0] for i in rep.fixed))
+    if rep.problems:
+        parts.append("🚨 Нужно чинить (Claude посмотрит на плановой проверке):\n"
+                     + "\n".join("• " + i.split("\n")[0] for i in rep.problems))
+    try:
+        requests.post(f"https://api.telegram.org/bot{token}/sendMessage",
+                      json={"chat_id": chat, "text": "\n\n".join(parts)[:4000],
+                            "disable_web_page_preview": True}, timeout=20)
+    except Exception as e:
+        print(f"  ! не отправила в Telegram: {e}")
 
 
 if __name__ == "__main__":

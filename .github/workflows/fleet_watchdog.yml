@@ -1,0 +1,40 @@
+name: Сторож других кабинетов Render (каждые 2 часа)
+
+# fleet_watchdog.py для кабинетов Render, кроме главного (главный проверяет Claude).
+# Ключи: Settings → Secrets and variables → Actions → RENDER_API_KEY_2, RENDER_API_KEY_3.
+# Нет ключа — этот кабинет просто пропускается. Сам перезапускает упавшие деплои
+# и ботов; что не починил — пишет в Telegram, а Claude разбирает на плановой проверке.
+on:
+  schedule:
+    - cron: "23 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fleet-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        key: [RENDER_API_KEY_2, RENDER_API_KEY_3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Проверить и починить
+        env:
+          RENDER_API_KEY: ${{ secrets[matrix.key] }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: |
+          if [ -z "$RENDER_API_KEY" ]; then echo "Ключа ${{ matrix.key }} нет — пропускаю"; exit 0; fi
+          python fleet_watchdog.py --fix --wait --no-cron --notify --label "${{ matrix.key }}"
