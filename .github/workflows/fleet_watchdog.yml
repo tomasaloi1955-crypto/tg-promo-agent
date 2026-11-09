@@ -38,3 +38,31 @@ jobs:
         run: |
           if [ -z "$RENDER_API_KEY" ]; then echo "Ключа ${{ matrix.key }} нет — пропускаю"; exit 0; fi
           python fleet_watchdog.py --fix --wait --no-cron --notify --label "${{ matrix.key }}"
+
+  # Платные сайты (не засыпают) — проверяем, что открываются у посетителей.
+  sites:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Открываются ли сайты
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+        run: |
+          bad=""
+          for url in https://tamraschool.online https://www.tamraschool.online; do
+            code=""
+            for try in 1 2 3; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" -L -m 60 "$url" || true)
+              [ "$code" = "200" ] && break
+              sleep 20
+            done
+            echo "$url → $code"
+            [ "$code" = "200" ] || bad="$bad\n• $url не открывается (ответ: ${code:-нет ответа})"
+          done
+          if [ -n "$bad" ]; then
+            text=$(printf "🚨 Сайт Тамра Скул:%b\n\nClaude посмотрит на плановой проверке." "$bad")
+            [ -n "$BOT_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+              --data-urlencode "chat_id=$OWNER_ID" --data-urlencode "text=$text"
+            exit 1
+          fi
