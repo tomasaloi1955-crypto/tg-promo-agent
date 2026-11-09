@@ -1,0 +1,48 @@
+name: "Render: сравнить настройки сервиса (только чтение)"
+
+# Показывает названия настроек сервиса в другом кабинете Render и короткие
+# отпечатки значений (sha256, 8 знаков) — сами значения не выводятся.
+on:
+  workflow_dispatch:
+    inputs:
+      key:
+        description: "Секрет с ключом кабинета"
+        default: "RENDER_API_KEY_2"
+      name:
+        description: "Название сервиса"
+        default: "sister-bot"
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - env:
+          RENDER_API_KEY: ${{ secrets[github.event.inputs.key] }}
+          NAME: ${{ github.event.inputs.name }}
+        shell: python
+        run: |
+          import hashlib, os, re, requests
+          h = {"Authorization": f"Bearer {os.environ['RENDER_API_KEY']}", "Accept": "application/json"}
+          api = lambda p: requests.get("https://api.render.com/v1" + p, headers=h, timeout=30).json()
+          for item in api("/services?limit=100"):
+              s = item["service"]
+              if s["name"] != os.environ["NAME"]:
+                  continue
+              d = s["serviceDetails"]
+              print(s["id"], s["name"], d.get("url"), "план", d.get("plan"), s["suspended"],
+                    "ветка", s.get("branch"), "автодеплой", s.get("autoDeploy"))
+              print("сборка:", d.get("envSpecificDetails"))
+              for e in api(f"/services/{s['id']}/env-vars?limit=100"):
+                  v = e["envVar"]; val = v.get("value") or ""
+                  host = re.search(r"@([^/:]+)", val).group(1) if "DATABASE_URL" in v["key"] and "@" in val else ""
+                  print(" ", v["key"], hashlib.sha256(val.encode()).hexdigest()[:8] if val else "-", host)
+              for dep in api(f"/services/{s['id']}/deploys?limit=3"):
+                  dep = dep["deploy"]; print("  деплой", dep["status"], (dep.get("commit") or {}).get("id", "")[:7], dep.get("finishedAt"))
