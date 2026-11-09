@@ -46,3 +46,11 @@ jobs:
                   print(" ", v["key"], hashlib.sha256(val.encode()).hexdigest()[:8] if val else "-", host)
               for dep in api(f"/services/{s['id']}/deploys?limit=3"):
                   dep = dep["deploy"]; print("  деплой", dep["status"], (dep.get("commit") or {}).get("id", "")[:7], dep.get("finishedAt"))
+              logs = requests.get("https://api.render.com/v1/logs", headers=h, timeout=30, params={
+                  "ownerId": s["ownerId"], "resource": s["id"], "type": "app", "limit": 40,
+                  "direction": "backward"}).json().get("logs", [])
+              print("Последние строки лога:")
+              for l in reversed(logs):
+                  msg = re.sub(r"key=[^&\s\"]+", "key=***", l["message"])
+                  msg = re.sub(r"\d{6,}:[\w-]{20,}", "***", msg)
+                  print(" ", l["timestamp"][:19], msg[:220])
