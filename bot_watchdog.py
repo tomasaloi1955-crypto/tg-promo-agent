@@ -119,14 +119,17 @@ def check() -> list[str]:
         if st.get("db") != "ok":
             problems.append(f"База бота недоступна: {st.get('db')}")
         else:
-            # Будильник: cron-job.org (?bg=1) и/или GitHub. Ни одного тика 2 часа —
+            # Будильник: с 10.11.2026 — GitHub (sister-bot/tick_loop.yml, «дежурный
+            # будильник»): cron-job.org Render больше не пропускает. Ни одного тика 2 часа —
             # тренировки не уходят вовремя, бот спит и долго отвечает новеньким.
             ages = [st[k] for k in ("tick_cron_min_ago", "tick_github_min_ago") if k in st]
             print(f"  будильник: cron-job.org {st.get('tick_cron_min_ago', '—')} мин назад, "
                   f"GitHub {st.get('tick_github_min_ago', '—')} мин назад")
             if ages and min(ages) > TICK_STALE_MIN:
                 problems.append(f"Будильник не будил бота уже {min(ages) // 60} ч: тренировки уходят не "
-                                "вовремя. Проверьте задание на cron-job.org (адрес …/tick?key=…&bg=1).")
+                                "вовремя. Claude перезапустит «дежурный будильник» на плановой проверке; "
+                                "вручную: GitHub → sister-bot → Actions → «Бот тренировок: дежурный "
+                                "будильник» → Run workflow.")
 
         # Версия на Render отстаёт от main → последний деплой упал.
         commit = st.get("commit") or ""
