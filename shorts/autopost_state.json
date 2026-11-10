@@ -1,7 +1,7 @@
 {
- "next_new": 3,
+ "next_new": 4,
  "old_done": [],
- "last_kind": "word",
+ "last_kind": "new",
  "history": [
   {
    "date": "2026-11-03",
@@ -54,6 +54,15 @@
    "results": {
     "youtube": "⏭ пропущено: нет секретов YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN",
     "telegram": "✅ https://t.me/myarabicl/1109 (бот)",
+    "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "key": "dialog:3",
+   "results": {
+    "youtube": "⏭ пропущено: нет секретов YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN",
+    "telegram": "✅ https://t.me/myarabicl/1110 (бот)",
     "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
    }
   }
