@@ -39,7 +39,9 @@ jobs:
               d = s["serviceDetails"]
               print(s["id"], s["name"], d.get("url"), "план", d.get("plan"), s["suspended"],
                     "ветка", s.get("branch"), "автодеплой", s.get("autoDeploy"))
-              print("сборка:", d.get("envSpecificDetails"))
+              print("сборка:", d.get("envSpecificDetails"), "кто приостановил:", s.get("suspenders"))
+              for ev in api(f"/services/{s['id']}/events?limit=15"):
+                  ev = ev["event"]; print("  событие", ev["timestamp"][:19], ev["type"], str(ev.get("details"))[:150])
               for e in api(f"/services/{s['id']}/env-vars?limit=100"):
                   v = e["envVar"]; val = v.get("value") or ""
                   host = re.search(r"@([^/:]+)", val).group(1) if "DATABASE_URL" in v["key"] and "@" in val else ""
