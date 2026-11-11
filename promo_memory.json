@@ -355,8 +355,8 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@veronika_groupchat": {
-      "date": "2026-10-18",
-      "reason": "не та аудитория — Канал выставлен на продажу и ориентирован на админов, а не на реальную аудиторию для изучения английского языка."
+      "date": "2026-11-11",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@english_russiangroup": {
       "date": "2026-11-05",
@@ -540,6 +540,10 @@
     },
     "@mama_srilanka": {
       "date": "2026-11-07",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@kozlovreborn": {
+      "date": "2026-11-11",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
