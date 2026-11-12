@@ -545,6 +545,10 @@
     "@kozlovreborn": {
       "date": "2026-11-11",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@zdorovoe_telo_mama": {
+      "date": "2026-11-11",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
