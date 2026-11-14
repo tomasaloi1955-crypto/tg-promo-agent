@@ -9,6 +9,7 @@
 Что куда публикуется, решают секреты: нет секретов платформы — она пропускается.
   YouTube:   YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN  (получить: workflow «YouTube: авторизация»)
   Telegram:  API_ID, API_HASH, TELETHON_SESSION (уже есть у промо-агента) + TG_CHANNEL (например myarabicl)
+             + TG_CHANNEL_2 — второй канал с тем же роликом (tamra_school)
   Instagram: IG_USER_ID, IG_ACCESS_TOKEN (+ IG_GRAPH_HOST, по умолчанию graph.instagram.com)
 Отчёт о каждом запуске приходит владельцу от бота (BOT_TOKEN, OWNER_ID).
 
@@ -263,12 +264,13 @@ def youtube_upload(path: Path, title: str, desc: str) -> str:
 
 # ─────────────────────────── Telegram-канал ───────────────────────────
 
-def telegram_post(path: Path, caption: str) -> str:
-    ch = os.getenv("TG_CHANNEL")
+def telegram_post(path: Path, caption: str, ch_env: str = "TG_CHANNEL", skip_env: str = "TG_SKIP_WEEKDAYS",
+                  skip_default: str = "2,6") -> str:
+    ch = os.getenv(ch_env)
     if not ch:
-        raise SkipPlatform("нет TG_CHANNEL")
+        raise SkipPlatform(f"нет {ch_env}")
     # В эти дни в канал пишет текстовый автопостинг (pilatesbot: ср и вс) — роликом не мешаем.
-    skip = {int(x) for x in os.getenv("TG_SKIP_WEEKDAYS", "2,6").split(",") if x.strip()}
+    skip = {int(x) for x in os.getenv(skip_env, skip_default).split(",") if x.strip()}
     if dt.date.today().weekday() in skip:
         raise SkipPlatform("сегодня в канале текстовый пост, ролик — завтра")
 
@@ -384,10 +386,27 @@ def render_new(item) -> Path:
     return make_short.render(tmp, OUT, use_voice=True, strict_voice=True)
 
 
+def _check_channel(token, me, ch) -> str:
+    status = "не удалось проверить"
+    if token and ch and me:
+        try:
+            bot_id = int(token.split(":")[0])
+            r = requests.get(f"https://api.telegram.org/bot{token}/getChatMember",
+                             params={"chat_id": "@" + ch, "user_id": bot_id}, timeout=20).json()
+            m = r.get("result", {})
+            if m.get("status") == "administrator" and m.get("can_post_messages", True):
+                status = "✅ я админ канала и могу публиковать — всё готово"
+            else:
+                status = f"❌ я пока не админ канала ({r.get('description') or m.get('status')})"
+        except Exception as e:  # noqa: BLE001
+            status = f"ошибка проверки: {e}"
+    return status
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,instagram")
+    ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,telegram2,instagram")
     ap.add_argument("--state", help="свой файл очереди (например, для отдельного YouTube-автопостинга)")
     ap.add_argument("--kinds", choices=["both", "new", "promo"], default="both",
                     help="new — только уроки-диалоги; promo — только рекламный ролик недели")
@@ -395,23 +414,14 @@ def main():
     args = ap.parse_args()
 
     if args.check:
-        token, ch = os.getenv("BOT_TOKEN"), (os.getenv("TG_CHANNEL") or "").lstrip("@")
-        me = bot_username()
-        status = "не удалось проверить"
-        if token and ch and me:
-            try:
-                bot_id = int(token.split(":")[0])
-                r = requests.get(f"https://api.telegram.org/bot{token}/getChatMember",
-                                 params={"chat_id": "@" + ch, "user_id": bot_id}, timeout=20).json()
-                m = r.get("result", {})
-                if m.get("status") == "administrator" and m.get("can_post_messages", True):
-                    status = "✅ я админ канала и могу публиковать — всё готово"
-                else:
-                    status = f"❌ я пока не админ канала ({r.get('description') or m.get('status')})"
-            except Exception as e:  # noqa: BLE001
-                status = f"ошибка проверки: {e}"
-        notify(f"👋 Я {me or 'бот-уведомитель'} — бот автопостинга мультиков.\n\nКанал @{ch}: {status}\n\n"
-               f"Чтобы я публиковал ролики: откройте канал → Управление каналом → Администраторы → "
+        token, me = os.getenv("BOT_TOKEN"), bot_username()
+        lines = []
+        for ch in [(os.getenv(k) or "").lstrip("@") for k in ("TG_CHANNEL", "TG_CHANNEL_2")]:
+            if ch:
+                lines.append(f"Канал @{ch}: {_check_channel(token, me, ch)}")
+        notify(f"👋 Я {me or 'бот-уведомитель'} — бот автопостинга мультиков.\n\n" + "\n".join(lines) + "\n\n"
+               f"Если я не админ — не страшно: ролик опубликует ваш аккаунт (если он админ канала). "
+               f"Чтобы публиковал бот: откройте канал → Управление каналом → Администраторы → "
                f"Добавить администратора → найдите {me} → включите «Публикация сообщений» → Сохранить.")
         return
 
@@ -440,6 +450,8 @@ def main():
     platforms = {
         "youtube": lambda: youtube_upload(path, tx["yt_title"], tx["yt_desc"]),
         "telegram": lambda: telegram_post(path, tx["tg"]),
+        # Второй канал (Тамра Скул) — тот же ролик и подпись, каждый день.
+        "telegram2": lambda: telegram_post(path, tx["tg"], "TG_CHANNEL_2", "TG2_SKIP_WEEKDAYS", ""),
         "instagram": lambda: instagram_post(path, tx["ig"]),
     }
     only = set(args.only.split(",")) if args.only else None

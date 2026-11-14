@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "Только на эти платформы (youtube,telegram,instagram) — пусто = все"
+        description: "Только на эти платформы (youtube,telegram,telegram2,instagram) — пусто = все"
         required: false
         default: ""
       check:
@@ -51,6 +51,7 @@ jobs:
           API_HASH: ${{ secrets.API_HASH }}
           TELETHON_SESSION: ${{ secrets.TELETHON_SESSION }}
           TG_CHANNEL: ${{ secrets.TG_CHANNEL || 'myarabicl' }}
+          TG_CHANNEL_2: ${{ secrets.TG_CHANNEL_2 || 'tamra_school' }}
           YT_MADE_FOR_KIDS: "true"
           TG_OLD_SOURCE: ${{ secrets.TG_OLD_SOURCE }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
