@@ -265,14 +265,14 @@ def youtube_upload(path: Path, title: str, desc: str) -> str:
 # ─────────────────────────── Telegram-канал ───────────────────────────
 
 def telegram_post(path: Path, caption: str, ch_env: str = "TG_CHANNEL", skip_env: str = "TG_SKIP_WEEKDAYS",
-                  skip_default: str = "2,6") -> str:
+                  skip_default: str = "2,6", skip_why: str = "сегодня в канале текстовый пост, ролик — завтра") -> str:
     ch = os.getenv(ch_env)
     if not ch:
         raise SkipPlatform(f"нет {ch_env}")
     # В эти дни в канал пишет текстовый автопостинг (pilatesbot: ср и вс) — роликом не мешаем.
     skip = {int(x) for x in os.getenv(skip_env, skip_default).split(",") if x.strip()}
     if dt.date.today().weekday() in skip:
-        raise SkipPlatform("сегодня в канале текстовый пост, ролик — завтра")
+        raise SkipPlatform(skip_why)
 
     # 1) Бот (BOT_TOKEN) — должен быть админом канала с правом «Публикация сообщений».
     token = os.getenv("BOT_TOKEN")
@@ -450,8 +450,10 @@ def main():
     platforms = {
         "youtube": lambda: youtube_upload(path, tx["yt_title"], tx["yt_desc"]),
         "telegram": lambda: telegram_post(path, tx["tg"]),
-        # Второй канал (Тамра Скул) — тот же ролик и подпись, каждый день.
-        "telegram2": lambda: telegram_post(path, tx["tg"], "TG_CHANNEL_2", "TG2_SKIP_WEEKDAYS", ""),
+        # Второй канал (Тамра Скул) — тот же ролик и подпись, только пн и чт (как раньше текстовые
+        # посты pilatesbot, которые там теперь выключены). Дни меняет переменная TG2_SKIP_WEEKDAYS.
+        "telegram2": lambda: telegram_post(path, tx["tg"], "TG_CHANNEL_2", "TG2_SKIP_WEEKDAYS", "1,2,4,5,6",
+                                           "в Тамру ролики выходят по пн и чт"),
         "instagram": lambda: instagram_post(path, tx["ig"]),
     }
     only = set(args.only.split(",")) if args.only else None
