@@ -553,6 +553,14 @@
     "@onlygrants_chat": {
       "date": "2026-11-13",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@fitnes_club_ru": {
+      "date": "2026-11-14",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@mamydanang": {
+      "date": "2026-11-14",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
