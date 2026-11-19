@@ -561,6 +561,10 @@
     "@mamydanang": {
       "date": "2026-11-14",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@razvitiesemii": {
+      "date": "2026-11-19",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
   "daily": {
