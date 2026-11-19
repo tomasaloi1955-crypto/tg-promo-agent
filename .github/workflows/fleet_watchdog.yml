@@ -1,7 +1,7 @@
 name: Сторож других кабинетов Render (каждые 2 часа)
 
-# fleet_watchdog.py для кабинетов Render, кроме главного (главный проверяет Claude).
-# Ключи: Settings → Secrets and variables → Actions → RENDER_API_KEY_2, RENDER_API_KEY_3.
+# fleet_watchdog.py для всех кабинетов Render (1 — главный, 2 — sister-bot, 3 — Нейропоток).
+# Ключи: Settings → Secrets and variables → Actions → RENDER_API_KEY_1, _2, _3.
 # Нет ключа — этот кабинет просто пропускается. Сам перезапускает упавшие деплои
 # и ботов; что не починил — пишет в Telegram, а Claude разбирает на плановой проверке.
 on:
@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        key: [RENDER_API_KEY_2, RENDER_API_KEY_3]
+        key: [RENDER_API_KEY_1, RENDER_API_KEY_2, RENDER_API_KEY_3]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
