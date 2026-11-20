@@ -150,6 +150,12 @@ def pick_today(st, dry=False) -> dict:
         n = st.get("next_new", 1)
         spec = HERE / "episodes" / f"dialog_{n:03d}.json"
         return {"kind": "new", "key": f"dialog:{n}", "n": n, "spec": spec} if spec.exists() else {"kind": "none"}
+    if KINDS == "cartoons":  # мультики по очереди: урок-диалог, потом «Слово дня» (для YouTube в uroki)
+        n, w = st.get("next_new", 1), st.get("next_word", 1)
+        dlg = {"kind": "new", "key": f"dialog:{n}", "n": n, "spec": HERE / "episodes" / f"dialog_{n:03d}.json"}
+        wrd = {"kind": "word", "key": f"word:{w}", "n": w, "spec": HERE / "episodes" / f"word_{w:03d}.json"}
+        order = [wrd, dlg] if st.get("last_kind") == "new" else [dlg, wrd]
+        return next((x for x in order if x["spec"].exists()), {"kind": "none"})
     want_old = st.get("last_kind") == "new"  # вчера был диалог → сегодня старый ролик или «Слово дня»
     if want_old:
         local = old_queue_local(st)
@@ -237,7 +243,7 @@ def texts_for(item) -> dict:
 def youtube_upload(path: Path, title: str, desc: str) -> str:
     cid, sec, rt = os.getenv("YT_CLIENT_ID"), os.getenv("YT_CLIENT_SECRET"), os.getenv("YT_REFRESH_TOKEN")
     if not (cid and sec and rt):
-        raise SkipPlatform("нет секретов YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN")
+        raise SkipPlatform("на YouTube «Arabic for everyone» ролик выложит автопостинг uroki (shorts2_daily) в свой день")
     tok = requests.post("https://oauth2.googleapis.com/token", data={
         "client_id": cid, "client_secret": sec, "refresh_token": rt, "grant_type": "refresh_token"}, timeout=30)
     tok.raise_for_status()
@@ -408,8 +414,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", help="опубликовать только на платформы: youtube,telegram,telegram2,instagram")
     ap.add_argument("--state", help="свой файл очереди (например, для отдельного YouTube-автопостинга)")
-    ap.add_argument("--kinds", choices=["both", "new", "promo"], default="both",
-                    help="new — только уроки-диалоги; promo — только рекламный ролик недели")
+    ap.add_argument("--kinds", choices=["both", "new", "cartoons", "promo"], default="both",
+                    help="new — только уроки-диалоги; cartoons — диалог и «Слово дня» по очереди; promo — только рекламный ролик недели")
     ap.add_argument("--check", action="store_true", help="ничего не публиковать: бот назовёт себя и проверит права в канале")
     args = ap.parse_args()
 
