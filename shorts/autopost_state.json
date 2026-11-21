@@ -133,6 +133,16 @@
     "telegram2": "⏭ пропущено: в Тамру ролики выходят по пн и чт",
     "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
    }
+  },
+  {
+   "date": "2026-11-21",
+   "key": "promo:2026-47",
+   "results": {
+    "youtube": "⏭ пропущено: на YouTube «Arabic for everyone» ролик выложит автопостинг uroki (shorts2_daily) в свой день",
+    "telegram": "✅ https://t.me/myarabicl/1128 (бот)",
+    "telegram2": "⏭ пропущено: в Тамру ролики выходят по пн и чт",
+    "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
+   }
   }
  ],
  "next_word": 7
