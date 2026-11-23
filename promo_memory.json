@@ -95,8 +95,8 @@
       "reason": "ошибка отправки: ChatWriteForbiddenError"
     },
     "@englishaaa2": {
-      "date": "2026-11-05",
-      "reason": "Gemini: unclear — В описании чата и закреплённом сообщении нет никакой информации о правилах размещения рекламы или самопиара."
+      "date": "2026-11-23",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@russia_vo_vremeni": {
       "date": "2026-09-26",
@@ -359,24 +359,24 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@english_russiangroup": {
-      "date": "2026-11-05",
-      "reason": "не та аудитория — Группа используется для продвижения, там могут быть админы других каналов, а не целевая аудитория."
+      "date": "2026-11-23",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@english_russianchat": {
       "date": "2026-10-18",
       "reason": "не та аудитория — Чат больше похож на общую площадку для общения и розыгрышей призов за активность, чем на сообщество для изучающих английский язык."
     },
     "@russian_english_chatting_groups": {
-      "date": "2026-11-05",
-      "reason": "Gemini: unclear — В описании чата и закрепленном сообщении отсутствует любая информация о правилах публикации самопиара или рекламы."
+      "date": "2026-11-23",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@english_chatting_speaking_groups": {
       "date": "2026-10-18",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@englishruchat": {
-      "date": "2026-11-05",
-      "reason": "Gemini: unclear — В описании и закреплённом сообщении нет прямой информации о разрешении или запрете самопиара/рекламы, есть лишь ссылка на внешние правила, которые не были предоставлены."
+      "date": "2026-11-23",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@repetitormoskv": {
       "date": "2026-11-13",
@@ -527,7 +527,7 @@
       "reason": "Gemini: unclear — Gemini недоступен (ClientError)."
     },
     "@english_chatting_russian_group": {
-      "date": "2026-11-05",
+      "date": "2026-11-23",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@chatentropy": {
