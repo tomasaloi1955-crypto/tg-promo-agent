@@ -1,7 +1,7 @@
 {
  "next_new": 7,
  "old_done": [],
- "last_kind": "new",
+ "last_kind": "word",
  "history": [
   {
    "date": "2026-11-03",
@@ -143,7 +143,17 @@
     "telegram2": "⏭ пропущено: в Тамру ролики выходят по пн и чт",
     "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
    }
+  },
+  {
+   "date": "2026-11-24",
+   "key": "word:7",
+   "results": {
+    "youtube": "⏭ пропущено: на YouTube «Arabic for everyone» ролик выложит автопостинг uroki (shorts2_daily) в свой день",
+    "telegram": "✅ https://t.me/myarabicl/1130 (бот)",
+    "telegram2": "⏭ пропущено: в Тамру ролики выходят по пн и чт",
+    "instagram": "⏭ пропущено: нет IG_USER_ID / IG_ACCESS_TOKEN"
+   }
   }
  ],
- "next_word": 7
+ "next_word": 8
 }
