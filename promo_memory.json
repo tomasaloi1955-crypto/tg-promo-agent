@@ -383,11 +383,11 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@sovetroditeleyrostovasemeyniki": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@soty_club": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@semeynoe_obuchenie": {
@@ -399,8 +399,8 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@poisk_lyllis_ent": {
-      "date": "2026-10-20",
-      "reason": "не та аудитория — Это чат для пиара, а не для целевой аудитории, ищущей репетиторов или онлайн-школы."
+      "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@entermod_chat": {
       "date": "2026-11-07",
@@ -415,15 +415,15 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@nisparentskz": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@srimama": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@mama_phuket": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@biznesky": {
@@ -531,11 +531,11 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@chatentropy": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@schoolhack_chat": {
-      "date": "2026-11-07",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@mama_srilanka": {
@@ -564,6 +564,18 @@
     },
     "@razvitiesemii": {
       "date": "2026-11-19",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@deti_roditeli_vospitateli_chat": {
+      "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@entchatinfo": {
+      "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@repetitor_repetitori": {
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
