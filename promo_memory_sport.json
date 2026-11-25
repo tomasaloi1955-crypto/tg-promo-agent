@@ -547,7 +547,7 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@zdorovoe_telo_mama": {
-      "date": "2026-11-11",
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@onlygrants_chat": {
@@ -564,6 +564,18 @@
     },
     "@razvitiesemii": {
       "date": "2026-11-19",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@deti_roditeli_vospitateli_chat": {
+      "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@entchatinfo": {
+      "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@repetitor_repetitori": {
+      "date": "2026-11-25",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
