@@ -119,11 +119,11 @@
       "reason": "Gemini: unclear — Gemini недоступен (ServerError)."
     },
     "@api_ozon": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@biznes_chat": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@predprinimateli_rossii": {
@@ -427,15 +427,15 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@biznesky": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@delaybizchat": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@bashbusines": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@effstep_chat": {
@@ -443,11 +443,11 @@
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@biznesrk2": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@whatamaak_chat": {
-      "date": "2026-11-08",
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     },
     "@bizneschats": {
@@ -576,6 +576,14 @@
     },
     "@repetitor_repetitori": {
       "date": "2026-11-25",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@eduprochat": {
+      "date": "2026-11-26",
+      "reason": "не та аудитория — Gemini недоступен (ClientError)."
+    },
+    "@chat_dubai_russian": {
+      "date": "2026-11-26",
       "reason": "не та аудитория — Gemini недоступен (ClientError)."
     }
   },
