@@ -46,6 +46,9 @@ def write_wav(path: Path, pcm: bytes) -> None:
 
 
 class Gemini:
+    """Озвучка Gemini. В ноябре 2026 старые TTS-модели убрали — пробуем аудиовыход новых моделей."""
+    CANDIDATES = ("gemini-omni-flash-preview", "gemini-2.5-flash-preview-tts", "gemini-3.8-flash", "gemini-3.5-flash")
+
     def __init__(self) -> None:
         from google import genai
         from google.genai import types
@@ -53,47 +56,77 @@ class Gemini:
         self.client = genai.Client(api_key=env("GEMINI_API_KEY"))
         self.voice = env("VOICE") or "Kore"
         self.model = env("TTS_MODEL") or self._pick_model()
-        print(f"TTS: {self.model}, голос {self.voice}")
-
-    CANDIDATES = ("gemini-2.5-flash-preview-tts", "gemini-2.5-flash-tts", "gemini-3-flash-preview-tts",
-                  "gemini-3-flash-tts", "gemini-2.5-pro-preview-tts", "gemini-2.5-pro-tts")
+        print(f"TTS: Gemini {self.model}")
 
     def _pick_model(self) -> str:
-        """Модель озвучки: из списка моделей ключа, иначе пробуем известные названия."""
-        names = [m.name.split("/")[-1] for m in self.client.models.list()]
-        tts = [n for n in names if any(w in n.lower() for w in ("tts", "speech"))]
-        print("Модели с озвучкой в списке:", ", ".join(tts) or "нет")
-        if not tts:
-            print("Все модели ключа:", ", ".join(names))
-        tts.sort(key=lambda n: ("flash" not in n, "preview" in n, n))
-        for name in tts + [c for c in self.CANDIDATES if c not in tts]:
-            try:
-                self._call(name, "Проверка.")
-                return name
-            except Exception as e:
-                print(f"  {name}: не подходит ({type(e).__name__}: {str(e)[:120]})")
-        sys.exit("Ни одна модель озвучки Gemini не ответила для этого ключа.")
+        for name in self.CANDIDATES:
+            for with_voice in (True, False):
+                try:
+                    self._call(name, "Проверка.", with_voice)
+                    self.with_voice = with_voice
+                    return name
+                except Exception as e:
+                    print(f"  {name} (голос {'задан' if with_voice else 'по умолчанию'}): не подходит "
+                          f"({type(e).__name__}: {str(e)[:140]})")
+        raise RuntimeError("нет модели Gemini с аудиовыходом")
 
-    def _call(self, model: str, text: str) -> bytes:
+    def _call(self, model: str, text: str, with_voice: bool = True) -> tuple[bytes, str]:
         t = self.types
-        cfg = t.GenerateContentConfig(
-            response_modalities=["AUDIO"],
-            speech_config=t.SpeechConfig(voice_config=t.VoiceConfig(
-                prebuilt_voice_config=t.PrebuiltVoiceConfig(voice_name=self.voice))))
-        r = self.client.models.generate_content(model=model, contents=text, config=cfg)
-        return r.candidates[0].content.parts[0].inline_data.data
+        kw = {"response_modalities": ["AUDIO"]}
+        if with_voice:
+            kw["speech_config"] = t.SpeechConfig(voice_config=t.VoiceConfig(
+                prebuilt_voice_config=t.PrebuiltVoiceConfig(voice_name=self.voice)))
+        r = self.client.models.generate_content(model=model, contents=text, config=t.GenerateContentConfig(**kw))
+        part = r.candidates[0].content.parts[0].inline_data
+        if not part or not part.data:
+            raise RuntimeError("ответ без аудио")
+        return part.data, (part.mime_type or "")
 
-    def speak(self, text: str) -> bytes:
+    def save(self, text: str, path: Path) -> None:
         for attempt in range(4):
             try:
-                return self._call(self.model, text)
+                data, mime = self._call(self.model, text, getattr(self, "with_voice", True))
+                break
             except Exception as e:
                 msg = str(e)
                 print(f"  TTS ошибка ({type(e).__name__}: {msg[:300]})", flush=True)
                 if "PerDay" in msg or "per day" in msg.lower():
-                    raise QuotaError("дневной лимит озвучки Gemini исчерпан — повторите завтра") from e
+                    raise QuotaError("дневной лимит озвучки Gemini исчерпан") from e
                 time.sleep(30 * (attempt + 1))
-        raise RuntimeError("TTS не ответил после 4 попыток")
+        else:
+            raise RuntimeError("TTS не ответил после 4 попыток")
+        if "L16" in mime or "pcm" in mime.lower() or not mime:
+            write_wav(path, data)                    # сырой PCM 16 бит, 24 кГц
+        else:                                        # wav/mp3/ogg — приводим к wav
+            raw = path.with_suffix(".raw")
+            raw.write_bytes(data)
+            run(["ffmpeg", "-y", "-i", str(raw), "-ac", "1", "-ar", str(RATE), str(path)])
+
+
+class Piper:
+    """Бесплатный открытый синтезатор речи (офлайн). Голос: ru_RU-irina-medium (женский)."""
+    URL = "https://huggingface.co/rhasspy/piper-voices/resolve/main/ru/ru_RU/{v}/{q}/ru_RU-{v}-{q}.onnx"
+
+    def __init__(self) -> None:
+        import requests
+        from piper import PiperVoice
+        voice, quality = (env("PIPER_VOICE") or "irina-medium").rsplit("-", 1)
+        model = WORK / f"ru_RU-{voice}-{quality}.onnx"
+        for suffix in ("", ".json"):
+            target = Path(str(model) + suffix)
+            if not target.exists():
+                r = requests.get(self.URL.format(v=voice, q=quality) + suffix, timeout=120)
+                r.raise_for_status()
+                target.write_bytes(r.content)
+        self.voice = PiperVoice.load(str(model))
+        print(f"TTS: Piper ru_RU-{voice}-{quality}")
+
+    def save(self, text: str, path: Path) -> None:
+        from piper import SynthesisConfig
+        tmp = path.with_suffix(".piper.wav")
+        with wave.open(str(tmp), "wb") as wf:
+            self.voice.synthesize_wav(text, wf, syn_config=SynthesisConfig(length_scale=1.08))
+        run(["ffmpeg", "-y", "-i", str(tmp), "-ac", "1", "-ar", str(RATE), str(path)])
 
 
 class QuotaError(RuntimeError):
@@ -101,8 +134,8 @@ class QuotaError(RuntimeError):
 
 
 class Silent:
-    def speak(self, text: str) -> bytes:          # ~ 14 символов в секунду речи
-        return b"\x00\x00" * int(RATE * max(2.0, len(text) / 14))
+    def save(self, text: str, path: Path) -> None:   # ~ 14 символов в секунду речи
+        write_wav(path, b"\x00\x00" * int(RATE * max(2.0, len(text) / 14)))
 
 
 def run(cmd: list[str]) -> None:
@@ -125,7 +158,7 @@ def build(short: dict, tts) -> Path:
     # Один запрос озвучки на весь ролик (бесплатный лимит Gemini маленький),
     # сцены сменяются пропорционально длине своей фразы.
     wav = WORK / f"s{n}.wav"
-    write_wav(wav, tts.speak(" ".join(s["voice"] for s in scenes)))
+    tts.save(" ".join(s["voice"] for s in scenes), wav)
     total = duration(wav) + 0.6
     weights = [len(s["voice"]) + 12 for s in scenes]
     durs = [total * w / sum(weights) for w in weights]
@@ -165,7 +198,17 @@ def send_to_owner(path: Path, caption: str) -> None:
 
 def main() -> None:
     WORK.mkdir(parents=True, exist_ok=True)
-    tts = Silent() if env("TTS") == "silent" else Gemini()
+    mode = env("TTS") or "auto"
+    if mode == "silent":
+        tts = Silent()
+    elif mode == "piper":
+        tts = Piper()
+    else:
+        try:
+            tts = Gemini()
+        except Exception as e:
+            print(f"Gemini не озвучивает ({e}) — беру Piper")
+            tts = Piper()
     only = {x.strip() for x in env("ONLY").split(",") if x.strip()}
     made, failed = [], []
     for s in SHORTS:
