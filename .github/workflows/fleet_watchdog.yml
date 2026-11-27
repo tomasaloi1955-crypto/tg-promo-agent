@@ -1,4 +1,4 @@
-name: Сторож других кабинетов Render (каждые 2 часа)
+name: Сторож других кабинетов Render (2 раза в день)
 
 # fleet_watchdog.py для всех кабинетов Render (1 — главный, 2 — sister-bot, 3 — Нейропоток).
 # Ключи: Settings → Secrets and variables → Actions → RENDER_API_KEY_1, _2, _3.
@@ -6,7 +6,8 @@ name: Сторож других кабинетов Render (каждые 2 час
 # и ботов; что не починил — пишет в Telegram, а Claude разбирает на плановой проверке.
 on:
   schedule:
-    - cron: "23 */2 * * *"
+    # Было каждые 2 часа. С 27.11.2026 — 2 раза в день (см. bot_watchdog.yml).
+    - cron: "23 5,17 * * *"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ concurrency:
 jobs:
   watchdog:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
