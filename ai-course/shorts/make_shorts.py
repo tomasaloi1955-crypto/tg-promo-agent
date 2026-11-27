@@ -51,28 +51,42 @@ class Gemini:
         from google.genai import types
         self.types = types
         self.client = genai.Client(api_key=env("GEMINI_API_KEY"))
-        self.model = env("TTS_MODEL") or self._pick_model()
         self.voice = env("VOICE") or "Kore"
+        self.model = env("TTS_MODEL") or self._pick_model()
         print(f"TTS: {self.model}, голос {self.voice}")
 
-    def _pick_model(self) -> str:
-        names = [m.name.split("/")[-1] for m in self.client.models.list() if "tts" in m.name.lower()]
-        print("Доступные TTS-модели:", ", ".join(names) or "нет")
-        if not names:
-            sys.exit("Нет TTS-моделей для этого ключа Gemini.")
-        names.sort(key=lambda n: ("flash" not in n, "preview" in n, n))
-        return names[0]
+    CANDIDATES = ("gemini-2.5-flash-preview-tts", "gemini-2.5-flash-tts", "gemini-3-flash-preview-tts",
+                  "gemini-3-flash-tts", "gemini-2.5-pro-preview-tts", "gemini-2.5-pro-tts")
 
-    def speak(self, text: str) -> bytes:
+    def _pick_model(self) -> str:
+        """Модель озвучки: из списка моделей ключа, иначе пробуем известные названия."""
+        names = [m.name.split("/")[-1] for m in self.client.models.list()]
+        tts = [n for n in names if any(w in n.lower() for w in ("tts", "speech"))]
+        print("Модели с озвучкой в списке:", ", ".join(tts) or "нет")
+        if not tts:
+            print("Все модели ключа:", ", ".join(names))
+        tts.sort(key=lambda n: ("flash" not in n, "preview" in n, n))
+        for name in tts + [c for c in self.CANDIDATES if c not in tts]:
+            try:
+                self._call(name, "Проверка.")
+                return name
+            except Exception as e:
+                print(f"  {name}: не подходит ({type(e).__name__}: {str(e)[:120]})")
+        sys.exit("Ни одна модель озвучки Gemini не ответила для этого ключа.")
+
+    def _call(self, model: str, text: str) -> bytes:
         t = self.types
         cfg = t.GenerateContentConfig(
             response_modalities=["AUDIO"],
             speech_config=t.SpeechConfig(voice_config=t.VoiceConfig(
                 prebuilt_voice_config=t.PrebuiltVoiceConfig(voice_name=self.voice))))
+        r = self.client.models.generate_content(model=model, contents=text, config=cfg)
+        return r.candidates[0].content.parts[0].inline_data.data
+
+    def speak(self, text: str) -> bytes:
         for attempt in range(4):
             try:
-                r = self.client.models.generate_content(model=self.model, contents=text, config=cfg)
-                return r.candidates[0].content.parts[0].inline_data.data
+                return self._call(self.model, text)
             except Exception as e:
                 msg = str(e)
                 print(f"  TTS ошибка ({type(e).__name__}: {msg[:300]})", flush=True)
