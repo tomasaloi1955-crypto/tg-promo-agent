@@ -507,7 +507,11 @@
     "908097cee083356028a1": {
       "date": "2026-11-25",
       "status": "no_contact"
+    },
+    "8ca432fd3e0d6b7cc66e": {
+      "date": "2026-11-27",
+      "status": "rejected"
     }
   },
-  "last_run": "2026-11-26"
+  "last_run": "2026-11-27"
 }
